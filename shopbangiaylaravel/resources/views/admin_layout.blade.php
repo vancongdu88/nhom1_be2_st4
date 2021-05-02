@@ -12,11 +12,19 @@
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
+  <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous"
+      />
   <link href="{{asset('public/backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('public/backend/css/bootstrap-tagsinput.css')}}" type="text/css"/>
 
   <!-- Custom styles for this template-->
-  <link href="{{asset('public/backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
+  <link href="{{asset('public/backend/css/sb-admin-2.css')}}" rel="stylesheet">
+  
 
 </head>
 
@@ -57,14 +65,14 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
+          <i class="fas fa-clipboard-list"></i>
+          <span>Sản phẩm</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <a class="collapse-item" href="{{URL::to('/add-product')}}">Thêm sản phẩm</a>
+            <a class="collapse-item" href="{{URL::to('/all-product')}}">Danh sách sản phẩm</a>
           </div>
         </div>
       </li>
@@ -72,16 +80,41 @@
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
+          <i class="fas fa-clipboard-list"></i>
+          <span>Thương hiệu sản phẩm</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            <a class="collapse-item" href="{{URL::to('/add-brand-product')}}">Thêm thương hiệu</a>
+            <a class="collapse-item" href="{{URL::to('/all-brand-product')}}">Danh sách thương hiệu</a>
+          </div>
+        </div>
+      </li>
+      <!-- Nav Item Category Product -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory" aria-expanded="true" aria-controls="collapseCategory">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Danh mục sản phẩm</span>
+        </a>
+        <div id="collapseCategory" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="{{URL::to('/add-category-product')}}">Thêm danh mục</a>
+            <a class="collapse-item" href="{{URL::to('/all-category-product')}}">Danh sách danh mục</a>
+          </div>
+        </div>
+      </li>
+      <!-- Nav Item Order Product -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseCategory">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Đơn hàng</span>
+        </a>
+        <div id="collapseOrder" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="{{URL::to('/manage-order')}}">Quản lý đơn hàng</a>
           </div>
         </div>
       </li>
@@ -380,7 +413,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('public/backend/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('public/backend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -393,10 +426,162 @@
 
   <!-- Page level plugins -->
   <script src="{{asset('public/backend/vendor/chart.js/Chart.min.js')}}"></script>
-
+  <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
+  <script src="{{asset('public/backend/js/simple.money.format.js')}}"></script> 
+  <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
+  <script src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
   <!-- Page level custom scripts -->
   <script src="{{asset('public/backend/js/demo/chart-area-demo.js')}}"></script>
   <script src="{{asset('public/backend/js/demo/chart-pie-demo.js')}}"></script>
+  <script  type="text/javascript">
+       // Replace the <textarea id="editor1"> with a CKEditor
+       // instance, using default configuration.
+  
+        CKEDITOR.replace('ckeditor');
+        CKEDITOR.replace('ckeditor1',{
+
+            filebrowserImageUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
+            filebrowserBrowseUrl : "{{ url('file-browser?_token='.csrf_token()) }}",
+            filebrowserUploadMethod: 'form'
+
+        });
+
+        CKEDITOR.replace('ckeditor2', {
+
+            filebrowserImageUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
+            filebrowserBrowseUrl : "{{ url('file-browser?_token='.csrf_token()) }}",
+            filebrowserUploadMethod: 'form'
+
+        });
+
+        CKEDITOR.replace('ckeditor3',{
+
+            filebrowserImageUploadUrl : "{{ url('uploads-ckeditor?_token='.csrf_token()) }}",
+            filebrowserBrowseUrl : "{{ url('file-browser?_token='.csrf_token()) }}",
+            filebrowserUploadMethod: 'form'
+        });
+        CKEDITOR.replace('id4');
+</script>
+<script type="text/javascript">
+    $('.update_quantity_order').click(function(){
+        var order_product_id = $(this).data('product_id');
+        var order_qty = $('.order_qty_'+order_product_id).val();
+        var order_code = $('.order_code').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(order_product_id);
+        // alert(order_qty);
+        // alert(order_code);
+        $.ajax({
+                url : '{{url('/update-qty')}}',
+
+                method: 'POST',
+
+                data:{_token:_token, order_product_id:order_product_id ,order_qty:order_qty ,order_code:order_code},
+                // dataType:"JSON",
+                success:function(data){
+
+                    alert('Cập nhật số lượng thành công');
+                 
+                   location.reload();
+                    
+              
+                    
+
+                }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    $('.order_details').change(function(){
+        var order_status = $(this).val();
+        var order_id = $(this).children(":selected").attr("id");
+        var _token = $('input[name="_token"]').val();
+
+        //lay ra so luong
+        quantity = [];
+        $("input[name='product_sales_quantity']").each(function(){
+            quantity.push($(this).val());
+        });
+        //lay ra product id
+        order_product_id = [];
+        $("input[name='order_product_id']").each(function(){
+            order_product_id.push($(this).val());
+        });
+        j = 0;
+        for(i=0;i<order_product_id.length;i++){
+            //so luong khach dat
+            var order_qty = $('.order_qty_' + order_product_id[i]).val();
+            //so luong ton kho
+            var order_qty_storage = $('.order_qty_storage_' + order_product_id[i]).val();
+
+            if(parseInt(order_qty)>parseInt(order_qty_storage)){
+                j = j + 1;
+                if(j==1){
+                    alert('Số lượng bán trong kho không đủ');
+                }
+                $('.color_qty_'+order_product_id[i]).css('background','#000');
+            }
+        }
+        
+        if(j==0){
+          
+                $.ajax({
+                        url : '{{url('/update-order-qty')}}',
+                            method: 'POST',
+                            data:{_token:_token, order_status:order_status ,order_id:order_id ,quantity:quantity, order_product_id:order_product_id},
+                            success:function(data){
+                                alert('Thay đổi tình trạng đơn hàng thành công');
+                                location.reload();
+                            }
+                });
+            
+        }
+
+    });
+</script>
+<script type="text/javascript">
+ 
+    function ChangeToSlug()
+        {
+            var slug;
+         
+            //Lấy text từ thẻ input title 
+            slug = document.getElementById("slug").value;
+            slug = slug.toLowerCase();
+            //Đổi ký tự có dấu thành không dấu
+                slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+                slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+                slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+                slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+                slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+                slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+                slug = slug.replace(/đ/gi, 'd');
+                //Xóa các ký tự đặt biệt
+                slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+                //Đổi khoảng trắng thành ký tự gạch ngang
+                slug = slug.replace(/ /gi, "-");
+                //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+                //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+                slug = slug.replace(/\-\-\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-/gi, '-');
+                //Xóa các ký tự gạch ngang ở đầu và cuối
+                slug = '@' + slug + '@';
+                slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+                //In slug ra textbox có id “slug”
+            document.getElementById('convert_slug').value = slug;
+        }
+</script>
+<script type="text/javascript">
+    $('.price_format').simpleMoneyFormat();
+
+</script>
+<script type="text/javascript">
+        $.validate({});
+</script>
+
 
 </body>
 

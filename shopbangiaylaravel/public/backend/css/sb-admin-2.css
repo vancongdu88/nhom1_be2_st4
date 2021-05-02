@@ -230,6 +230,7 @@ th {
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
+  color: #000;
 }
 
 button {
@@ -494,6 +495,14 @@ mark,
   border-radius: 0.35rem;
   max-width: 100%;
   height: auto;
+}
+.text-alert{
+  color: #17a673;
+}
+p.cofile {
+  text-align: left;
+  font-size: 16px;
+  margin: 5px 0;
 }
 
 .figure {
@@ -1740,7 +1749,6 @@ pre code {
   background-color: #fff;
   border-color: #bac8f3;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
 }
 
 .form-control::-webkit-input-placeholder {
@@ -10687,10 +10695,11 @@ form.user .btn-user {
 
 .error {
   color: #5a5c69;
-  font-size: 7rem;
   position: relative;
   line-height: 1;
-  width: 12.5rem;
+}
+.help-block{
+  color: #e74a3b;
 }
 
 @-webkit-keyframes noise-anim {
