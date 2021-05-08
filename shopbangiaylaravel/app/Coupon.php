@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coupon extends Model
 {
-    public $timestamps = false; //set time to false
+    public $timestamps = false; //set time to false/ -- quoc ho
     protected $fillable = [
     	'coupon_name', 'coupon_code', 'coupon_time','coupon_number', 'coupon_condition','coupon_date_start','coupon_date_end','coupon_status','coupon_used'
     ];
