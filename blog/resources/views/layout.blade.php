@@ -537,8 +537,6 @@
                     <!-- Single Slide Area End Here -->
                 </div>
             </div>
-            <!-- Slider Area End Here -->
-            <!-- Begin Featured Porduct Section -->
             <section class="featured-pro featured-pro-2 pt-95">
                  <div class="container-fluid  pl-40 pr-40">
                      <div class="row">
@@ -548,8 +546,6 @@
                                  <h2>Featured products</h2>
                                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Separated.</p>
                              </div>
-                             <!-- Featured Product Title Area End Here -->
-                             <!-- Begin Random Product Content Area -->
                      <div class="row featured-pos-content featured-pos-content-2">
                          <div class="col-lg-12 p-0">
                              <div class="pos-content">
