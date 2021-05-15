@@ -313,7 +313,7 @@
                                                          <li><a href="login-register.html"><i class="fa fa-user"></i>My Account</a></li>
                                                          <li><a href="wishlist.html"><i class="fa fa-heart"></i>My Wishlist</a></li>
                                                          <li><a href="checkout.html"><i class="fa fa-check-square"></i>Checkout</a></li>
-                                                         <li><a href="login-register.html"><i class="fa fa-unlock"></i>Login</a></li>
+                                                         <li><a href="{{URL::to('/dang-nhap')}}"><i class="fa fa-unlock"></i>Login</a></li>
                                                          <li class="other-style"><a href="#"><i class="fa fa-language"></i>Language</a>
                                                              <!-- Begin Language Dropdown Area -->
                                                              <ul class="language-dropdown">
