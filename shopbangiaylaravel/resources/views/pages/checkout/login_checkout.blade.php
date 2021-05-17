@@ -6,18 +6,26 @@
                         <!--Login Form Start-->
                         <div class="col-md-6 col-sm-6">
                             <div class="customer-login-register">
+                            <?php
+                            $message = Session::get('message');
+  if($message){
+    echo '<span class="text-alert">'.$message.'</span>';
+    Session::put('message',null);
+  }
+  ?>
                                 <div class="form-login-title">
                                     <h2>Login</h2>
                                 </div>
                                 <div class="login-form">
-                                    <form action="#">
+                                    <form action="{{URL::to('/login-customer')}}" method="POST">
+                                    {{csrf_field()}}
                                         <div class="form-fild">
                                             <label>Username or email address <span class="required">*</span></label>
-                                            <input name="username" value="" type="text">
+                                            <input name="email_account" value="" type="text">
                                         </div>
                                         <div class="form-fild">
                                             <label>Password <span class="required">*</span></label>
-                                            <input name="password" value="" type="password">
+                                            <input name="password_account" value="" type="password">
                                         </div>
                                         <div class="login-submit">
                                             <button type="submit" class="form-button">Login</button>
@@ -27,7 +35,7 @@
                                             </label>
                                         </div>
                                         <div class="lost-password">
-                                            <a href="#">Lost your password?</a>
+                                            <a href="{{url('/quen-mat-khau')}}s">Lost your password?</a>
                                         </div>
                                     </form>
                                 </div>
@@ -41,14 +49,23 @@
                                     <h2>Register</h2>
                                 </div>
                                 <div class="register-form">
-                                    <form action="#">
+                                    <form action="{{URL::to('/add-customer')}}" method="POST">
+                                    {{ csrf_field() }}
                                         <div class="form-fild">
-                                            <label>Username or email address <span class="required">*</span></label>
-                                            <input name="username" value="" type="text">
+                                            <label>Username <span class="required">*</span></label>
+                                            <input name="customer_name" value="" type="text">
+                                        </div>
+                                        <div class="form-fild">
+                                            <label>Your email <span class="required">*</span></label>
+                                            <input name="customer_email" value="" type="text">
+                                        </div>
+                                        <div class="form-fild">
+                                            <label>Phone <span class="required">*</span></label>
+                                            <input name="customer_phone" value="" type="text">
                                         </div>
                                         <div class="form-fild">
                                             <label>Password <span class="required">*</span></label>
-                                            <input name="password" value="" type="password">
+                                            <input name="customer_password" value="" type="password">
                                         </div>
                                         <div class="register-submit">
                                             <button type="submit" class="form-button">Register</button>

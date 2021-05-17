@@ -77,3 +77,5 @@ Route::post('/update-qty','OrderController@update_qty');
 /* Checkout */
 Route::get('/dang-nhap','CheckoutController@login_checkout');
 Route::post('/login-customer','CheckoutController@login_customer');
+Route::get('/logout-checkout','CheckoutController@logout_checkout');
+Route::post('/add-customer','CheckoutController@add_customer');
