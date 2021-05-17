@@ -310,30 +310,22 @@
                                              <ul>
                                                  <li><a href="#"><i class="fa fa-cog"></i>Setting</a>
                                                      <ul class="dropdown primary-dropdown">
-                                                         <li><a href="login-register.html"><i class="fa fa-user"></i>My Account</a></li>
+                                                     <?php
+                                                     $customer_id = Session::get('customer_id');
+                                                     $customer_name = Session::get('customer_name');
+                                                     if($customer_id!=NULL){ 
+                                                        ?>
+                                                        <li><a href="#"><i class="fa fa-user"></i>Hello {{$customer_name}}</a></li>
                                                          <li><a href="wishlist.html"><i class="fa fa-heart"></i>My Wishlist</a></li>
                                                          <li><a href="checkout.html"><i class="fa fa-check-square"></i>Checkout</a></li>
-                                                         <li><a href="{{URL::to('/dang-nhap')}}"><i class="fa fa-unlock"></i>Login</a></li>
-                                                         <li class="other-style"><a href="#"><i class="fa fa-language"></i>Language</a>
-                                                             <!-- Begin Language Dropdown Area -->
-                                                             <ul class="language-dropdown">
-                                                                 <li><a href="#">English</a></li>
-                                                                 <li><a href="#">Arabic</a></li>
-                                                                 <li><a href="#">Romanian</a></li>
-                                                                 <li><a href="#">Germany</a></li>
-                                                             </ul>
-                                                             <!-- Language Dropdown Area End Here -->
-                                                         </li>
-                                                         <li class="other-style"><a href="#"><i class="fa fa-money"></i>Currency</a>
-                                                             <!-- Begin Language Dropdown Area -->
-                                                             <ul class="language-dropdown">
-                                                                 <li><a href="#">Dollar (USD)</a></li>
-                                                                 <li><a href="#">Dirham (AED)</a></li>
-                                                                 <li><a href="#">Romanian leu (RON)</a></li>
-                                                                 <li><a href="#">Euro (EUR)</a></li>
-                                                             </ul>
-                                                             <!-- Language Dropdown Area End Here -->
-                                                         </li>
+                                                         <li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-unlock"></i>Logout</a></li>
+                                                        <?php
+                                                    }else{
+                                                       ?>
+                                                       <li><a href="{{URL::to('/dang-nhap')}}"><i class="fa fa-unlock"></i>Login</a></li>
+                                                       <?php 
+                                                   }
+                                                         ?>
                                                      </ul>
                                                  </li>
                                              </ul>
