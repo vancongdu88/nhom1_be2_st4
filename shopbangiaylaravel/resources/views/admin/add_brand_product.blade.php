@@ -21,7 +21,7 @@
                   <form class="user" action="{{URL::to('/save-brand-product')}}" method="post" enctype="multipart/form-data">
                   {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="exampleInputEmail" class="dark"> Tên sản phẩm</label>
+                        <label for="exampleInputEmail" class="dark"> Tên thương hiệu</label>
                       <input type="text" class="form-control" data-validation="length" data-validation-length="min3" data-validation-error-msg="Làm ơn điền ít nhất 3 ký tự" name="brand_product_name" class="form-control " id="slug" onkeyup="ChangeToSlug();"  placeholder="Nhập tên thương hiệu">
                     </div>
                     <div class="form-group">
