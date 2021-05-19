@@ -1832,12 +1832,12 @@
                                     <div class="footer-block first-child">
                                         <h4>About Us</h4>
                                         <p class="footer-desc">
-                                            Neutral skinny jeans trouser plaited clashing patterns maxi skirt green Lanvin headscarf.
+                                            Hảy đến với chúng tôi , với câu châm ngôn "Khách hàng là thượng đế".
                                         </p>
                                         <ul class="footer-contact">
-                                            <li class="address add"><i class="fa fa-map-marker"></i>No 40 Baria Sreet 133/2, NewYork, USA.</li>
-                                            <li class="phone add"><i class="fa fa-phone"></i><a href="callto://+123123321345">(+123) 123 321 345</a></li>
-                                            <li class="email add"><i class="fa fa-envelope-o"></i><a href="mailto://dtqvietnam@tdcedu.com">dtqvietnam@tdcedu.com</a>
+                                            <li class="address add"><i class="fa fa-map-marker"></i>Trường cao đẳng công nghệ Thủ Đức</li>
+                                            <li class="phone add"><i class="fa fa-phone"></i><a href="callto://+123123321345">(0399) 456789</a></li>
+                                            <li class="email add"><i class="fa fa-envelope-o"></i><a href="mailto://info@yourdomain.com">shopbangiay@shop.co</a>
                                             </li>
                                         </ul>
                                     </div>
