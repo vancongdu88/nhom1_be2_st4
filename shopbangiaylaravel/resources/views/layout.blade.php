@@ -108,7 +108,7 @@
                                             </li>
                                             <li><a href="shop.html">Shop</a>
                                                 <!-- Begin Megamenu Area -->
-                                                <ul class="dropdown mx`egamenu">
+                                                <ul class="dropdown mxegamenu">
                                                     <!-- Begin Megamenu List Area -->
                                                     <li>
                                                         <h3 class="megamenu-title"><a href="#">Shop Grid Pages</a></h3>
