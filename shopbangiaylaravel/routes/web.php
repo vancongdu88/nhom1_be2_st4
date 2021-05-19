@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //front end
-Route::get('/', function () {
-    return view('main');
-});
+Route::get('/','HomeController@index');
 //back end
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
