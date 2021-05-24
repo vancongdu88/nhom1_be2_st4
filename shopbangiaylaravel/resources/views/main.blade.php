@@ -500,110 +500,34 @@
                      </div>
                  </div>
             </section>
-            <!-- Featured Porduct Section End Here -->
-            <!-- Begin New Product Section -->
             <section class="new-product new-product-2 pb-30">
-                 <div class="container-fluid  pl-40 pr-40">
+                <div class="container-fluid  pl-40 pr-40">
                      <div class="col-lg-12 p-0">
                          <!-- Begin New Product Title Area -->
                          <div class="pos-title pos-title-2">
                              <h2>new arrivals</h2>
                              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Separated.</p>
                          </div>
-                         <!-- New Product Title Area End Here -->
-                         <!-- Begin New Product Content Area -->
-                         <div class="row">
-
-                             <div class="col-static col-lg-8 order-2 order-lg-1">
-                                 <!-- Begin Banner Static 2 Area -->
-                                 <div class="banner-static-2">
-                                     <div class="banner-img">
-                                         <div class="banner-box">
-                                             <a href="#">
-                                                 <img src="{{('public/frontend/images/banner/3_2.jpg')}}" alt="">
-                                             </a>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <!-- Banner Static 2 Area End Here -->
-                                 <!-- Begin Banner Static 2 Area -->
-                                 <div class="banner-static-2 mt-30">
-                                     <div class="banner-img">
-                                         <div class="banner-box">
-                                             <a href="#">
-                                                 <img src="{{('public/frontend/images/banner/4_2.jpg')}}" alt="">
-                                             </a>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <!-- Banner Static 2 Area End Here -->
-                             </div>
-                             <div class="col-product col-lg-4 order-1 order-lg-2">
-                                 <div class="pos-content">
-                                     <div class="new-pro-active-2 owl-carousel">
-                                     <div class="single-product single-featured-pro-2">
-                                        <!-- Begin New Group Product Area -->
-                                        <div class="featured-group-pro">
-                                            <!-- Begin Single New Product Area -->
-                                             @foreach($all_product as $key => $product)
-                                             <div class="single-product single-featured-pro-2">
-                                                 <!-- Begin New Product Image Area -->
-                                                 <div class="product-img">
-                                                     <a href="product-details.html">
-                                                         <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
-                                                     </a>
-                                                     <!-- Begin Product Action Area -->
-                                                     <div class="product-action">
-                                                         <div class="product-action-inner">
-                                                             <div class="cart">
-                                                                 <a href="shopping-cart.html">
-                                                                     <span>Add To Cart</span>
-                                                                 </a>
-                                                             </div>
-                                                             <ul class="add-to-links">
-                                                                 <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                 <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                 <li class="rav-quickviewbtn">
-                                                                     <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                 </li>
-                                                             </ul>
-                                                         </div>
-                                                     </div>
-                                                     <!-- Product Action Area End Here -->
-                                                 </div>
-                                                 <!-- New Product Image Area End Here -->
-                                                 <!-- Begin New Product Content Area -->
-                                                 <div class="product-contents">
-                                                     <!-- Begin Product Name Area -->
-                                                     <h5 class="product-name">
-                                                         <a href="product-details.html" title="Printed Chiffon Dress">{{$product->product_name}}</a>
-                                                     </h5>
-                                                     <!-- Product Name Area End Here -->
-                                                     <!-- Begin Price Box Area -->
-                                                     <div class="price-box">
-                                                         <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
-                                                         <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
-                                                     </div>
-                                                     <!-- Price Box Area End Here -->
-                                                     <!-- Begin Rating Area -->
-                                                     <div class="rating">
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                     </div>
-                                                     <!-- Rating Area End Here -->
-                                                 </div>
-                                                 <!-- New Product Content Area End Here -->
-                                             </div>
-                                             @endforeach
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                         <!-- New Product Content Area End Here -->
+                        <div class="order-2 order-lg-1">
+                            <div class="banner-static-2">
+                                <div class="banner-img">
+                                    <div class="banner-box">
+                                        <a href="#">
+                                            <img src="{{('public/frontend/images/banner/3_2.jpg')}}" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="banner-static-2 mt-30">
+                                <div class="banner-img">
+                                    <div class="banner-box">
+                                        <a href="#">
+                                            <img src="{{('public/frontend/images/banner/4_2.jpg')}}" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                      </div>
                  </div>
             </section>
