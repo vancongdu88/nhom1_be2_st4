@@ -36,6 +36,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/magnific-popup.css')}}">
         <!-- Bootstrap V4.1.3 Fremwork CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
+        <!-- SweetAlert -->
+        <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
         <!-- Main Style CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/style.css')}}">
         <!-- Responsive CSS -->
@@ -118,99 +120,7 @@
                                      <div class="main-menu primary-menu primary-menu-2">
                                          <nav>
                                              <ul>
-                                                 <li><a href="shopping-cart.html"><i class="fa fa-shopping-bag"></i>Cart <span>(2)</span></a>
-                                                     <ul class="dropdown cart-dropdown">
-                                                         <li>
-                                                             <!-- Begin Cart Item Area -->
-                                                             <div class="cart-item">
-                                                                 <!-- Begin Cart Image Area -->
-                                                                 <div class="cart-img">
-                                                                     <a href="#">
-                                                                         <img src="{{('public/frontend/images/menu/mini-cart/1.jpg')}}" alt="">
-                                                                     </a>
-                                                                 </div>
-                                                                 <!-- Cart Image Area End Here -->
-                                                                 <!-- Begin Cart Information Area -->
-                                                                 <div class="cart-info">
-                                                                     <!-- Begin Product Item Area -->
-                                                                     <div class="pro-item">
-                                                                         <span class="quantity-formated">1x</span>
-                                                                         <a class="pro-name" href="#" title="Printed Dress">Printed Dress</a>
-                                                                     </div>
-                                                                     <!-- Product Item Area End Here -->
-                                                                     <!-- Begin Product Atributes Area -->
-                                                                     <div class="pro-atributes">
-                                                                         <a href="#" title="Product Detail">S, Beige</a>
-                                                                     </div>
-                                                                     <!-- Product Atributes Area End Here -->
-                                                                     <!-- Begin Product Price Area -->
-                                                                     <div class="pro-price">
-                                                                         <span>$50.99</span>
-                                                                     </div>
-                                                                     <!-- Product Price Area End Here -->
-                                                                     <!-- Begin Remove Link Area -->
-                                                                     <div class="remove-link">
-                                                                         <a href="#" title="Remove this product from my cart"></a>
-                                                                     </div>
-                                                                     <!-- Remove Link Area End Here -->
-                                                                 </div>
-                                                                 <!-- Cart Information Area End Here -->
-                                                             </div>
-                                                             <!-- Cart Item Area End Here -->
-                                                             <div class="cart-item">
-                                                                 <!-- Begin Cart Image Area -->
-                                                                 <div class="cart-img">
-                                                                     <a href="#">
-                                                                         <img src="{{('public/frontend/images/menu/mini-cart/2.jpg')}}" alt="">
-                                                                     </a>
-                                                                 </div>
-                                                                 <!-- Cart Image Area End Here -->
-                                                                 <!-- Begin Cart Information Area -->
-                                                                 <div class="cart-info">
-                                                                     <!-- Begin Product Item Area -->
-                                                                     <div class="pro-item">
-                                                                         <span class="quantity-formated">1x</span>
-                                                                         <a class="pro-name" href="#" title="Printed Dress">Printed Dress</a>
-                                                                     </div>
-                                                                     <!-- Product Item Area End Here -->
-                                                                     <!-- Begin Product Atributes Area -->
-                                                                     <div class="pro-atributes">
-                                                                         <a href="#" title="Product Detail">S, Beige</a>
-                                                                     </div>
-                                                                     <!-- Product Atributes Area End Here -->
-                                                                     <!-- Begin Product Price Area -->
-                                                                     <div class="pro-price">
-                                                                         <span>$50.99</span>
-                                                                     </div>
-                                                                     <!-- Product Price Area End Here -->
-                                                                     <!-- Begin Remove Link Area -->
-                                                                     <div class="remove-link">
-                                                                         <a href="#" title="Remove this product from my cart"></a>
-                                                                     </div>
-                                                                     <!-- Remove Link Area End Here -->
-                                                                 </div>
-                                                                 <!-- Cart Information Area End Here -->
-                                                             </div>
-                                                             <!-- Cart Item Area End Here -->
-                                                             <!-- Begin Cart Inner Bottom Area -->
-                                                             <div class="cart-inner-bottom">
-                                                                 <div class="cart-shipping cart-item">
-                                                                     <div class="total">
-                                                                         <span>Shipping</span>
-                                                                         <span class="amount">$7.00</span>
-                                                                     </div>
-                                                                     <div class="total">
-                                                                         <span>Total</span>
-                                                                         <span class="amount">$7.00</span>
-                                                                     </div>
-                                                                 </div>
-                                                                 <div class="cart-btn">
-                                                                     <a class="links links-3" href="checkout.html">Check Out</a>
-                                                                 </div>
-                                                             </div>
-                                                             <!-- Cart Inner Bottom Area End Here -->
-                                                         </li>
-                                                     </ul>
+                                                 <li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-bag"></i>Cart <span>({{$dem_hang}})</span></a>
                                                  </li>
                                              </ul>
                                          </nav>
@@ -451,6 +361,21 @@
                                      <!-- Begin Single Random Product Area -->
                                      @foreach($all_product as $key => $product)
                                      <div class="single-product single-featured-pro-2">
+                                     <form>
+                                     @csrf
+                                     <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productname{{$product->product_id}}" value="{{$product->product_name}}" class="cart_product_name_{{$product->product_id}}">
+                                          
+                                    <input type="hidden" value="{{$product->product_quantity}}" class="cart_product_quantity_{{$product->product_id}}">
+                                            
+                                    <input type="hidden" value="{{$product->product_image}}" class="cart_product_image_{{$product->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productprice{{$product->product_id}}" value="{{number_format($product->product_price,0,',','.')}}VNĐ">
+
+                                    <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+
+                                    <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
                                          <div class="product-img">
                                              <a href="product-details.html">
@@ -460,9 +385,7 @@
                                              <div class="product-action">
                                                          <div class="product-action-inner">
                                                              <div class="cart">
-                                                                 <a href="shopping-cart.html">
-                                                                     <span>Add To Cart</span>
-                                                                 </a>
+                                                                 <input type="button" value="Add To Cart" class="add-to-cart" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                                              </div>
                                                              <ul class="add-to-links">
                                                                  <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
@@ -475,6 +398,7 @@
                                                      </div>
                                          </div>
                                          <!-- Product Image Area End Here -->
+                                         </form>
                                          <!-- Begin Product Content Area -->
                                          <div class="product-contents">
                                              <!-- Begin Product Name Area -->
@@ -500,15 +424,18 @@
                      </div>
                  </div>
             </section>
+            <!-- Featured Porduct Section End Here -->
+            <!-- Begin New Product Section -->
             <section class="new-product new-product-2 pb-30">
-                <div class="container-fluid  pl-40 pr-40">
+                 <div class="container-fluid  pl-40 pr-40">
                      <div class="col-lg-12 p-0">
                          <!-- Begin New Product Title Area -->
                          <div class="pos-title pos-title-2">
                              <h2>new arrivals</h2>
                              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Separated.</p>
                          </div>
-                        <div class="order-2 order-lg-1">
+                         <!-- New Product Title Area End Here -->
+                         <div class="order-2 order-lg-1">
                             <div class="banner-static-2">
                                 <div class="banner-img">
                                     <div class="banner-box">
@@ -548,6 +475,21 @@
                                      <!-- Quoc -->
                                      @foreach($all_product as $key => $product)
                                      <div class="single-product single-featured-pro-2">
+                                     <form>
+                                     @csrf
+                                     <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productname{{$product->product_id}}" value="{{$product->product_name}}" class="cart_product_name_{{$product->product_id}}">
+                                          
+                                    <input type="hidden" value="{{$product->product_quantity}}" class="cart_product_quantity_{{$product->product_id}}">
+                                            
+                                    <input type="hidden" value="{{$product->product_image}}" class="cart_product_image_{{$product->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productprice{{$product->product_id}}" value="{{number_format($product->product_price,0,',','.')}}VNĐ">
+
+                                    <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+
+                                    <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
                                          <div class="product-img">
                                              <a href="product-details.html">
@@ -557,9 +499,7 @@
                                              <div class="product-action">
                                                          <div class="product-action-inner">
                                                              <div class="cart">
-                                                                 <a href="shopping-cart.html">
-                                                                     <span>Add To Cart</span>
-                                                                 </a>
+                                                             <input type="button" value="Add To Cart" class="add-to-cart" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                                              </div>
                                                              <ul class="add-to-links">
                                                                  <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
@@ -571,6 +511,7 @@
                                                          </div>
                                                      </div>
                                          </div>
+                                         </form>
                                          <!-- Product Image Area End Here -->
                                          <!-- Begin Product Content Area -->
                                          <div class="product-contents">
@@ -821,8 +762,56 @@
         <script src="{{asset('public/frontend/js/jquery.nice-select.min.js')}}"></script>
         <!-- ScrollUp js -->
         <script src="{{asset('public/frontend/js/scrollUp.min.js')}}"></script>
+        <!-- SweetAlert -->
+        <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('.add-to-cart').click(function(){
+
+                var id = $(this).data('id_product');
+                // alert(id);
+                var cart_product_id = $('.cart_product_id_' + id).val();
+                var cart_product_name = $('.cart_product_name_' + id).val();
+                var cart_product_image = $('.cart_product_image_' + id).val();
+                var cart_product_quantity = $('.cart_product_quantity_' + id).val();
+                var cart_product_price = $('.cart_product_price_' + id).val();
+                var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var _token = $('input[name="_token"]').val();
+
+                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+                }else{
+
+                    $.ajax({
+                        url: '{{url('/add-cart-ajax')}}',
+                        method: 'POST',
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+                        success:function(){
+
+                            swal({
+                                    title: "Đã thêm sản phẩm vào giỏ hàng",
+                                    text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Xem tiếp",
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Đi đến giỏ hàng",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    window.location.href = "{{url('/gio-hang')}}";
+                                });
+
+                        }
+
+                    });
+                }
+
+                
+            });
+        });
+    </script>
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->

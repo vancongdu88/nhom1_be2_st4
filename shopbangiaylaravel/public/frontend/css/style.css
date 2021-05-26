@@ -2785,6 +2785,26 @@ textarea:focus {
 .product-action-inner>.cart:hover>a {
 	background: #cb9a00 none repeat scroll 0 0;
 }
+.product-action-inner>.cart>input {
+	background: #444444 none repeat scroll 0 0;
+	border: 0 none;
+	color: #fff;
+	font-family: Montserrat;
+	font-size: 12px;
+	font-weight: 700;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 20px;
+	position: relative;
+	text-transform: uppercase;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+	width: fit-content;
+	text-align:left;
+}
+.product-action-inner>.cart:hover>input {
+	background: #cb9a00 none repeat scroll 0 0;
+}
 .product-action-inner .add-to-links {
 	position: absolute;
 	right: 0;
@@ -6363,7 +6383,7 @@ thead {
 	margin: 0 auto;
 }
 .coupon-all {
-	margin-top: 50px;
+	margin-top: 10px;
 }
 .coupon {
 	float: left;
@@ -6433,7 +6453,7 @@ thead {
 	border: 1px solid #333;
 	color: #fff;
 	display: inline-block;
-	margin-top: 30px;
+	margin-top: 10px;
 	padding: 10px 20px;
 	text-transform: capitalize;
 	-webkit-transition: all 0.3s ease 0s;
