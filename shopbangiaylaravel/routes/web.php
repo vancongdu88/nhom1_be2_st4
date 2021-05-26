@@ -80,3 +80,11 @@ Route::post('/add-customer','CheckoutController@add_customer');
 /* Authentication role */
 Route::get('/register-auth','AuthController@register_auth');
 Route::post('/register','AuthController@register');
+/* Cart */
+Route::post('/add-cart-ajax','CartController@add_cart_ajax');
+Route::get('/gio-hang','CartController@gio_hang');
+Route::post('/update-cart','CartController@update_cart');
+Route::get('/del-product/{session_id}','CartController@delete_product');
+/* Coupon */
+Route::post('/check-coupon','CartController@check_coupon');
+Route::get('/unset-coupon','CouponController@unset_coupon');

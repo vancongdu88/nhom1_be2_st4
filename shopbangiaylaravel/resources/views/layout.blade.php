@@ -86,8 +86,8 @@
                             <!-- Begin Logo Area -->
                             <div class="col-lg-2 col-md-3 col-2">
                                 <div class="logo">
-                                    <a href="index.html">
-                                        <img src="images/menu/logo/1.png" alt="">
+                                    <a href="{{URL::to('/')}}">
+                                        <img src="{{('public/frontend/images/menu/logo/1.png')}}" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -216,99 +216,7 @@
                                     <div class="main-menu primary-menu">
                                         <nav>
                                             <ul>
-                                                <li><a href="shopping-cart.html"><i class="fa fa-shopping-bag"></i>Cart <span>(2)</span></a>
-                                                    <ul class="dropdown cart-dropdown">
-                                                        <li>
-                                                            <!-- Begin Cart Item Area -->
-                                                            <div class="cart-item">
-                                                                <!-- Begin Cart Image Area -->
-                                                                <div class="cart-img">
-                                                                    <a href="#">
-                                                                        <img src="images/menu/mini-cart/1.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <!-- Cart Image Area End Here -->
-                                                                <!-- Begin Cart Information Area -->
-                                                                <div class="cart-info">
-                                                                    <!-- Begin Product Item Area -->
-                                                                    <div class="pro-item">
-                                                                        <span class="quantity-formated">1x</span>
-                                                                        <a class="pro-name" href="#" title="Printed Dress">Printed Dress</a>
-                                                                    </div>
-                                                                    <!-- Product Item Area End Here -->
-                                                                    <!-- Begin Product Atributes Area -->
-                                                                    <div class="pro-atributes">
-                                                                        <a href="#" title="Product Detail">S, Beige</a>
-                                                                    </div>
-                                                                    <!-- Product Atributes Area End Here -->
-                                                                    <!-- Begin Product Price Area -->
-                                                                    <div class="pro-price">
-                                                                        <span>$50.99</span>
-                                                                    </div>
-                                                                    <!-- Product Price Area End Here -->
-                                                                    <!-- Begin Remove Link Area -->
-                                                                    <div class="remove-link">
-                                                                        <a href="#" title="Remove this product from my cart"></a>
-                                                                    </div>
-                                                                    <!-- Remove Link Area End Here -->
-                                                                </div>
-                                                                <!-- Cart Information Area End Here -->
-                                                            </div>
-                                                            <!-- Cart Item Area End Here -->
-                                                            <div class="cart-item">
-                                                                <!-- Begin Cart Image Area -->
-                                                                <div class="cart-img">
-                                                                    <a href="#">
-                                                                        <img src="images/menu/mini-cart/2.jpg" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <!-- Cart Image Area End Here -->
-                                                                <!-- Begin Cart Information Area -->
-                                                                <div class="cart-info">
-                                                                    <!-- Begin Product Item Area -->
-                                                                    <div class="pro-item">
-                                                                        <span class="quantity-formated">1x</span>
-                                                                        <a class="pro-name" href="#" title="Printed Dress">Printed Dress</a>
-                                                                    </div>
-                                                                    <!-- Product Item Area End Here -->
-                                                                    <!-- Begin Product Atributes Area -->
-                                                                    <div class="pro-atributes">
-                                                                        <a href="#" title="Product Detail">S, Beige</a>
-                                                                    </div>
-                                                                    <!-- Product Atributes Area End Here -->
-                                                                    <!-- Begin Product Price Area -->
-                                                                    <div class="pro-price">
-                                                                        <span>$50.99</span>
-                                                                    </div>
-                                                                    <!-- Product Price Area End Here -->
-                                                                    <!-- Begin Remove Link Area -->
-                                                                    <div class="remove-link">
-                                                                        <a href="#" title="Remove this product from my cart"></a>
-                                                                    </div>
-                                                                    <!-- Remove Link Area End Here -->
-                                                                </div>
-                                                                <!-- Cart Information Area End Here -->
-                                                            </div>
-                                                            <!-- Cart Item Area End Here -->
-                                                            <!-- Begin Cart Inner Bottom Area -->
-                                                            <div class="cart-inner-bottom">
-                                                                <div class="cart-shipping cart-item">
-                                                                    <div class="total">
-                                                                        <span>Shipping</span>
-                                                                        <span class="amount">$7.00</span>
-                                                                    </div>
-                                                                    <div class="total">
-                                                                        <span>Total</span>
-                                                                        <span class="amount">$7.00</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="cart-btn">
-                                                                    <a class="links links-3" href="checkout.html">Check Out</a>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Cart Inner Bottom Area End Here -->
-                                                        </li>
-                                                    </ul>
+                                                <li><a href="shopping-cart.html"><i class="fa fa-shopping-bag"></i>Cart <span>({{$dem_hang}})</span></a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -635,7 +543,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="payment f-right">
                                         <a href="#">
-                                            <img src="images/payment/1.png" alt="">
+                                            <img src="{{('public/frontend/images/payment/1.png')}}" alt="">
                                         </a>
                                     </div>
                                 </div>
