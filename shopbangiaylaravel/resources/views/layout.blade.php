@@ -216,7 +216,7 @@
                                     <div class="main-menu primary-menu">
                                         <nav>
                                             <ul>
-                                                <li><a href="shopping-cart.html"><i class="fa fa-shopping-bag"></i>Cart <span>({{$dem_hang}})</span></a>
+                                                <li><a href="shopping-cart.html"><i class="fa fa-shopping-bag"></i>Cart <span>(0)</span></a>
                                                 </li>
                                             </ul>
                                         </nav>
