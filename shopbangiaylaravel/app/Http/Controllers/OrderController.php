@@ -9,7 +9,6 @@ use App\OrderDetails;
 use App\Customer;
 use App\Shipping;
 use App\Coupon;
-use App\Product;
 use App\Statistic;
 use Carbon\Carbon;
 use Mail;

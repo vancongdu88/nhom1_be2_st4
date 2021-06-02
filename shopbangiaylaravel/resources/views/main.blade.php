@@ -120,7 +120,7 @@
                                      <div class="main-menu primary-menu primary-menu-2">
                                          <nav>
                                              <ul>
-                                                 <li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-bag"></i>Cart <span>({{$dem_hang}})</span></a>
+                                                 <li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-bag"></i>Cart <span>(0)</span></a>
                                                  </li>
                                              </ul>
                                          </nav>
@@ -216,12 +216,14 @@
                                                      <!-- Begin Megamenu List Area -->
                                                      <li>
                                                          <h3 class="megamenu-title"><a href="#">Product Types</a></h3>
+                                                         @foreach($all_product as $key => $product)
                                                          <ul>
-                                                             <li><a href="product-details.html">Product Details</a></li>
+                                                             <li><a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">Product Details</a></li>
                                                              <li><a href="product-details-reverse.html">Product Details Reverse</a></li>
                                                              <li><a href="product-details-2.html">Product Details-2</a></li>
                                                              <li><a href="product-details-2-reverse.html">Product Details 2 Reverse</a></li>
                                                          </ul>
+                                                         @endforeach
                                                      </li>
                                                      <!-- Megamenu List Area End Here -->
                                                  </ul>
@@ -378,7 +380,7 @@
                                     <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
                                          <div class="product-img">
-                                             <a href="product-details.html">
+                                             <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                  <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                  <div class="sticker"><span>New</span></div>
                                              </a>
@@ -403,7 +405,7 @@
                                          <div class="product-contents">
                                              <!-- Begin Product Name Area -->
                                              <h5 class="product-name">
-                                                 <a href="product-details.html" title="Printed Chiffon Dress">{{$product->product_name}}</a>
+                                                 <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}" title="Printed Chiffon Dress">{{$product->product_name}}</a>
                                              </h5>
                                              <!-- Product Name Area End Here -->
                                              <!-- Begin Price Box Area -->
@@ -492,7 +494,7 @@
                                     <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
                                          <div class="product-img">
-                                             <a href="product-details.html">
+                                             <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                  <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                  <div class="sticker"><span>New</span></div>
                                              </a>
@@ -517,7 +519,7 @@
                                          <div class="product-contents">
                                              <!-- Begin Product Name Area -->
                                              <h5 class="product-name">
-                                                 <a href="product-details.html" title="Printed Chiffon Dress">{{$product->product_name}}</a>
+                                                 <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}" title="Printed Chiffon Dress">{{$product->product_name}}</a>
                                              </h5>
                                              <!-- Product Name Area End Here -->
                                              <!-- Begin Price Box Area -->

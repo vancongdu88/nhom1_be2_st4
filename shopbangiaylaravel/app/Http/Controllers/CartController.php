@@ -61,7 +61,7 @@ class CartController extends Controller
 
 }
 public function check_coupon(Request $request){
-    $today = Carbon::now('Asia/Ho_Chi_Minh')->format('Y/m/d');
+    $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y');
     $data = $request->all();
     if(Session::get('customer_id')){
        $coupon = Coupon::where('coupon_code',$data['coupon'])->where('coupon_status',1)->where('coupon_date_end','>=',$today)->where('coupon_used','LIKE','%'.Session::get('customer_id').'%')->first();
