@@ -12,16 +12,15 @@
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
-  <link href="{{asset('public/backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link
         rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous"
       />
+  <link href="{{asset('public/backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('public/backend/css/bootstrap-tagsinput.css')}}" type="text/css"/>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <!-- Custom styles for this template-->
   <link href="{{asset('public/backend/css/sb-admin-2.css')}}" rel="stylesheet">
@@ -131,7 +130,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-        <i class="fa fa-user" aria-hidden="true"></i>
+          <i class="fas fa-fw fa-folder"></i>
           <span>Users</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -140,23 +139,9 @@
           </div>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCoupon" aria-expanded="true" aria-controls="collapsePages">
-        <i class="fa fa-ticket" aria-hidden="true"></i>
-          <span>Coupons</span></span>
-        </a>
-        <div id="collapseCoupon" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{URL::to('/insert-coupon')}}">Thêm coupon</a>
-            <a class="collapse-item" href="{{URL::to('/list-coupon')}}">Danh sách coupon</a>
-          </div>
-        </div>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-
-      
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
@@ -421,7 +406,6 @@
   <!-- Page level plugins -->
   <script src="{{asset('public/backend/vendor/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="{{asset('public/backend/js/simple.money.format.js')}}"></script> 
   <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
   <script src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
@@ -456,26 +440,6 @@
             filebrowserUploadMethod: 'form'
         });
         CKEDITOR.replace('id4');
-</script>
-<script type="text/javascript">
-   
-  $( function() {
-    $( "#start_coupon" ).datepicker({
-        prevText:"Tháng trước",
-        nextText:"Tháng sau",
-        dateFormat:"yy/mm/dd",
-        dayNamesMin: [ "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật" ],
-        duration: "slow"
-    });
-    $( "#end_coupon" ).datepicker({
-        prevText:"Tháng trước",
-        nextText:"Tháng sau",
-        dateFormat:"yy/mm/dd",
-        dayNamesMin: [ "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật" ],
-        duration: "slow"
-    });
-  } );
- 
 </script>
 <script type="text/javascript">
     $('.update_quantity_order').click(function(){

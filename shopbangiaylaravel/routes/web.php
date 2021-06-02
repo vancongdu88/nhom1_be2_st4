@@ -40,6 +40,7 @@ Route::get('/add-brand-product','BrandProduct@add_brand_product');
 Route::get('/edit-brand-product/{brand_product_id}','BrandProduct@edit_brand_product');
 Route::get('/delete-brand-product/{brand_product_id}','BrandProduct@delete_brand_product');
 Route::get('/all-brand-product','BrandProduct@all_brand_product');
+Route::get('/thuong-hieu/{brand_slug}','BrandProduct@show_brand_home');
 
 Route::get('/unactive-brand-product/{brand_product_id}','BrandProduct@unactive_brand_product');
 Route::get('/active-brand-product/{brand_product_id}','BrandProduct@active_brand_product');
@@ -88,13 +89,5 @@ Route::get('/del-product/{session_id}','CartController@delete_product');
 /* Coupon */
 Route::post('/check-coupon','CartController@check_coupon');
 Route::get('/unset-coupon','CouponController@unset_coupon');
-Route::get('/list-coupon','CouponController@list_coupon');
-Route::get('/insert-coupon','CouponController@insert_coupon');
-Route::post('/insert-coupon-code','CouponController@insert_coupon_code');
-Route::get('/delete-coupon/{coupon_id}','CouponController@delete_coupon');
-/* Checkout */
-Route::get('/checkaddress','CheckoutController@checkaddress');
-Route::get('/checkout','CheckoutController@checkout');
-Route::post('/calculate-fee','CheckoutController@calculate_fee');
-Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
-Route::post('/confirm-order','CheckoutController@confirm_order');
+// detail product
+Route::get('/chi-tiet/{product_slug}','ProductController@details_product');
