@@ -91,3 +91,13 @@ Route::post('/check-coupon','CartController@check_coupon');
 Route::get('/unset-coupon','CouponController@unset_coupon');
 // detail product
 Route::get('/chi-tiet/{product_slug}','ProductController@details_product');
+Route::get('/list-coupon','CouponController@list_coupon');
+Route::get('/insert-coupon','CouponController@insert_coupon');
+Route::post('/insert-coupon-code','CouponController@insert_coupon_code');
+Route::get('/delete-coupon/{coupon_id}','CouponController@delete_coupon');
+/* Checkout */
+Route::get('/checkaddress','CheckoutController@checkaddress');
+Route::get('/checkout','CheckoutController@checkout');
+Route::post('/calculate-fee','CheckoutController@calculate_fee');
+Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
+Route::post('/confirm-order','CheckoutController@confirm_order');

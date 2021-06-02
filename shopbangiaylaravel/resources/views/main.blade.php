@@ -120,7 +120,7 @@
                                      <div class="main-menu primary-menu primary-menu-2">
                                          <nav>
                                              <ul>
-                                                 <li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-bag"></i>Cart <span>(0)</span></a>
+                                                 <li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-bag"></i>Cart <span>({{$dem_hang}})</span></a>
                                                  </li>
                                              </ul>
                                          </nav>

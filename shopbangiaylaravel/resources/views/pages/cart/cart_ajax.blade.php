@@ -114,7 +114,7 @@
                                                 </div>
                                             </div>
                                             @if(Session::get('customer_id'))
-                                            <a href="{{url('/checkout')}}">Proceed to checkout</a>
+                                            <a href="{{url('/checkaddress')}}">Proceed to checkout</a>
 	                                     	@else 
 	                          	            <a href="{{url('/dang-nhap')}}">Proceed to checkout</a>
 								            @endif
