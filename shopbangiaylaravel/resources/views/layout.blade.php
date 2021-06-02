@@ -36,6 +36,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/magnific-popup.css')}}">
         <!-- Bootstrap V4.1.3 Fremwork CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
+        <!-- SweetAlert -->
+        <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
         <!-- Main Style CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/style.css')}}">
         <!-- Responsive CSS -->
@@ -87,7 +89,7 @@
                             <div class="col-lg-2 col-md-3 col-2">
                                 <div class="logo">
                                     <a href="{{URL::to('/')}}">
-                                        <img src="{{('public/frontend/images/menu/logo/1.png')}}" alt="">
+                                        <img src="{{asset('public/frontend/images/menu/logo/1.png')}}" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -216,7 +218,13 @@
                                     <div class="main-menu primary-menu">
                                         <nav>
                                             <ul>
-                                                <li><a href="shopping-cart.html"><i class="fa fa-shopping-bag"></i>Cart <span>(0)</span></a>
+                                            @php $dem_hang = 0; @endphp
+        @if(Session::get('cart'))
+        @php
+            $dem_hang = count(Session::get('cart'));
+        @endphp
+        @endif
+                                                <li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-bag"></i>Cart <span>({{$dem_hang}})</span></a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -600,8 +608,114 @@
         <script src="{{asset('public/frontend/js/jquery.nice-select.min.js')}}"></script>
         <!-- ScrollUp js -->
         <script src="{{asset('public/frontend/js/scrollUp.min.js')}}"></script>
+        <!-- SweetAlert -->
+        <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('.choose').on('change',function(){
+            var action = $(this).attr('id');
+            var ma_id = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            var result = '';
+           
+            if(action=='city'){
+                result = 'province';
+            }else{
+                result = 'wards';
+            }
+            $.ajax({
+                url : '{{url('/select-delivery-home')}}',
+                method: 'POST',
+                data:{action:action,ma_id:ma_id,_token:_token},
+                success:function(data){
+                   $('#'+result).html(data);     
+                }
+            });
+        });
+    });  
+    </script>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('.calculate_delivery').click(function(){
+                var matp = $('.city').val();
+                var maqh = $('.province').val();
+                var xaid = $('.wards').val();
+                var _token = $('input[name="_token"]').val();
+                if(matp == '' && maqh =='' && xaid ==''){
+                    alert('Làm ơn chọn để tính phí vận chuyển');
+                }else{
+                    $.ajax({
+                    url : '{{url('/calculate-fee')}}',
+                    method: 'POST',
+                    data:{matp:matp,maqh:maqh,xaid:xaid,_token:_token},
+                    success:function(){
+                       location.reload(); 
+                    }
+                    });
+                } 
+        });
+    });
+    </script>
+    <script type="text/javascript">
+
+$(document).ready(function(){
+  $('.send_order').click(function(){
+var total_after = $('.total_after').val();
+      swal({
+        title: "Xác nhận đơn hàng",
+        text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Cảm ơn, Mua hàng",
+
+          cancelButtonText: "Đóng,chưa mua",
+          closeOnConfirm: false,
+          closeOnCancel: false
+      },
+      function(isConfirm){
+           if (isConfirm) {
+              var shipping_email = $('.shipping_email').val();
+              var shipping_name = $('.shipping_name').val();
+              var shipping_address = $('.shipping_address').val();
+              var shipping_phone = $('.shipping_phone').val();
+              var shipping_notes = $('.shipping_notes').val();
+              var shipping_method = $('.payment_select').val();
+            
+              var order_fee = $('.order_fee').val();
+              var order_coupon = $('.order_coupon').val();
+              var _token = $('input[name="_token"]').val();
+
+              $.ajax({
+                  url: '{{url('/confirm-order')}}',
+                  method: 'POST',
+                  data:{shipping_email:shipping_email,shipping_name:shipping_name,shipping_address:shipping_address,shipping_phone:shipping_phone,shipping_notes:shipping_notes,_token:_token,order_fee:order_fee,order_coupon:order_coupon,shipping_method:shipping_method},
+                  success:function(){
+                     swal("Đơn hàng", "Đơn hàng của bạn đã được gửi thành công", "success");
+                  }
+              });
+
+              // window.setTimeout(function(){ 
+              //     location.reload();
+              // } ,3000);
+
+            } else {
+              swal("Đóng", "Đơn hàng chưa được gửi, làm ơn hoàn tất đơn hàng", "error");
+
+            }
+    
+      });
+
+     
+  });
+});
+
+
+</script>
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->
