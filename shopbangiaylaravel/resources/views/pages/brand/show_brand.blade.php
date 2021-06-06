@@ -10,17 +10,11 @@
                                     <h4>Categories</h4>
                                     <!-- Begin Category List Area -->
                                     <div class="category-list">
+                                        @foreach($brand_name as $key => $name)
                                         <ul>
-                                            <li><a href="#">Accessories (14)</a></li>
-                                            <li><a href="#">Clothings (14)</a></li>
-                                            <li><a href="#">Dress (14)</a></li>
-                                            <li><a href="#">Drink (14)</a></li>
-                                            <li><a href="#">Fashion (14)</a></li>
-                                            <li><a href="#">Food (9)</a></li>
-                                            <li><a href="#">Men (14)</a></li>
-                                            <li><a href="#">Short (0)</a></li>
-                                            <li><a href="#">Women (10)</a></li>
+                                            <li><a href="#">{{$name->brand_name}}</a></li>
                                         </ul>
+                                        @endforeach
                                     </div>
                                     <!-- Category List Area End Here -->
                                 </div>
@@ -30,11 +24,11 @@
                                     <h4>Color</h4>
                                     <!-- Begin Category List Area -->
                                     <div class="category-list">
+                                        @foreach($brand_name as $key => $name)
                                         <ul>
-                                            <li><a href="#">Gold (1)</a></li>
-                                            <li><a href="#">Green (1)</a></li>
-                                            <li><a href="#">White (1)</a></li>
+                                            <li><a href="#">{{$name->color}}</a></li>
                                         </ul>
+                                        @endforeach
                                     </div>
                                     <!-- Category List Area End Here -->
                                 </div>
@@ -182,24 +176,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- Grid List Area End Here -->
-                                <!-- Begin Toolbar Short Area -->
-                                <div class="toolbar-short-area d-md-flex align-items-center">
-                                    <div class="toolbar-shorter">
-                                        <label>Sort By:</label>
-                                        <select class="nice-select wide">
-                                          <option data-display="Select">Select</option>
-                                          <option value="price:asc">Price: Lowest first</option>
-                                          <option value="price:desc">Price: Highest first</option>
-                                          <option value="name:asc">Product Name: A to Z</option>
-                                          <option value="name:desc">Product Name: Z to A</option>
-                                          <option value="quantity:desc">In stock</option>
-                                          <option value="reference:asc">Reference: Lowest first</option>
-                                          <option value="reference:desc">Reference: Highest first</option>
-                                        </select>
-                                    </div>
-                                    <p class="show-product">Showing 1&ndash;9 of 42 results</p>
-                                </div>
+                                
                                 <!-- Toolbar Short Area End Here -->
                             </div>
                             <div class="shop-product">
@@ -208,14 +185,14 @@
                                     <div id="grid" class="tab-pane show fade in active">
                                         <div class="grid-view">
                                             <div class="row">
+                                                @foreach($brand_by_id as $key => $product)
                                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                                     <!-- Begin Single Product Area -->
                                                     <div class="single-product single-product-3">
                                                         <!-- Begin Product Image Area -->
                                                         <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/1_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/1_2.jpg" alt="">
+                                                            <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
+                                                                <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                             </a>
                                                             <div class="sticker"><span>New</span></div>
                                                             <!-- Begin Product Action Area -->
@@ -242,13 +219,13 @@
                                                         <div class="product-contents">
                                                             <!-- Begin Product Name Area -->
                                                             <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
+                                                                <a href="product-details.html" title="Printed Chiffon Dress">{{$product->product_name}}</a>
                                                             </h5>
                                                             <!-- Product Name Area End Here -->
                                                             <!-- Begin Price Box Area -->
                                                             <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
+                                                                <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                                <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
                                                             </div>
                                                             <!-- Price Box Area End Here -->
                                                             <!-- Begin Rating Area -->
@@ -265,645 +242,20 @@
                                                     </div>
                                                     <!-- Single Product Area End Here -->
                                                 </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/2_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/2_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/3_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/3_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/4_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/4_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/5_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/5_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/5_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/5_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/6_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/6_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/7_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/7_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/8_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/8_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/9_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/9_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/10_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/10_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <!-- Begin Single Product Area -->
-                                                    <div class="single-product single-product-3">
-                                                        <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
-                                                            <a href="product-details.html">
-                                                                <img class="primary-img" src="images/product/1_1.jpg" alt="">
-                                                                <img class="secondary-img" src="images/product/1_2.jpg" alt="">
-                                                            </a>
-                                                            <div class="sticker"><span>New</span></div>
-                                                            <!-- Begin Product Action Area -->
-                                                            <div class="product-action">
-                                                                <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Product Action Area End Here -->
-                                                        </div>
-                                                        <!-- Product Image Area End Here -->
-                                                        <!-- Begin Product Content Area -->
-                                                        <div class="product-contents">
-                                                            <!-- Begin Product Name Area -->
-                                                            <h5 class="product-name">
-                                                                <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                            </h5>
-                                                            <!-- Product Name Area End Here -->
-                                                            <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">$16.40</span>
-                                                                <span class="old-price">$20.50</span>
-                                                            </div>
-                                                            <!-- Price Box Area End Here -->
-                                                            <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                            <!-- Rating Area End Here -->
-                                                        </div>
-                                                        <!-- Product Content Area End Here -->
-                                                    </div>
-                                                    <!-- Single Product Area End Here -->
-                                                </div>
+                                                @endforeach
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     <div id="list" class="tab-pane fade">
                                         <div class="list-view">
+                                            @foreach($brand_by_id as $key => $product)
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4">
                                                     <!-- Begin Product Image Area -->
                                                     <div class="product-img pro-list-item pro-list-sidebar-items">
-                                                        <a href="product-details.html">
-                                                            <img class="primary-img" src="images/product/1_1.jpg" alt="">
-                                                            <img class="secondary-img" src="images/product/1_2.jpg" alt="">
+                                                        <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
+                                                            <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                         </a>
                                                     </div>
                                                     <!-- Product Image Area End Here -->
@@ -913,7 +265,7 @@
                                                     <div class="pro-list-content">
                                                         <!-- Begin Product Name Area -->
                                                         <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
+                                                            <a href="product-details.html" title="Printed Chiffon Dress">{{$product->product_name}}</a>
                                                         </h5>
                                                         <!-- Product Name Area End Here -->
                                                         <!-- Begin List Rating Area -->
@@ -927,13 +279,13 @@
                                                         <!-- List Rating Area End Here -->
                                                         <!-- Begin Price list Box Area -->
                                                         <div class="price-box list-price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
+                                                            <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                            <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
                                                         </div>
                                                         <!-- Price List Box Area End Here -->
                                                         <!-- Begin List Text -->
                                                         <div class="list-text">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eaque cumque provident sed, nemo amet iure neque excepturi minus et quos recusandae enim praesentium laudantium sapiente voluptates facere impedit ab!</p>
+                                                            <p>{{$product->product_content}}</p>
                                                         </div>
                                                         <!-- List Text End Here -->
                                                         <!-- Begin Product Action Area -->
@@ -958,311 +310,7 @@
                                                     <!-- Product List Content Area End Here -->
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <!-- Begin Product Image Area -->
-                                                    <div class="product-img pro-list-item pro-list-sidebar-items">
-                                                        <a href="product-details.html">
-                                                            <img class="primary-img" src="images/product/2_1.jpg" alt="">
-                                                            <img class="secondary-img" src="images/product/2_2.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <!-- Product Image Area End Here -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-8">
-                                                    <!-- Begin Product List Content Area -->
-                                                    <div class="pro-list-content">
-                                                        <!-- Begin Product Name Area -->
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                        </h5>
-                                                        <!-- Product Name Area End Here -->
-                                                        <!-- Begin List Rating Area -->
-                                                        <div class="rating list-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <!-- List Rating Area End Here -->
-                                                        <!-- Begin Price list Box Area -->
-                                                        <div class="price-box list-price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
-                                                        </div>
-                                                        <!-- Price List Box Area End Here -->
-                                                        <!-- Begin List Text -->
-                                                        <div class="list-text">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eaque cumque provident sed, nemo amet iure neque excepturi minus et quos recusandae enim praesentium laudantium sapiente voluptates facere impedit ab!</p>
-                                                        </div>
-                                                        <!-- List Text End Here -->
-                                                        <!-- Begin Product Action Area -->
-                                                        <div class="product-action product-action-2">
-                                                            <div class="product-action-inner">
-                                                                <div class="cart">
-                                                                    <a href="shopping-cart.html">
-                                                                        <span>Add To Cart</span>
-                                                                    </a>
-                                                                </div>
-                                                                <ul class="add-to-links">
-                                                                    <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                    <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                    <li class="rav-quickviewbtn">
-                                                                        <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Product Action Area End Here -->
-                                                    </div>
-                                                    <!-- Product List Content Area End Here -->
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <!-- Begin Product Image Area -->
-                                                    <div class="product-img pro-list-item pro-list-sidebar-items">
-                                                        <a href="product-details.html">
-                                                            <img class="primary-img" src="images/product/3_1.jpg" alt="">
-                                                            <img class="secondary-img" src="images/product/3_2.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <!-- Product Image Area End Here -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-8">
-                                                    <!-- Begin Product List Content Area -->
-                                                    <div class="pro-list-content">
-                                                        <!-- Begin Product Name Area -->
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                        </h5>
-                                                        <!-- Product Name Area End Here -->
-                                                        <!-- Begin List Rating Area -->
-                                                        <div class="rating list-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <!-- List Rating Area End Here -->
-                                                        <!-- Begin Price list Box Area -->
-                                                        <div class="price-box list-price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
-                                                        </div>
-                                                        <!-- Price List Box Area End Here -->
-                                                        <!-- Begin List Text -->
-                                                        <div class="list-text">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eaque cumque provident sed, nemo amet iure neque excepturi minus et quos recusandae enim praesentium laudantium sapiente voluptates facere impedit ab!</p>
-                                                        </div>
-                                                        <!-- List Text End Here -->
-                                                        <!-- Begin Product Action Area -->
-                                                        <div class="product-action product-action-2">
-                                                            <div class="product-action-inner">
-                                                                <div class="cart">
-                                                                    <a href="shopping-cart.html">
-                                                                        <span>Add To Cart</span>
-                                                                    </a>
-                                                                </div>
-                                                                <ul class="add-to-links">
-                                                                    <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                    <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                    <li class="rav-quickviewbtn">
-                                                                        <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Product Action Area End Here -->
-                                                    </div>
-                                                    <!-- Product List Content Area End Here -->
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <!-- Begin Product Image Area -->
-                                                    <div class="product-img pro-list-item pro-list-sidebar-items">
-                                                        <a href="product-details.html">
-                                                            <img class="primary-img" src="images/product/4_1.jpg" alt="">
-                                                            <img class="secondary-img" src="images/product/4_2.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <!-- Product Image Area End Here -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-8">
-                                                    <!-- Begin Product List Content Area -->
-                                                    <div class="pro-list-content">
-                                                        <!-- Begin Product Name Area -->
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                        </h5>
-                                                        <!-- Product Name Area End Here -->
-                                                        <!-- Begin List Rating Area -->
-                                                        <div class="rating list-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <!-- List Rating Area End Here -->
-                                                        <!-- Begin Price list Box Area -->
-                                                        <div class="price-box list-price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
-                                                        </div>
-                                                        <!-- Price List Box Area End Here -->
-                                                        <!-- Begin List Text -->
-                                                        <div class="list-text">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eaque cumque provident sed, nemo amet iure neque excepturi minus et quos recusandae enim praesentium laudantium sapiente voluptates facere impedit ab!</p>
-                                                        </div>
-                                                        <!-- List Text End Here -->
-                                                        <!-- Begin Product Action Area -->
-                                                        <div class="product-action product-action-2">
-                                                            <div class="product-action-inner">
-                                                                <div class="cart">
-                                                                    <a href="shopping-cart.html">
-                                                                        <span>Add To Cart</span>
-                                                                    </a>
-                                                                </div>
-                                                                <ul class="add-to-links">
-                                                                    <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                    <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                    <li class="rav-quickviewbtn">
-                                                                        <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Product Action Area End Here -->
-                                                    </div>
-                                                    <!-- Product List Content Area End Here -->
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <!-- Begin Product Image Area -->
-                                                    <div class="product-img pro-list-item pro-list-sidebar-items">
-                                                        <a href="product-details.html">
-                                                            <img class="primary-img" src="images/product/6_1.jpg" alt="">
-                                                            <img class="secondary-img" src="images/product/6_2.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <!-- Product Image Area End Here -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-8">
-                                                    <!-- Begin Product List Content Area -->
-                                                    <div class="pro-list-content">
-                                                        <!-- Begin Product Name Area -->
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                        </h5>
-                                                        <!-- Product Name Area End Here -->
-                                                        <!-- Begin List Rating Area -->
-                                                        <div class="rating list-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <!-- List Rating Area End Here -->
-                                                        <!-- Begin Price list Box Area -->
-                                                        <div class="price-box list-price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
-                                                        </div>
-                                                        <!-- Price List Box Area End Here -->
-                                                        <!-- Begin List Text -->
-                                                        <div class="list-text">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eaque cumque provident sed, nemo amet iure neque excepturi minus et quos recusandae enim praesentium laudantium sapiente voluptates facere impedit ab!</p>
-                                                        </div>
-                                                        <!-- List Text End Here -->
-                                                        <!-- Begin Product Action Area -->
-                                                        <div class="product-action product-action-2">
-                                                            <div class="product-action-inner">
-                                                                <div class="cart">
-                                                                    <a href="shopping-cart.html">
-                                                                        <span>Add To Cart</span>
-                                                                    </a>
-                                                                </div>
-                                                                <ul class="add-to-links">
-                                                                    <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                    <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                    <li class="rav-quickviewbtn">
-                                                                        <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Product Action Area End Here -->
-                                                    </div>
-                                                    <!-- Product List Content Area End Here -->
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <!-- Begin Product Image Area -->
-                                                    <div class="product-img pro-list-item pro-list-sidebar-items">
-                                                        <a href="product-details.html">
-                                                            <img class="primary-img" src="images/product/7_1.jpg" alt="">
-                                                            <img class="secondary-img" src="images/product/7_2.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <!-- Product Image Area End Here -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-8">
-                                                    <!-- Begin Product List Content Area -->
-                                                    <div class="pro-list-content">
-                                                        <!-- Begin Product Name Area -->
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-                                                        </h5>
-                                                        <!-- Product Name Area End Here -->
-                                                        <!-- Begin List Rating Area -->
-                                                        <div class="rating list-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <!-- List Rating Area End Here -->
-                                                        <!-- Begin Price list Box Area -->
-                                                        <div class="price-box list-price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
-                                                        </div>
-                                                        <!-- Price List Box Area End Here -->
-                                                        <!-- Begin List Text -->
-                                                        <div class="list-text">
-                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eaque cumque provident sed, nemo amet iure neque excepturi minus et quos recusandae enim praesentium laudantium sapiente voluptates facere impedit ab!</p>
-                                                        </div>
-                                                        <!-- List Text End Here -->
-                                                        <!-- Begin Product Action Area -->
-                                                        <div class="product-action product-action-2">
-                                                            <div class="product-action-inner">
-                                                                <div class="cart">
-                                                                    <a href="shopping-cart.html">
-                                                                        <span>Add To Cart</span>
-                                                                    </a>
-                                                                </div>
-                                                                <ul class="add-to-links">
-                                                                    <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                    <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                    <li class="rav-quickviewbtn">
-                                                                        <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Product Action Area End Here -->
-                                                    </div>
-                                                    <!-- Product List Content Area End Here -->
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
