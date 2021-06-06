@@ -1274,13 +1274,8 @@
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <div class="product-pagination">
-                                                <ul>
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                    <li><a href="#">5</a></li>
-                                                    <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                                <ul class="pagination pagination-sm m-t-none m-b-none">
+                                                    {!!$brand_by_id->links()!!}
                                                 </ul>
                                             </div>
                                         </div>

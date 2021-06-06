@@ -101,3 +101,5 @@ Route::get('/checkout','CheckoutController@checkout');
 Route::post('/calculate-fee','CheckoutController@calculate_fee');
 Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
 Route::post('/confirm-order','CheckoutController@confirm_order');
+//  Danh muc san pham
+Route::get('/danh-muc/{slug_category_product}','CategoryProduct@show_category_home'); /// mi mo mic len di t roi t giai thich cho/ thoi met qua . de im t xem cai da
