@@ -101,5 +101,16 @@ Route::get('/checkout','CheckoutController@checkout');
 Route::post('/calculate-fee','CheckoutController@calculate_fee');
 Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
 Route::post('/confirm-order','CheckoutController@confirm_order');
+<<<<<<< du/manage-users
+/* User */
+Route::get('users','UserController@index')->middleware('auth.roles');
+Route::get('add-users','UserController@add_users')->middleware('auth.roles');
+Route::post('store-users','UserController@store_users');
+Route::get('delete-user-roles/{admin_id}','UserController@delete_user_roles')->middleware('auth.roles');
+Route::post('assign-roles','UserController@assign_roles')->middleware('auth.roles');
+Route::get('impersonate/{admin_id}','UserController@impersonate');
+Route::get('impersonate-destroy','UserController@impersonate_destroy');
+=======
 //  Danh muc san pham
 Route::get('/danh-muc/{slug_category_product}','CategoryProduct@show_category_home'); /// mi mo mic len di t roi t giai thich cho/ thoi met qua . de im t xem cai da
+>>>>>>> main

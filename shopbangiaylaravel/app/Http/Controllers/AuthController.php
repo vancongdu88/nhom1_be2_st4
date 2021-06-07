@@ -22,6 +22,7 @@ class AuthController extends Controller
 		$admin->admin_email = $data['admin_email'];
 		$admin->admin_password = md5($data['admin_password']);
 		$admin->save();
+		$admin->roles()->attach(Roles::where('name','author')->first());
 		return redirect('/register-auth')->with('message','Đăng ký thành công');
 
     }

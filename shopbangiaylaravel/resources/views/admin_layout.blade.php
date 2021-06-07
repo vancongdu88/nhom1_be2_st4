@@ -129,6 +129,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
+      @hasrole(['admin'])
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
         <i class="fa fa-user" aria-hidden="true"></i>
@@ -136,10 +137,12 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="blank.html">Danh sách Users</a>
+            <a class="collapse-item" href="{{URL::to('/add-users')}}">Thêm user</a>
+            <a class="collapse-item" href="{{URL::to('/users')}}">Danh sách users</a>
           </div>
         </div>
       </li>
+      @endhasrole
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCoupon" aria-expanded="true" aria-controls="collapsePages">
         <i class="fa fa-ticket" aria-hidden="true"></i>
@@ -152,7 +155,13 @@
           </div>
         </div>
       </li>
-
+      @impersonate
+      <li class="nav-item">
+        <a class="nav-link" href="{{URL::to('/impersonate-destroy')}}">
+        <i class="fa fa-ban" aria-hidden="true"></i>
+          <span>Stop chuyển quyền</span></a>
+      </li>
+      @endimpersonate
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -326,12 +335,17 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php
-          $name = Session::get('admin_name');
-          if($name){
-            echo $name;
-            
-          }
-          ?></span>
+                    if(Session::get('login_normal')){
+                        
+                        $name = Session::get('admin_name');
+                    }else{
+                        $name = Auth::user()->admin_name;
+                    }
+                   
+                    if($name){
+                        echo $name;   
+                    }
+                    ?></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->

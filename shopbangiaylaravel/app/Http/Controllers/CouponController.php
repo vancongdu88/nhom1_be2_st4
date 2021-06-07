@@ -6,12 +6,30 @@ use Illuminate\Http\Request;
 use App\Coupon;
 use Carbon\Carbon;
 use Session;
+use Auth;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
 class CouponController extends Controller
 {
+    public function AuthLogin(){
+        
+        if(Session::get('login_normal')){
+
+            $admin_id = Session::get('admin_id');
+        }else{
+            $admin_id = Auth::id();
+        }
+            if($admin_id){
+                return Redirect::to('dashboard');
+            }else{
+                return Redirect::to('admin')->send();
+            } 
+        
+       
+    }
     public function list_coupon(){
+        $this->AuthLogin();
         $today = Carbon::now('Asia/Ho_Chi_Minh')->format('Y/m/d');
     	$coupon = Coupon::orderby('coupon_id','DESC')->paginate(5);
     	return view('admin.coupon.list_coupon')->with(compact('coupon','today'));
@@ -31,6 +49,7 @@ class CouponController extends Controller
         }
 	}
     public function insert_coupon(){
+        $this->AuthLogin();
     	return view('admin.coupon.insert_coupon');
     }
     public function insert_coupon_code(Request $request){

@@ -21,20 +21,6 @@
                                 <!-- Shop Sidebar Area End-->
                                 <!-- Shop Sidebar Area -->
                                 <div class="category mt-30">
-                                    <h4>Color</h4>
-                                    <!-- Begin Category List Area -->
-                                    <div class="category-list">
-                                        @foreach($brand_name as $key => $name)
-                                        <ul>
-                                            <li><a href="#">{{$name->color}}</a></li>
-                                        </ul>
-                                        @endforeach
-                                    </div>
-                                    <!-- Category List Area End Here -->
-                                </div>
-                                <!-- Shop Sidebar Area End-->
-                                <!-- Shop Sidebar Area -->
-                                <div class="category mt-30">
                                     <h4>Filter</h4>
                                     <div class="price-filter">
                                         <div id="slider-range"></div>
