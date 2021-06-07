@@ -21,20 +21,6 @@
                                 <!-- Shop Sidebar Area End-->
                                 <!-- Shop Sidebar Area -->
                                 <div class="category mt-30">
-                                    <h4>Color</h4>
-                                    <!-- Begin Category List Area -->
-                                    <div class="category-list">
-                                        @foreach($brand_name as $key => $name)
-                                        <ul>
-                                            <li><a href="#">{{$name->color}}</a></li>
-                                        </ul>
-                                        @endforeach
-                                    </div>
-                                    <!-- Category List Area End Here -->
-                                </div>
-                                <!-- Shop Sidebar Area End-->
-                                <!-- Shop Sidebar Area -->
-                                <div class="category mt-30">
                                     <h4>Filter</h4>
                                     <div class="price-filter">
                                         <div id="slider-range"></div>
@@ -322,13 +308,8 @@
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <div class="product-pagination">
-                                                <ul>
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                    <li><a href="#">5</a></li>
-                                                    <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                                <ul class="pagination pagination-sm m-t-none m-b-none">
+                                                    {!!$brand_by_id->links()!!}
                                                 </ul>
                                             </div>
                                         </div>
