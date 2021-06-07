@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Brand;
 use Session;
+use Auth;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -13,12 +14,18 @@ session_start();
 class BrandProduct extends Controller
 {
     public function AuthLogin(){
-        $admin_id = Session::get('admin_id');
+        if(Session::get('login_normal')){
+
+            $admin_id = Session::get('admin_id');
+        }else{
+            $admin_id = Auth::id();
+        }
         if($admin_id){
             return Redirect::to('dashboard');
         }else{
             return Redirect::to('admin')->send();
-        }
+        } 
+
     }
     public function all_brand_product(){
         $this->AuthLogin();
@@ -115,11 +122,10 @@ class BrandProduct extends Controller
             $meta_desc = $val->brand_desc; 
             $meta_keywords = $val->brand_desc;
             $meta_title = $val->brand_name;
-            $meta_color = $val->color;
             $url_canonical = $request->url();
             //--seo
         }
         
-        return view('pages.brand.show_brand')->with('category',$cate_product)->with('brand',$brand_product)->with('brand_by_id',$brand_by_id)->with('brand_name',$brand_name)->with('meta_desc',$meta_desc)->with('meta_color',$meta_color)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        return view('pages.brand.show_brand')->with('category',$cate_product)->with('brand',$brand_product)->with('brand_by_id',$brand_by_id)->with('brand_name',$brand_name)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 }

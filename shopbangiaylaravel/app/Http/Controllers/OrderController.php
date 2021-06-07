@@ -13,6 +13,7 @@ use App\Product;
 use App\Statistic;
 use Carbon\Carbon;
 use Mail;
+use Auth;
 use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -21,12 +22,20 @@ session_start();
 class OrderController extends Controller
 {
     public function AuthLogin(){
-        $admin_id = Session::get('admin_id');
-        if($admin_id){
-            return Redirect::to('dashboard');
+        
+        if(Session::get('login_normal')){
+
+            $admin_id = Session::get('admin_id');
         }else{
-            return Redirect::to('admin')->send();
+            $admin_id = Auth::id();
         }
+            if($admin_id){
+                return Redirect::to('dashboard');
+            }else{
+                return Redirect::to('admin')->send();
+            } 
+        
+       
     }
     public function manage_order(){
         $this->AuthLogin();

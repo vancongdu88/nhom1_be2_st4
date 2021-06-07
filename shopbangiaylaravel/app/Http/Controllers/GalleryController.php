@@ -12,14 +12,23 @@ session_start();
 class GalleryController extends Controller
 {
     public function AuthLogin(){
-        $admin_id = Session::get('admin_id');
-        if($admin_id){
-            return Redirect::to('dashboard');
+        
+        if(Session::get('login_normal')){
+
+            $admin_id = Session::get('admin_id');
         }else{
-            return Redirect::to('admin')->send();
+            $admin_id = Auth::id();
         }
+            if($admin_id){
+                return Redirect::to('dashboard');
+            }else{
+                return Redirect::to('admin')->send();
+            } 
+        
+       
     }
     public function add_gallery($product_id){
+        $this->AuthLogin();
         $pro_id = $product_id;
      return view('admin.gallery.add_gallery')->with(compact('pro_id'));
  }
