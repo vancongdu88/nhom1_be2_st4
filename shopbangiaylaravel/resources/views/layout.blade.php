@@ -237,10 +237,13 @@
                                                 <li><a href="#"><i class="fa fa-search"></i>Search</a>
                                                     <ul class="dropdown header-search">
                                                         <li>
-                                                            <form action="#">
-                                                                <input type="text" name="Enter key words" value="Enter key words..." onblur="if(this.value==''){this.value='Enter key words...'}" onfocus="if(this.value=='Enter key words...'){this.value=''}">
+                                                            <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method="POST">
+                                                                {{csrf_field()}}
+                                                                <div class="search_box">
+                                                                    <input type="text" style="width: 100%" name="keywords_submit" id="keywords" placeholder="Enter key words..."/>
+                                                                    <input type="submit" style="margin-top:0;color:black;" name="search_items" class="btn btn-primary btn-sm" value="Search">
+                                                                </div>
                                                             </form>
-                                                            <button><i class="fa fa-search"></i></button>
                                                         </li>
                                                     </ul>
                                                 </li>
