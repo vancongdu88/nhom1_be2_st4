@@ -4510,16 +4510,20 @@ textarea:focus {
 	height: 60px;
 	line-height: 60px;
 	padding: 0 35px;
+	cursor: pointer;
 	transition: all 0.3s ease-in-out;
 }
 .qty-cart-btn:hover {
 	background: #333;
 }
-.qty-cart-btn > a {
+.qty-cart-btn > input {
   color: #fff;
   display: block;
   font-size: 17px;
   font-weight: 500;
+  background: transparent !important;
+  cursor: pointer;
+  border: none;
 }
 .group-btn {
 	border-bottom: 1px solid #e5e5e5;

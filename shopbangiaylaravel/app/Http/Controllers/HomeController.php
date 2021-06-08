@@ -49,7 +49,7 @@ class HomeController extends Controller
         $search_product = DB::table('tbl_product')->where('product_name','like','%'.$keywords.'%')->get(); 
 
 
-        return view('pages.sanpham.search')->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        return view('pages.sanpham.search')->with('keywords',$keywords)->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
 
     }
 }
