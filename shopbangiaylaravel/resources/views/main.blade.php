@@ -62,13 +62,7 @@
                                  <div class="main-menu main-menu-2">
                                      <nav>
                                          <ul>
-                                             <li class="active"><a href="index.html">Home</a>
-                                                 <!-- Begin Dropdown Menu Area -->
-                                                 <ul class="dropdown">
-                                                     <li><a href="index.html">Home Shop 1</a></li>
-                                                     <li><a href="index-2.html">Home Shop 2</a></li>
-                                                     <li><a href="index-3.html">Home Shop 3</a></li>
-                                                 </ul>
+                                             <li class="active"><a href="{{URL::to('/')}}">Home</a>
                                              </li>
                                                 <!-- List category -->
                                                 <li>
@@ -86,7 +80,7 @@
                                                 </li>
                                                 <!-- List brand -->
                                                 <li>
-                                                    <a href="shop.html">Bland</a>
+                                                    <a href="#">Brand</a>
                                                     <ul class="dropdown megamenu">
                                                         <li>
                                                             <h3 class="megamenu-title"><a href="#">Brand in Pages</a></h3>
@@ -133,12 +127,10 @@
                                                  <li><a href="#"><i class="fa fa-search"></i>Search</a>
                                                      <ul class="dropdown header-search">
                                                          <li>
-                                                            <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method="POST">
+                                                         <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method="POST">
                                                                 {{csrf_field()}}
-                                                                <div class="search_box">
-                                                                    <input type="text" style="width: 100%" name="keywords_submit" id="keywords" placeholder="Enter key words..."/>
-                                                                    <input type="submit" style="margin-top:0;color:black;" name="search_items" class="btn btn-primary btn-sm" value="Search">
-                                                                </div>
+                                                                <input type="text" name="keywords_submit" id="keywords" value="Enter key words..." onblur="if(this.value==''){this.value='Enter key words...'}" onfocus="if(this.value=='Enter key words...'){this.value=''}">
+                                                                <button type="submit" name="search_items"><i class="fa fa-search"></i></button>
                                                             </form>
                                                          </li>
                                                      </ul>

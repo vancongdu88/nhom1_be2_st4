@@ -82,16 +82,16 @@
             <!-- Begin Header Area -->
             <header>
                 <!-- Begin Main Header Area -->
-                <div class="main-header">
+                <div class="main-header stick header-sticky">
                     <div class="container">
                         <div class="row">
                             <!-- Begin Logo Area -->
                             <div class="col-lg-2 col-md-3 col-2">
-                                <div class="logo">
-                                    <a href="{{URL::to('/')}}">
-                                        <img src="{{asset('public/frontend/images/menu/logo/1.png')}}" alt="">
-                                    </a>
-                                </div>
+                            <div class="logo logo-2">
+                                <a href="{{URL::to('/')}}">
+                                    <img src="{{asset('public/frontend/images/menu/logo/3.png')}}" alt="">
+                                </a>
+                            </div>
                             </div>
                             <!-- Logo Area End Here -->
                             <!-- Begin Main Menu Area -->
@@ -239,10 +239,8 @@
                                                         <li>
                                                             <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method="POST">
                                                                 {{csrf_field()}}
-                                                                <div class="search_box">
-                                                                    <input type="text" style="width: 100%" name="keywords_submit" id="keywords" placeholder="Enter key words..."/>
-                                                                    <input type="submit" style="margin-top:0;color:black;" name="search_items" class="btn btn-primary btn-sm" value="Search">
-                                                                </div>
+                                                                <input type="text" name="keywords_submit" id="keywords" value="Enter key words..." onblur="if(this.value==''){this.value='Enter key words...'}" onfocus="if(this.value=='Enter key words...'){this.value=''}">
+                                                                <button type="submit" name="search_items"><i class="fa fa-search"></i></button>
                                                             </form>
                                                         </li>
                                                     </ul>
@@ -719,6 +717,52 @@ var total_after = $('.total_after').val();
 
 
 </script>
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('.add-to-cart').click(function(){
+
+                var id = $(this).data('id_product');
+                // alert(id);
+                var cart_product_id = $('.cart_product_id_' + id).val();
+                var cart_product_name = $('.cart_product_name_' + id).val();
+                var cart_product_image = $('.cart_product_image_' + id).val();
+                var cart_product_quantity = $('.cart_product_quantity_' + id).val();
+                var cart_product_price = $('.cart_product_price_' + id).val();
+                var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var _token = $('input[name="_token"]').val();
+
+                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+                }else{
+
+                    $.ajax({
+                        url: '{{url('/add-cart-ajax')}}',
+                        method: 'POST',
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+                        success:function(){
+
+                            swal({
+                                    title: "Đã thêm sản phẩm vào giỏ hàng",
+                                    text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Xem tiếp",
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Đi đến giỏ hàng",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    window.location.href = "{{url('/gio-hang')}}";
+                                });
+
+                        }
+
+                    });
+                }
+
+                
+            });
+        });
+    </script>
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->
