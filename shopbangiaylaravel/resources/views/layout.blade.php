@@ -98,115 +98,30 @@
                             <div class="col-lg-6 d-none d-lg-block d-xl-block">
                                 <div class="main-menu">
                                     <nav>
-                                        <ul>
-                                            <li class="active"><a href="index.html">Home</a>
-                                                <!-- Begin Dropdown Menu Area -->
-                                                <ul class="dropdown">
-                                                    <li><a href="index.html">Home Shop 1</a></li>
-                                                    <li><a href="index-2.html">Home Shop 2</a></li>
-                                                    <li><a href="index-3.html">Home Shop 3</a></li>
-                                                </ul>
-                                                <!-- Dropdown Menu Area End Here -->
-                                            </li>
-                                            <li><a href="shop.html">Shop</a>
-                                                <!-- Begin Megamenu Area -->
-                                                <ul class="dropdown mxegamenu">
-                                                    <!-- Begin Megamenu List Area -->
-                                                    <li>
-                                                        <h3 class="megamenu-title"><a href="#">Shop Grid Pages</a></h3>
-                                                        <ul>
-                                                            <li><a href="shop-3-column.html">Shop Three Column</a></li>
-                                                            <li><a href="shop-4-column.html">Shop Four Column</a></li>
-                                                            <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
-                                                            <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- Megamenu List Area End Here -->
-                                                    <!-- Begin Megamenu List Area -->
-                                                    <li>
-                                                        <h3 class="megamenu-title"><a href="#">Shop List Pages</a></h3>
-                                                        <ul>
-                                                            <li><a href="shop-list.html">Shop List</a></li>
-                                                            <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a></li>
-                                                            <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- Megamenu List Area End Here -->
-                                                    <!-- Begin Megamenu List Area -->
-                                                    <li>
-                                                        <h3 class="megamenu-title"><a href="#">Product Types</a></h3>
-                                                        <ul>
-                                                            <li><a href="product-details.html">Product Details</a></li>
-                                                            <li><a href="product-details-reverse.html">Product Details Reverse</a></li>
-                                                            <li><a href="product-details-2.html">Product Details-2</a></li>
-                                                            <li><a href="product-details-2-reverse.html">Product Details 2 Reverse</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- Megamenu List Area End Here -->
-                                                </ul>
-                                                <!-- Megamenu Area End Here -->
-                                            </li>
-                                            <li><a href="blog.html">Blog</a>
-                                                <!-- Begin Megamenu Area -->
-                                                <ul class="dropdown megamenu megamenu-3">
-                                                    <!-- Begin Megamenu List Area -->
-                                                    <li>
-                                                        <h3 class="megamenu-title"><a href="#">Blog Layouts</a></h3>
-                                                        <ul>
-                                                            <li><a href="blog-none-sidebar.html">Blog None Sidebar</a></li>
-                                                            <li><a href="blog-left-sidebar.html">Blog left Sidebar</a></li>
-                                                            <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- Megamenu List Area End Here -->
-                                                    <!-- Begin Megamenu List Area -->
-                                                    <li>
-                                                        <h3 class="megamenu-title"><a href="#">Blog Details</a></h3>
-                                                        <ul>
-                                                            <li><a href="blog-details-none-sidebar.html">Blog Details None Sidebar</a></li>
-                                                            <li><a href="blog-details-left-sidebar.html">Blog Details Left Sidebar</a></li>
-                                                            <li><a href="blog-details-right-sidebar.html">Blog Details Right Sidebar</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- Megamenu List Area End Here -->
-                                                    <!-- Begin Megamenu List Area -->
-                                                    <li>
-                                                        <h3 class="megamenu-title"><a href="#">Blog Format</a></h3>
-                                                        <ul>
-                                                            <li><a href="blog-image-format.html">Blog Image Format</a></li>
-                                                            <li><a href="blog-gallery-format.html">Blog Gallery Format</a></li>
-                                                            <li><a href="blog-video-format.html">Blog Video Format</a></li>
-                                                            <li><a href="blog-audio-format.html">Blog Audio Format</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- Megamenu List Area End Here -->
-                                                </ul>
-                                                <!-- Megamenu Area End Here -->
-                                            </li>
-                                            <li><a href="#">Pages</a>
-                                               <!-- Begin Dropdown Menu Area -->
-                                               <ul class="dropdown">
-                                                   <li><a href="login-register.html">My Account</a></li>
-                                                   <li><a href="wishlist.html">Wishlist</a></li>
-                                                   <li><a href="shopping-cart.html">Shopping Cart</a></li>
-                                                   <li><a href="checkout.html">Checkout</a></li>
-                                                   <li><a href="about-us.html">About Us</a></li>
-                                                   <li><a href="services.html">Services</a></li>
-                                                   <li><a href="faq.html">FAQ</a></li>
-                                                   <li><a href="404.html">Error 404</a></li>
-                                               </ul>
-                                               <!-- Dropdown Menu Area End Here --> 
-                                            </li>
-                                            <li><a href="portfolio.html">Portfolio</a>
-                                               <!-- Begin Dropdown Menu Area -->
-                                               <ul class="dropdown">
-                                                    <li><a href="portfolio-colums-3.html">Portfolio Columns 3</a></li>
-                                               </ul>
-                                               <!-- Dropdown Menu Area End Here -->
-                                               <!-- Dropdown Menu Area End Here --> 
-                                            </li>
+                                    <ul>
+                                             <li class="active"><a href="{{URL::to('/')}}">Home</a>
+                                             </li>
+                                                <!-- List category -->
+                                                <li>
+                                                    <a href="#">Category</a>
+                                                    <ul class="dropdown">
+                                                                @foreach($category as $key => $danhmuc)
+                                                                    <li><a href="{{URL::to('/danh-muc/'.$danhmuc->slug_category_product)}}">{{$danhmuc->category_name}}</a></li>
+                                                                @endforeach
+                                                    </ul>
+                                                </li>
+                                                <!-- List brand -->
+                                                <li>
+                                                    <a href="#">Brand</a>
+                                                    <ul class="dropdown">
+                                                                @foreach($brand as $key => $brand)
+                                                                <li><a href="{{URL::to('/thuong-hieu/'.$brand->brand_slug)}}"> <span class="pull-right"></span>{{$brand->brand_name}}</a></li>
+                                                                @endforeach
+                                                    </ul>
+                                                </li>
                                             <li><a href="{{URL::to('/lien-he')}}">Contact Us</a></li>
-                                        </ul>
+                                                <!-- end -->
+                                         </ul>
                                     </nav>
                                 </div>
                             </div>
@@ -637,6 +552,70 @@
             });
         });
     });  
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        
+        load_comment();
+
+        function load_comment(){
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{url('/load-comment')}}",
+              method:"POST",
+              data:{product_id:product_id, _token:_token},
+              success:function(data){
+              
+                $('#comment_show').html(data);
+              }
+            });
+        }
+        $('.send-comment').click(function(){
+            var product_id = $('.comment_product_id').val();
+            var comment_name = $('.comment_name').val();
+            var comment_content = $('.comment_content').val();
+            var comment_user_id = $('.comment_user_id').val();
+            var star_rating = $('.star-rating').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{url('/send-comment')}}",
+              method:"POST",
+              data:{product_id:product_id,comment_name:comment_name,comment_user_id:comment_user_id,star_rating:star_rating,comment_content:comment_content, _token:_token},
+              success:function(data){
+                $('.feedback').css('display','none');
+                $('#notify_comment').html('<p class="text text-success">Cảm ơn bạn đã đánh giá, bình luận đang chờ duyệt</p>');
+                load_comment();
+                $('#notify_comment').fadeOut(5000);
+                $('.comment_name').val('');
+                $('.comment_content').val('');
+              }
+            });
+        });
+    });
+</script>
+    <script type="text/javascript">
+
+    function checkforblank() {
+
+        var x = document.getElementsByClassName("location");
+        var i;
+        var index = 0;
+        for (i = 0; i < x.length; i++) {
+            if(x[i].value == ""){
+                x[i].classList.add("error");
+                index++;
+            }
+            else{
+                x[i].classList.remove("error");
+            }
+        }
+        if(index > 0){
+            alert('Please select your address');
+            return false
+        }
+    return true;
+}
     </script>
 
         <script type="text/javascript">

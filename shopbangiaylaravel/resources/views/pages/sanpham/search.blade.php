@@ -2,6 +2,7 @@
 @section('content')
             <div class="shop-topbar-area shop-topbar-area-reverse pt-100 pb-100">
                 <div class="container">
+            <h3>Kết quả tìm kiếm của từ khóa <span style="text-transform:none;">"{{$keywords}}"</span></h3>
                     <div class="row">
                         <div class="col-lg-12 order-1 order-lg-2">
                             <div class="shop-topbar-wrapper shop-list-topbar-wrapper">
@@ -25,6 +26,7 @@
                             </div>
                             <div class="shop-product">
                                 <!-- Begin Tab Menu Content Area -->
+                                @if (count($search_product) > 0)
                                 <div class="tab-content">
                                     <div id="grid" class="tab-pane show fade in active">
                                         <div class="grid-view">
@@ -158,6 +160,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @else
+                                <h4>Không có kết quả nào</h4>
+                                @endif
                                 <!-- Tab Menu Content Area End Here -->
                             </div>
                             

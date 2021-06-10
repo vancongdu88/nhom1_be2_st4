@@ -7,7 +7,7 @@
                             <div class="shop-sidebar shop-sidebar-reverse">
                                 <!-- Shop Sidebar Area -->
                                 <div class="category">
-                                    <h4>Categories</h4>
+                                    <h4>Brands</h4>
                                     <!-- Begin Category List Area -->
                                     <div class="category-list">
                                         @foreach($brand_name as $key => $name)

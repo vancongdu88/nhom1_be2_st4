@@ -11,6 +11,7 @@ use Storage;
 use App\Product;
 use App\Rating;
 use App\Gallery;
+use App\Comment;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -19,7 +20,8 @@ class ProductController extends Controller
     // product controller
     public function details_product($product_slug , Request $request){
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
-        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
+        
 
         $details_product = DB::table('tbl_product')
         ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
@@ -31,6 +33,22 @@ class ProductController extends Controller
             $product_id = $value->product_id;
             $product_cate = $value->category_name;
             $cate_slug = $value->slug_category_product;
+            $user_bought = $value->user_bought;
+            $user_bought = explode(",",$user_bought);
+            $user_bought_slot = count($user_bought);
+            $comment = Comment::where('comment_product_id',$product_id)->where('comment_parent_comment','=',0)->where('comment_status',0)->get();
+            $comment_count = $user_bought_slot;
+            if(Session::get('customer_id'))
+            {
+                $comment_user_now = Comment::where('comment_product_id',$product_id)->where('comment_parent_comment','=',0)->where('comment_user_id',Session::get('customer_id'))->get();
+                foreach($user_bought as $value2){
+                    if($value2 != Session::get('customer_id')){
+                        $user_bought_slot--;
+                    }
+                }
+                //luong comment sp cua nguoi dung
+                $comment_count = count($comment_user_now);
+            }
                 //seo 
                 $meta_desc = $value->product_desc;
                 $meta_keywords = $value->product_slug;
@@ -40,6 +58,7 @@ class ProductController extends Controller
                 $view = $value->product_views;
                 //--seo
             }
+            
 
         //gallery
          $gallery = Gallery::where('product_id',$product_id)->get();
@@ -55,9 +74,9 @@ class ProductController extends Controller
         ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
         ->where('tbl_category_product.category_id',$category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->orderby(DB::raw('RAND()'))->take(4)->get();
 
-        $rating = Rating::where('product_id',$product_id)->avg('rating');
+        $rating = Rating::where('product_id',$product_id)->where('rating_status',0)->avg('rating');
         $rating = round($rating);
-        return view('pages.sanpham.show_details')->with('category',$cate_product)->with('view',$view)->with('product',$product)->with('brand',$brand_product)->with('product_details',$details_product)->with('relate',$related_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('gallery',$gallery)->with('product_cate',$product_cate)->with('cate_slug',$cate_slug)->with('rating',$rating)->with('share_images',$share_images);
+        return view('pages.sanpham.show_details')->with('category',$cate_product)->with('comment',$comment)->with('comment_count',$comment_count)->with('user_bought_slot',$user_bought_slot)->with('view',$view)->with('product',$product)->with('brand',$brand_product)->with('product_details',$details_product)->with('relate',$related_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('gallery',$gallery)->with('product_cate',$product_cate)->with('cate_slug',$cate_slug)->with('rating',$rating)->with('share_images',$share_images);
 
     }
     public function AuthLogin(){
@@ -238,5 +257,102 @@ class ProductController extends Controller
 
    Session::put('message','Cập nhật sản phẩm thành công');
    return Redirect::to('all-product');
+}
+public function send_comment(Request $request){
+    $product_id = $request->product_id;
+    $star_rating = $request->star_rating;
+    $comment_name = $request->comment_name;
+    $comment_content = $request->comment_content;
+    $comment_user_id = $request->comment_user_id;
+    $comment = new Comment();
+    $comment->comment = $comment_content;
+    $comment->comment_name = $comment_name;
+    $comment->comment_product_id = $product_id;
+    $comment->comment_user_id = $comment_user_id;
+    $comment->comment_status = 1;
+    $comment->comment_parent_comment = 0;
+    $comment->save();
+    $rating = new Rating();
+    $rating->rating = $star_rating;
+    $rating->product_id = $product_id;
+    $rating->rating_status = 1;
+    $comment->rating()->save($rating);
+}
+public function load_comment(Request $request){
+    $product_id = $request->product_id;
+    $comment = Comment::where('comment_product_id',$product_id)->where('comment_parent_comment','=',0)->where('comment_status',0)->get();
+    $comment_rep = Comment::with('product')->where('comment_parent_comment','>',0)->get();
+    $output = '';
+    foreach($comment as $key => $comm){
+        $output.= ' 
+        <div class="comment-list">
+                                    <div class="user-img">
+                                        <img src="'.url('public/frontend/images/product-details/user.png').'" alt="">
+                                    </div>
+                                    <div class="user-details">
+                                        <p class="user-info"><span>'.$comm->comment_name.' -</span>'.$comm->comment_date.': </p>
+                                        <div class="rating user-rating">';
+                                        $rating = Rating::with('comment')->where('comment_comment_id',$comm->comment_id)->where('rating_status',0)->first();
+                                                for($x = 1; $x <= $rating->rating; $x++){
+                                                $output.='<i class="fa fa-star"></i>
+                                            ';}
+                                            $output.='
+                                        </div>
+                                        <span class="user-comment admin-comment">'.$comm->comment.'</span>
+                                    </div>';
+                                    foreach($comment_rep as $key => $rep_comment)  {
+                                        if($rep_comment->comment_parent_comment==$comm->comment_id)  {
+                                     $output.= '
+                                <div class="comment-list comment-list-2">
+                                    <div class="user-img" style="
+                                    width: 20%;
+                                    text-align: right;
+                                ">
+                                        <img src="'.url('public/frontend/images/product-details/admin.png').'" alt="">
+                                    </div>
+                                    <div class="user-details" style="
+                                    width: 80%;
+                                ">
+                                        <p class="user-info"><span>Admin</span></p>
+                                        <span class="user-comment admin-comment">'.$rep_comment->comment.'</span>
+                                    </div>
+                                </div>';
+                                        }
+    }
+}
+    echo $output;
+
+}
+public function list_comment(){
+    $this->AuthLogin();
+    $comment = Comment::with('product')->where('comment_parent_comment','=',0)->orderBy('comment_id','DESC')->paginate(6);
+    $comment_rep = Comment::with('product')->where('comment_parent_comment','>',0)->get();
+    return view('admin.comment.list_comment')->with(compact('comment','comment_rep'));
+}
+public function delete_comment($comment_id){
+    $this->AuthLogin();
+    DB::table('tbl_comment')->where('comment_id',$comment_id)->delete();
+    Session::put('message','Xóa bình luận thành công');
+    return Redirect::to('comment');
+}
+public function allow_comment(Request $request){
+    $data = $request->all();
+    $comment = Comment::find($data['comment_id']);
+    $comment->comment_status = $data['comment_status'];
+    $comment->save();
+    $rating = Rating::with('comment')->where('comment_comment_id',$data['comment_id'])->first();
+    $rating->rating_status = $data['rating_status'];
+    $rating->save();
+}
+public function reply_comment(Request $request){
+    $data = $request->all();
+    $comment = new Comment();
+    $comment->comment = $data['comment'];
+    $comment->comment_product_id = $data['comment_product_id'];
+    $comment->comment_parent_comment = $data['comment_id'];
+    $comment->comment_status = 0;
+    $comment->comment_name = 'Admin';
+    $comment->save();
+
 }
 }
