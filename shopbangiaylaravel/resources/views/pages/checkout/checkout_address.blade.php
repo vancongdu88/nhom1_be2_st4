@@ -7,13 +7,13 @@
                         <div class="col-md-12 col-lg-6">
                             <div class="contact-form-wrap">
                                 <h2 class="contact-title">TELL US YOUR ADDRESS</h2>
-                                <form method="POST" action="{{url('/calculate-fee')}}">
+                                <form method="POST" action="{{url('/calculate-fee')}}" onsubmit="return checkforblank()">
                                     @csrf
                                     <div class="row">
                                     <div class="col-md-12">
                                             <div class="country-select clearfix">
                                                 <label>Tỉnh/Thành phố <span class="required">*</span></label>
-                                                <select class="city choose" name="city" id="city">
+                                                <select class="city choose location"  name="city" id="city">
                                                   <option value="">--Chọn tỉnh thành phố--</option>
                                                   @foreach($city as $key => $ci)
                                             <option value="{{$ci->matp}}">{{$ci->name_city}}</option>
@@ -24,7 +24,7 @@
                                         <div class="col-md-12">
                                             <div class="country-select clearfix">
                                             <label>Quận/Huyện <span class="required">*</span></label>
-                                                <select class="province choose" name="province" id="province">
+                                                <select class="province choose location" name="province" id="province">
                                                 <option value="">--Chọn quận huyện--</option>
                                                 </select>
                                             </div>
@@ -32,7 +32,7 @@
                                         <div class="col-md-12">
                                             <div class="country-select clearfix">
                                             <label>Xã <span class="required">*</span></label>
-                                                <select class="wards" name="wards" id="wards">
+                                                <select class="wards location" name="wards" id="wards">
                                                 <option value="">--Chọn xã phường--</option>
                                                 </select>
                                             </div>

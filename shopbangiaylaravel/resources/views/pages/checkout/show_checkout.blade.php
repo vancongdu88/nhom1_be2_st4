@@ -139,7 +139,7 @@
                                             @if(Session::get('fee'))
                                             <tr class="cart-subtotal">
                                                 <th>Ship cost</th>
-                                                <td><span class="amount">{{number_format(Session::get('fee'),0,',','.')}}đ</span></td>
+                                                <td><span class="amount">{{number_format(Session::get('fee'),0,',','.')}}đ/ <a href="{{url('/changeaddress')}}"> Change address</a> </span></td>
                                             </tr>
                                             <?php $total_after_fee = $total + Session::get('fee'); ?>
                                             @endif

@@ -30,6 +30,13 @@ Route::get('/edit-product/{product_id}','ProductController@edit_product');
 Route::get('/unactive-product/{product_id}','ProductController@unactive_product');
 Route::get('/active-product/{product_id}','ProductController@active_product');
 Route::post('/update-product/{product_id}','ProductController@update_product');
+Route::post('/send-comment','ProductController@send_comment');
+Route::get('/comment','ProductController@list_comment');
+Route::get('/delete-comment/{comment_id}','ProductController@delete_comment');
+Route::post('/allow-comment','ProductController@allow_comment');
+Route::post('/reply-comment','ProductController@reply_comment');
+Route::post('/load-comment','ProductController@load_comment');
+
 /* Galery */
 Route::get('add-gallery/{product_id}','GalleryController@add_gallery');
 Route::post('select-gallery','GalleryController@select_gallery');
@@ -100,6 +107,7 @@ Route::post('/insert-coupon-code','CouponController@insert_coupon_code');
 Route::get('/delete-coupon/{coupon_id}','CouponController@delete_coupon');
 /* Checkout */
 Route::get('/checkaddress','CheckoutController@checkaddress');
+Route::get('/changeaddress','CheckoutController@changeaddress');
 Route::get('/checkout','CheckoutController@checkout');
 Route::post('/calculate-fee','CheckoutController@calculate_fee');
 Route::post('/select-delivery-home','CheckoutController@select_delivery_home');

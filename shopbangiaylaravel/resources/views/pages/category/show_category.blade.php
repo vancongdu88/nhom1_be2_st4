@@ -179,7 +179,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <div class="product-pagination">
-                                                {!!$category_by_id->links()!!}
+                                                {{$category_by_id->links()}}
                                             </div>
                                         </div>
                                     </div>

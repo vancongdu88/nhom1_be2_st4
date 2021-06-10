@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="csrf-token" content="{{csrf_token()}}">
 
   <title>SB Admin 2 - Dashboard</title>
 
@@ -152,6 +153,17 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{URL::to('/insert-coupon')}}">Thêm coupon</a>
             <a class="collapse-item" href="{{URL::to('/list-coupon')}}">Danh sách coupon</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComment" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fa fa-comments" aria-hidden="true"></i>
+          <span>Comments</span></span>
+        </a>
+        <div id="collapseComment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{URL::to('/comment')}}">Liệt kê comment</a>
           </div>
         </div>
       </li>
@@ -566,6 +578,60 @@
                 });
             
         }
+
+    });
+</script>
+<script type="text/javascript">
+    $('.comment_duyet_btn').click(function(){
+        var rating_status = $(this).data('rating_status');
+        var comment_status = $(this).data('comment_status');
+        var comment_id = $(this).data('comment_id');
+        var comment_product_id = $(this).attr('id');
+        if(comment_status==0){
+            var alert = 'Thay đổi thành duyệt thành công';
+        }else{
+            var alert = 'Thay đổi thành không duyệt thành công';
+        }
+          $.ajax({
+                url:"{{url('/allow-comment')}}",
+                method:"POST",
+
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{rating_status:rating_status,comment_status:comment_status,comment_id:comment_id,comment_product_id:comment_product_id},
+                success:function(data){
+                    location.reload();
+                   $('#notify_comment').html('<span class="text text-alert">'+alert+'</span>');
+
+                }
+            });
+
+
+    });
+    $('.btn-reply-comment').click(function(){
+        var comment_id = $(this).data('comment_id');
+
+        var comment = $('.reply_comment_'+comment_id).val();
+
+        var comment_product_id = $(this).data('product_id');
+        
+          $.ajax({
+                url:"{{url('/reply-comment')}}",
+                method:"POST",
+
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{comment:comment,comment_id:comment_id,comment_product_id:comment_product_id},
+                success:function(data){
+                    $('.reply_comment_'+comment_id).val('');
+                    location.reload();
+                   $('#notify_comment').html('<span class="text text-alert">Trả lời bình luận thành công</span>');
+
+                }
+            });
+
 
     });
 </script>

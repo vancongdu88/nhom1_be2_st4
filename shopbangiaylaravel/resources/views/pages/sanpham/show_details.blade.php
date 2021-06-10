@@ -62,13 +62,17 @@
                         </h5>
                         <!-- Product Name Area End Here -->
                         <!-- Begin Rating Area -->
+                        @if($rating > 0)
                         <div class="rating-2">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                        <?php
+                        for($x = 1; $x <= $rating; $x++){
+                         echo '<i class="fa fa-star"></i>';
+                        }
+                        ?>
                         </div>
+                        @else
+                        <p>Chưa có đánh giá</p>
+                        @endif
                         <!-- Rating Area End Here -->
                         <!-- Begin Review Area -->
                         <div class="review">
@@ -160,57 +164,39 @@
                 <div class="col-lg-3">
                     <ul class="nav vertical-product-tabs">
                         <li class="desc-tab active"><a data-toggle="tab" href="#description">Description</a></li>
-                        <li class="review-tab"><a data-toggle="tab" href="#riview">Review (2)</a></li>
+                        <li class="review-tab"><a data-toggle="tab" href="#riview">Review ({{count($comment)}})</a></li>
                     </ul>
                 </div>
                 <!-- Begin Vertical Tab Content Area -->
-                <div class="col-lg-9">
+                <div class="col-lg-9" style="border-left: 1px solid #ddd;">
                     <div class="tab-content vertical-tab-desc">
                         <div id="description" class="tab-pane show fade in active">
                         <p>{!!$value->product_desc!!}</p>
                         </div>
                         <div id="riview" class="tab-pane fade">
-                        <!-- Begin Reviws Area -->
-                        <div class="reviews">
+                                    <!-- Begin Reviws Area -->
+                                    <div class="reviews">
                             <div class="comments">
-                                <h2>2 reviews for Ornare sed consequat</h2>
-                                <div class="comment-list">
-                                    <div class="user-img">
-                                        <img src="{{asset('public/frontend/images/product-details/user.png')}}" alt="">
-                                    </div>
-                                    <div class="user-details">
-                                        <p class="user-info"><span>User -</span>March 23, 2015: </p>
-                                        <div class="rating user-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <span class="user-comment">Lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi.</span>
-                                    </div>
-                                <div class="comment-list comment-list-2">
-                                    <div class="user-img">
-                                        <img src="{{asset('public/frontend/images/product-details/admin.png')}}" alt="">
-                                    </div>
-                                    <div class="user-details">
-                                        <p class="user-info"><span>Admin -</span>March 23, 2015: </p>
-                                        <div class="rating user-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <span class="user-comment admin-comment">Thank You.</span>
-                                    </div>
+                            @if(count($comment) > 0)
+                                <h2>{{count($comment)}} reviews for {{$value->product_name}}</h2>
+                                <form>
+									@csrf
+									<input type="hidden" name="comment_product_id" class="comment_product_id" value="{{$value->product_id}}">
+									<div id="comment_show"></div>
+								</form>
+                            @else
+                            <p>Hãy là khách hàng đầu tiên đánh giá sản phầm này của chúng tôi</p>
+                            @endif
                                 </div>
                             </div>
-                        </div>
-                        <!-- Reviws Area End Here -->
+                                    <!-- Reviws Area End Here -->
                         <!-- Begin Feedback Area -->
                         <div class="feedback-area">
+                        <div id="notify_comment"></div>
+                        @if(Session::get('customer_id'))
+                        @if($comment_count < $user_bought_slot)
                             <div class="feedback">
+                            
                                 <h3 class="feedback-title">Our Feedback</h3>
                                 <form action="#">
                                     <p class="your-opinion">
@@ -227,25 +213,21 @@
                                     </p>
                                     <p class="feedback-form">
                                         <label for="feedback">Your Review</label>
-                                        <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+                                        <textarea id="feedback" class="comment_content" name="comment" cols="45" rows="8" aria-required="true"></textarea>
                                     </p>
                                     <div class="feedback-input">
-                                        <p class="feedback-form-author">
-                                            <label for="author">Name<span class="required">*</span>
-                                            </label>
-                                            <input id="author" name="author" value="" size="30" aria-required="true" type="text">
-                                        </p>
-                                        <p class="feedback-form-author feedback-form-email">
-                                            <label for="email">Email<span class="required">*</span>
-                                            </label>
-                                            <input id="email" name="email" value="" size="30" aria-required="true" type="text">
-                                        </p>
+                                    <input type="hidden" name="comment_product_id" class="comment_product_id" value="{{$value->product_id}}">
+                                            <input class="comment_name" value="{{Session::get('customer_name')}}" type="hidden">
+                                            <input class="comment_user_id" value="{{Session::get('customer_id')}}"  type="hidden">
+                                        
                                         <div class="qty-cart-btn feedback-btn">
-                                            <input type="submit" value="Submit">
+                                            <input type="button" value="Submit" class="send-comment">
                                         </div>
                                     </div>
                                 </form>
                             </div>
+                            @endif
+                        @endif
                         </div>
                         <!-- Feedback Area End Here -->
                         </div>
@@ -274,7 +256,7 @@
                 <div class="single-product">
                     <!-- Begin Featured Product Image Area -->
                     <div class="product-img">
-                        <a href="#">
+                        <a href="{{URL::to('/chi-tiet/'.$lienquan->product_slug)}}">
                         <img class="primary-img" src="{{URL::to('public/uploads/product/'.$lienquan->product_image)}}" alt="">
                         </a>
                         <div class="sticker"><span>Sale</span></div>

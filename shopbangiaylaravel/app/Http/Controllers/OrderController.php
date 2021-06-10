@@ -179,6 +179,7 @@ class OrderController extends Controller
 						$pro_remain = $product_quantity - $qty;
 						$product->product_quantity = $pro_remain;
 						$product->product_sold = $product_sold + $qty;
+                        $product->user_bought = $product->user_bought.','.$customer->customer_id;
 						$product->save();
 						//update doanh thu
 						$quantity+=$qty;

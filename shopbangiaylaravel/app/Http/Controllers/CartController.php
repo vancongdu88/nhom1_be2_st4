@@ -13,11 +13,13 @@ session_start();
 class CartController extends Controller
 {
     public function gio_hang(Request $request){
+        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
         $dem_hang = 0;
         if(Session::get('cart')){
             $dem_hang = count(Session::get('cart'));
         }
-   return view('pages.cart.cart_ajax',compact('dem_hang'));
+   return view('pages.cart.cart_ajax',compact('dem_hang',))->with('category',$cate_product)->with('brand',$brand_product);
 }
     public function add_cart_ajax(Request $request){
         // Session::forget('cart');

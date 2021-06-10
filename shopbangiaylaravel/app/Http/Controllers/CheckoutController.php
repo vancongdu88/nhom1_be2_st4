@@ -14,6 +14,7 @@ use App\Order;
 use App\Coupon;
 use App\OrderDetails;
 use App\Shipping;
+use App\Product;
 use App\Customer;
 use Mail;
 use App\Http\Requests;
@@ -99,7 +100,6 @@ class CheckoutController extends Controller
          'product_price' => $cart_mail['product_price'],
          'product_qty' => $cart_mail['product_qty']
        );
- 
      }
  
    }
@@ -141,7 +141,7 @@ class CheckoutController extends Controller
 $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
 $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
-return view('pages.checkout.login_checkout');
+return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product);
 }
 
 public function login_customer(Request $request){
@@ -195,7 +195,7 @@ public function logout_checkout(){
       $output = '';
       if($data['action']=="city"){
         $select_province = Province::where('matp',$data['ma_id'])->orderby('maqh','ASC')->get();
-        $output.='<option>---Chọn quận huyện---</option>';
+        $output.='<option value="">---Chọn quận huyện---</option>';
         foreach($select_province as $key => $province){
           $output.='<option value="'.$province->maqh.'">'.$province->name_quanhuyen.'</option>';
         }
@@ -203,7 +203,7 @@ public function logout_checkout(){
       }else{
   
         $select_wards = Wards::where('maqh',$data['ma_id'])->orderby('xaid','ASC')->get();
-        $output.='<option>---Chọn xã phường---</option>';
+        $output.='<option value="">---Chọn xã phường---</option>';
         foreach($select_wards as $key => $ward){
           $output.='<option value="'.$ward->xaid.'">'.$ward->name_xaphuong.'</option>';
         }
@@ -211,11 +211,22 @@ public function logout_checkout(){
       echo $output;
     }
   }
+  public function changeaddress(Request $request){
+
+    $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+    $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+    $city = City::orderby('matp','ASC')->get();
+    Session::forget('fee');
+    return view('pages.checkout.checkout_address')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+    }
    public function checkaddress(Request $request){
 
     $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
     $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
     $city = City::orderby('matp','ASC')->get();
+    if(Session::get('fee')==true){
+      return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+    }
     
     return view('pages.checkout.checkout_address')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
     }
