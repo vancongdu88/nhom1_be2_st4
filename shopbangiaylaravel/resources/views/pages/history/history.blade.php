@@ -66,7 +66,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                    {!!$getorder->links()!!}
+                                    <div class="coupon-all">
+                                    <div class="coupon2">{!!$getorder->links()!!}</div>
+                                    </div>
                                     </div>
                                 </div>
                             </form>
