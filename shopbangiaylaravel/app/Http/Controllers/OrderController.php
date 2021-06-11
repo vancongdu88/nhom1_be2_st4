@@ -78,6 +78,71 @@ class OrderController extends Controller
 		return view('admin.view_order')->with(compact('order_details','customer','shipping','coupon_condition','coupon_number','getorder','order_status'));
 
 	}
+	public function history(Request $request){
+		if(!Session::get('customer_id')){
+			return redirect('dang-nhap')->with('error','Vui lòng đăng nhập để xem lịch sử mua hàng');
+		}else{
+	        //seo 
+	        $meta_desc = "Lịch sử đơn hàng"; 
+	        $meta_keywords = "Lịch sử đơn hàng";
+	        $meta_title = "Lịch sử đơn hàng";
+	        $url_canonical = $request->url();
+	        //--seo
+	        
+	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+	        
+	        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+
+	        $getorder = Order::where('customer_id',Session::get('customer_id'))->orderby('order_id','DESC')->paginate(10);
+
+	    	return view('pages.history.history')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('getorder',$getorder); //1
+		}
+	}
+	public function view_history_order(Request $request,$order_code){
+		if(!Session::get('customer_id')){
+			return redirect('dang-nhap')->with('error','Vui lòng đăng nhập để xem lịch sử mua hàng');
+		}else{
+	        //seo 
+	        $meta_desc = "Lịch sử đơn hàng"; 
+	        $meta_keywords = "Lịch sử đơn hàng";
+	        $meta_title = "Lịch sử đơn hàng";
+	        $url_canonical = $request->url();
+	        //--seo
+	        
+	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+	        
+	        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+
+	        
+	        //xem lich sử
+	        $order_details = OrderDetails::with('product')->where('order_code',$order_code)->get();
+			$getorder = Order::where('order_code',$order_code)->first();
+			
+			$customer_id = $getorder->customer_id;
+			$shipping_id = $getorder->shipping_id;
+			$order_status = $getorder->order_status;
+			
+			$customer = Customer::where('customer_id',$customer_id)->first();
+			$shipping = Shipping::where('shipping_id',$shipping_id)->first();
+
+			$order_details_product = OrderDetails::with('product')->where('order_code', $order_code)->get();
+
+			foreach($order_details_product as $key => $order_d){
+
+				$product_coupon = $order_d->product_coupon;
+			}
+			if($product_coupon != 'no'){
+				$coupon = Coupon::where('coupon_code',$product_coupon)->first();
+				$coupon_condition = $coupon->coupon_condition;
+				$coupon_number = $coupon->coupon_number;
+			}else{
+				$coupon_condition = 2;
+				$coupon_number = 0;
+			}
+
+	    	return view('pages.history.view_history_order')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('order_details',$order_details)->with('customer',$customer)->with('shipping',$shipping)->with('coupon_condition',$coupon_condition)->with('coupon_number',$coupon_number)->with('getorder',$getorder)->with('order_status',$order_status)->with('order_code',$order_code); //1
+		}
+	}
     public function update_qty(Request $request){
 		$data = $request->all();
 		$order_details = OrderDetails::where('product_id',$data['order_product_id'])->where('order_code',$data['order_code'])->first();
