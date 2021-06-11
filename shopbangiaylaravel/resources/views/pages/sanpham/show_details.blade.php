@@ -112,39 +112,35 @@
                             <div class="product-meta">
                                 <p>
                                     Categories:
-                                    <a href="#">{{$value->meta_keywords}}</a>
+                                    <a href="#">{{$value->category_name}}</a>
+
+                                </p>
+                            </div>
+                            <div class="product-meta">
+                                <p>
+                                    Brand:
+                                    <a href="#">{{$value->brand_name}}</a>
 
                                 </p>
                             </div>
                             <div class="single-product-sharing">
-                                <h3>Share this product :</h3>
-                                <ul class="social-icon">
-                                    <li class="facebook">
-                                        <a class="_blank" data-toggle="tooltip" href="https://www.facebook.com/" title="Facebook" target="_blank">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li class="twetter">
-                                        <a class="_blank" data-toggle="tooltip" href="https://www.twitter.com/" title="Twetter" target="_blank">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="rss">
-                                        <a class="_blank" data-toggle="tooltip" href="https://www.rss.com/" title="RSS" target="_blank">
-                                            <i class="fa fa-rss"></i>
-                                        </a>
-                                    </li>
-                                    <li class="youtube">
-                                        <a class="_blank" data-toggle="tooltip" href="https://www.youtube.com/" title="Youtube" target="_blank">
-                                            <i class="fa fa-youtube"></i>
-                                        </a>
-                                    </li>
-                                    <li class="google-plus">
-                                        <a class="_blank" data-toggle="tooltip" href="https://www.plus.google.com/discover" title="Google Plus" target="_blank">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <h3>Tags :</h3>
+                                <div class="widge-list widge-tag-list">
+                                    <ul>
+                                    @php 
+											$tags = $value->product_tags;
+											$tags = explode(",",$tags);
+										@endphp
+                                        @foreach($tags as $tag)
+                                        <?php
+                                        $link = Str::slug($tag);
+                                        ?>
+                                        <li>
+                                            <a href="{{url('/tag/'.$link)}}">{{$tag}}</a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </form>
                     </div>

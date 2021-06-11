@@ -30,6 +30,7 @@ Route::get('/edit-product/{product_id}','ProductController@edit_product');
 Route::get('/unactive-product/{product_id}','ProductController@unactive_product');
 Route::get('/active-product/{product_id}','ProductController@active_product');
 Route::post('/update-product/{product_id}','ProductController@update_product');
+Route::get('/tag/{product_tag}','ProductController@tag');
 Route::post('/send-comment','ProductController@send_comment');
 Route::get('/comment','ProductController@list_comment');
 Route::get('/delete-comment/{comment_id}','ProductController@delete_comment');

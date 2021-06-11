@@ -158,7 +158,7 @@
                                                         <?php
                                                     }else{
                                                        ?>
-                                                       <li><a href="{{URL::to('/dang-nhap')}}"><i class="fa fa-unlock"></i>Login</a></li>
+                                                       <li><a href="{{URL::to('/dang-nhap')}}"><i class="fa fa-lock"></i>Login</a></li>
                                                        <?php 
                                                    }
                                                          ?>
