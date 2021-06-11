@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{('public/frontend/images/favicon.png')}}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('public/frontend/images/favicon.png')}}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/material-design-iconic-font.min.css')}}">
         <!-- Font Awesome -->
@@ -177,6 +177,7 @@
                                                         ?>
                                                         <li><a href="#"><i class="fa fa-user"></i>Hello {{$customer_name}}</a></li>
                                                          <li><a href="wishlist.html"><i class="fa fa-heart"></i>My Wishlist</a></li>
+                                                         <li><a href="{{URL::to('/history')}}"><i class="fa fa-history" aria-hidden="true"></i>History Order</a></li>
                                                          <li><a href="checkout.html"><i class="fa fa-check-square"></i>Checkout</a></li>
                                                          <li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-unlock"></i>Logout</a></li>
                                                         <?php
@@ -676,12 +677,11 @@ var total_after = $('.total_after').val();
                   data:{shipping_email:shipping_email,shipping_name:shipping_name,shipping_address:shipping_address,shipping_phone:shipping_phone,shipping_notes:shipping_notes,_token:_token,order_fee:order_fee,order_coupon:order_coupon,shipping_method:shipping_method},
                   success:function(){
                      swal("Đơn hàng", "Đơn hàng của bạn đã được gửi thành công", "success");
+                     window.setTimeout(function(){ 
+                     location.reload();
+                     } ,3000);
                   }
               });
-
-              // window.setTimeout(function(){ 
-              //     location.reload();
-              // } ,3000);
 
             } else {
               swal("Đóng", "Đơn hàng chưa được gửi, làm ơn hoàn tất đơn hàng", "error");

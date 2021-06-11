@@ -6,13 +6,15 @@
                         <!--Login Form Start-->
                         <div class="col-md-6 col-sm-6">
                             <div class="customer-login-register">
-                            <?php
-                            $message = Session::get('message');
-  if($message){
-    echo '<span class="text-alert">'.$message.'</span>';
-    Session::put('message',null);
-  }
-  ?>
+                            @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+							</div>
+							@endif
                                 <div class="form-login-title">
                                     <h2>Login</h2>
                                 </div>

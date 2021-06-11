@@ -134,7 +134,6 @@ class CheckoutController extends Controller
     Session::forget('coupon');
     Session::forget('fee');
     Session::forget('cart');
-    return Redirect::to('/');
  }
     public function login_checkout(Request $request){
 
@@ -220,7 +219,9 @@ public function logout_checkout(){
     return view('pages.checkout.checkout_address')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
     }
    public function checkaddress(Request $request){
-
+    if(!Session::get('cart')){
+			return redirect('gio-hang');
+		}else{
     $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
     $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
     $city = City::orderby('matp','ASC')->get();
@@ -229,15 +230,19 @@ public function logout_checkout(){
     }
     
     return view('pages.checkout.checkout_address')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+  }
     }
 
    public function checkout(){
-
+    if(!Session::get('fee')){
+			return redirect('history');
+		}else{
 $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
 $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 $city = City::orderby('matp','ASC')->get();
 
 return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+    }
 }
 public function calculate_fee(Request $request){
   $data = $request->all();

@@ -36,7 +36,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Tên người vận chuyển</th>
+                      <th>Tên người nhận</th>
                       <th>Địa chỉ</th>
                       <th>Số điện thoại</th>
                       <th>Email</th>
