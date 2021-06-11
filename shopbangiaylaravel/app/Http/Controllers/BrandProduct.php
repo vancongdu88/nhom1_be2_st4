@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Brand;
+use App\Product;
 use Session;
 use Auth;
 use App\Http\Requests;

@@ -1,49 +1,10 @@
 @extends('layout')
 @section('content')
-<div class="shop-topbar-area shop-topbar-area-reverse pt-100 pb-100">
+            <div class="shop-topbar-area shop-topbar-area-reverse pt-100 pb-100">
                 <div class="container">
+            <h3>Tag tìm kiếm <span style="text-transform:none;">"{{$tag}}"</span></h3>
                     <div class="row">
-                        <div class="col-lg-3 order-2 order-lg-1">
-                            <div class="shop-sidebar shop-sidebar-reverse">
-                                <!-- Shop Sidebar Area -->
-                                <div class="category">
-                                    <h4>Brands</h4>
-                                    <!-- Begin Category List Area -->
-                                    @php
-                                    use App\Product;
-                                    @endphp
-                                    <div class="category-list">
-                                        @foreach($brand as $key => $name)
-                                        @php
-                                        $product_brand = Product::where('brand_id',$name->brand_id)->get();
-                                        $product_num = count($product_brand);
-                                        @endphp
-                                        <ul>
-                                            <li><a href="{{URL::to('/thuong-hieu/'.$name->brand_slug)}}">{{$name->brand_name}} ({{$product_num}})</a></li>
-                                        </ul>
-                                        @endforeach
-                                    </div>
-                                    <!-- Category List Area End Here -->
-                                </div>
-                                <!-- Shop Sidebar Area End-->
-                                <!-- Shop Sidebar Area -->
-                                <div class="category mt-30">
-                                    <h4>Filter</h4>
-                                    <div class="price-filter">
-                                        <div id="slider-range"></div>
-                                        <div class="price-slider-amount">
-                                            <div class="label-input">
-                                                <label>price : </label>
-                                                <input type="text" id="amount" name="price"  placeholder="Add Your Price" />
-                                            </div>
-                                            <button type="button">Filter</button> 
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Shop Sidebar Area End-->
-                            </div>
-                        </div>
-                        <div class="col-lg-9 order-1 order-lg-2">
+                        <div class="col-lg-12 order-1 order-lg-2">
                             <div class="shop-topbar-wrapper shop-list-topbar-wrapper">
                                 <!-- Begin Grid List Area -->
                                 <div class="grid-list">
@@ -58,9 +19,6 @@
                                                 <i class="fa fa-th-list"></i>
                                             </a>
                                         </li>
-                                        @foreach($brand_name as $key => $name)
-                                        <li> <h3>{{$name->brand_name}}</h3></li>
-                                        @endforeach
                                     </ul>
                                 </div>
                                 
@@ -72,7 +30,7 @@
                                     <div id="grid" class="tab-pane show fade in active">
                                         <div class="grid-view">
                                             <div class="row">
-                                                @foreach($brand_by_id as $key => $product)
+                                            @foreach($pro_tag as $key => $product)
                                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                                     <!-- Begin Single Product Area -->
                                                     <div class="single-product single-product-3">
@@ -111,8 +69,8 @@
                                                             <!-- Product Name Area End Here -->
                                                             <!-- Begin Price Box Area -->
                                                             <div class="price-box">
-                                                                <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                                                 <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                                                <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                                             </div>
                                                             <!-- Price Box Area End Here -->
                                                             <!-- Begin Rating Area -->
@@ -136,7 +94,7 @@
                                     </div>
                                     <div id="list" class="tab-pane fade">
                                         <div class="list-view">
-                                            @foreach($brand_by_id as $key => $product)
+                                        @foreach($pro_tag as $key => $product)
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4">
                                                     <!-- Begin Product Image Area -->
@@ -172,7 +130,7 @@
                                                         <!-- Price List Box Area End Here -->
                                                         <!-- Begin List Text -->
                                                         <div class="list-text">
-                                                            <p>{!!$product->product_content!!}</p>
+                                                            <p>{{$product->product_content}}</p>
                                                         </div>
                                                         <!-- List Text End Here -->
                                                         <!-- Begin Product Action Area -->
@@ -203,24 +161,9 @@
                                 </div>
                                 <!-- Tab Menu Content Area End Here -->
                             </div>
-                            <!-- Begin Pagination Area -->
-                            <div class="pagination-area pagination-area-reverse">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-12 p-0">
-                                            <div class="product-pagination">
-                                                <ul class="pagination pagination-sm m-t-none m-b-none">
-                                                    {!!$brand_by_id->links()!!}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <!-- Pagination Area End Here -->
                         </div>
                     </div>
                 </div>
             </div>
-
 @endsection
