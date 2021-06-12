@@ -41,6 +41,8 @@ class CartController extends Controller
                 'product_image' => $data['cart_product_image'],
                 'product_quantity' => $data['cart_product_quantity'],
                 'product_qty' => $data['cart_product_qty'],
+                'product_color' => $data['cart_product_color'],
+                'product_size' => $data['cart_product_size'],
                 'product_price' => $data['cart_product_price'],
             );
             Session::put('cart',$cart);
@@ -53,6 +55,8 @@ class CartController extends Controller
             'product_image' => $data['cart_product_image'],
             'product_quantity' => $data['cart_product_quantity'],
             'product_qty' => $data['cart_product_qty'],
+            'product_color' => $data['cart_product_color'],
+            'product_size' => $data['cart_product_size'],
             'product_price' => $data['cart_product_price'],
 
         );
@@ -149,7 +153,32 @@ public function update_cart(Request $request){
     $cart = Session::get('cart');
     if($cart==true){
         $message = '';
+        foreach($data['cart_color'] as $key => $color){
+            $i = 0;
+            foreach($cart as $session => $val){
+                $i++;
 
+                if($val['session_id']==$key){
+
+                    $cart[$session]['product_color'] = $color;
+
+                }
+            }
+
+        }
+        foreach($data['cart_size'] as $key => $size){
+            $i = 0;
+            foreach($cart as $session => $val){
+                $i++;
+
+                if($val['session_id']==$key){
+
+                    $cart[$session]['product_size'] = $size;
+
+                }
+            }
+
+        }
         foreach($data['cart_qty'] as $key => $qty){
             $i = 0;
             foreach($cart as $session => $val){
@@ -158,7 +187,7 @@ public function update_cart(Request $request){
                 if($val['session_id']==$key && $qty<$cart[$session]['product_quantity']){
 
                     $cart[$session]['product_qty'] = $qty;
-                    $message.='<p style="color:blue">'.$i.') Cập nhật số lượng :'.$cart[$session]['product_name'].' thành công</p>';
+
 
                 }elseif($val['session_id']==$key && $qty>$cart[$session]['product_quantity']){
                     $message.='<p style="color:red">'.$i.') Cập nhật số lượng :'.$cart[$session]['product_name'].' thất bại</p>';
@@ -167,7 +196,7 @@ public function update_cart(Request $request){
             }
 
         }
-
+        $message.='<p class="mb-0" style="color:blue">Cập nhật số lượng sản phẩm thành công</p>';
         Session::put('cart',$cart);
         return redirect()->back()->with('message',$message);
     }else{

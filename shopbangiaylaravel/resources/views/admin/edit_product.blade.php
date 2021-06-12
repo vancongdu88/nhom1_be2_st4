@@ -80,8 +80,16 @@
                                             @else
                                             <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>
                                             @endif
-                                        @endforeach        
+                        @endforeach        
                         </select>                    
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail"> Màu sản phẩm</label>
+                      <input type="text" class="form-control" value="{{$pro->product_color}}" id="exampleInputEmail" data-role="tagsinput" name="product_colors">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail"> Size sản phẩm</label>
+                      <input type="text" class="form-control" value="{{$pro->product_size}}" id="exampleInputEmail" data-role="tagsinput" name="product_sizes">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail"> Tags sản phẩm</label>
@@ -96,7 +104,7 @@
                                              @else
                                             <option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
                                              @endif
-                                        @endforeach        
+                        @endforeach        
                         </select>                    
                     </div>
                     <div class="form-group">

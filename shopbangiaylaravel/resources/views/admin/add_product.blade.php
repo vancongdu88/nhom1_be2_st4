@@ -66,6 +66,14 @@
                         </select>                    
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputEmail"> Màu sản phẩm</label>
+                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_colors">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail"> Size sản phẩm</label>
+                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_sizes">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputEmail"> Tags sản phẩm</label>
                       <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_tags">
                     </div>

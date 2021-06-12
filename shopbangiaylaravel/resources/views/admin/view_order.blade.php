@@ -72,6 +72,8 @@
                       <th>Số lượng kho còn</th>
                       <th>Mã giảm giá</th>
                       <th>Phí ship hàng</th>
+                      <th>Màu</th>
+                      <th>Size</th>
                       <th>Số lượng</th>
                       <th>Giá bán</th>
                       <th>Giá gốc</th>
@@ -80,6 +82,7 @@
                   </thead>
                   <tbody>
                   @php 
+                  use App\Product;
           $total = 0;
           @endphp
           @foreach($order_details as $key => $details)
@@ -100,6 +103,35 @@
               @endif
             </td>
             <td>{{number_format($details->product_feeship ,0,',','.')}}đ</td>
+            <td>
+            <?php
+            $product = Product::where('product_id',$details->product_id)->first();
+            $colors = $product->product_color;
+            $colors = explode(",",$colors);
+            $sizes = $product->product_size;
+            $sizes = explode(",",$sizes);
+            ?>
+            <select {{$order_status==2 ? 'disabled' : ''}} class="order_color_{{$details->product_id}}" name="product_color">
+                @foreach($colors as $color)
+                @if($color == $details->product_color)
+                <option selected value="{{$color}}">{{$color}}</option>
+                @else
+                <option value="{{$color}}">{{$color}}</option>
+                @endif
+                @endforeach
+            </select>
+            </td>
+            <td>
+            <select {{$order_status==2 ? 'disabled' : ''}} class="order_size_{{$details->product_id}}" name="product_size">
+                @foreach($sizes as $size)
+                @if($size == $details->product_size)
+                <option selected value="{{$size}}">{{$size}}</option>
+                @else
+                <option value="{{$size}}">{{$size}}</option>
+                @endif
+                @endforeach
+            </select>
+            </td>
             <td>
             <input type="number" min="1" {{$order_status==2 ? 'disabled' : ''}} class="order_qty_{{$details->product_id}}" value="{{$details->product_sales_quantity}}" name="product_sales_quantity">
 

@@ -73,6 +73,8 @@ class CheckoutController extends Controller
        $order_details->product_id = $cart['product_id'];
        $order_details->product_name = $cart['product_name'];
        $order_details->product_price = $cart['product_price'];
+       $order_details->product_color = $cart['product_color'];
+       $order_details->product_size = $cart['product_size'];
        $order_details->product_sales_quantity = $cart['product_qty'];
        $order_details->product_coupon =  $data['order_coupon'];
        $order_details->product_feeship = $data['order_fee'];
@@ -98,6 +100,8 @@ class CheckoutController extends Controller
        $cart_array[] = array(
          'product_name' => $cart_mail['product_name'],
          'product_price' => $cart_mail['product_price'],
+         'product_color' => $cart_mail['product_color'],
+         'product_size' => $cart_mail['product_size'],
          'product_qty' => $cart_mail['product_qty']
        );
      }

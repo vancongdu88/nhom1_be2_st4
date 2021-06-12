@@ -147,6 +147,8 @@ class OrderController extends Controller
 		$data = $request->all();
 		$order_details = OrderDetails::where('product_id',$data['order_product_id'])->where('order_code',$data['order_code'])->first();
 		$order_details->product_sales_quantity = $data['order_qty'];
+		$order_details->product_color = $data['order_color'];
+		$order_details->product_size = $data['order_size'];
 		$order_details->save();
 	}
     public function update_order_qty(Request $request){
@@ -154,7 +156,6 @@ class OrderController extends Controller
 		$data = $request->all();
 		$order = Order::find($data['order_id']);
 		$order->order_status = $data['order_status'];
-		$order->save();
 		//send mail confirm
 		$now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
 		$title_mail = "Đơn hàng đã đặt được xác nhận".' '.$now;
@@ -178,8 +179,7 @@ class OrderController extends Controller
 
 				}
 			}
-		}
-
+    }
 		
 	  	//lay shipping
 	  	$details = OrderDetails::where('order_code',$order->order_code)->first();
@@ -278,6 +278,7 @@ class OrderController extends Controller
 
 
 		}
+		$order->save();
 
 
 	}

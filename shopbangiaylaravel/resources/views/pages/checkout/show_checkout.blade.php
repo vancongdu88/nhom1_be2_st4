@@ -126,7 +126,11 @@
 											$total+=$subtotal;
 										@endphp
                                             <tr class="cart_item">
-                                              <td class="cart-product-name"> {{$cart['product_name']}}<strong class="product-quantity"> × {{$cart['product_qty']}}</strong></td>
+                                              <td class="cart-product-name"> {{$cart['product_name']}}
+                                              <strong class="product-quantity"> Color( {{$cart['product_color']}} )</strong>
+                                              <strong class="product-quantity"> Size( {{$cart['product_size']}} )</strong>
+                                              <strong class="product-quantity"> × {{$cart['product_qty']}}</strong>
+                                              </td>
                                               <td class="cart-product-total"><span class="amount">{{number_format($subtotal,0,',','.')}}đ</span></td>  
                                             </tr>
                                             @endforeach
