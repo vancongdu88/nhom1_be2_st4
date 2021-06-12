@@ -118,6 +118,8 @@
             <th>Số lượng kho còn</th>
             <th>Mã giảm giá</th>
             <th>Phí ship hàng</th>
+            <th>Màu</th>
+            <th>Size</th>
             <th>Số lượng</th>
             <th>Giá bán</th>
             <th>Giá gốc</th>
@@ -150,6 +152,8 @@
               @endif
             </td>
             <td>{{number_format($details->product_feeship ,0,',','.')}}đ</td>
+            <td>{{$details->product_color}}</td>
+            <td>{{$details->product_size}}</td>
             <td>
 
             {{$details->product_sales_quantity}}

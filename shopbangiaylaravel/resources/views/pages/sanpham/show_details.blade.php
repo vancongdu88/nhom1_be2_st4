@@ -101,8 +101,36 @@
                             <div class="quantity">
                                 <input class="input-text qty text cart_product_qty_{{$value->product_id}}" step="1" min="1" max="200" name="quantity" value="1" title="Qty" size="4" type="number">
                             </div>
+                            
                             <div class="qty-cart-btn">
                                 <input type="button" class="add-to-cart" data-id_product="{{$value->product_id}}" name="add-to-cart" value="Add To Cart">
+                            </div>
+                            <div class="option mt-3">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                            <?php
+                            $colors = $value->product_color;
+                            $colors = explode(",",$colors);
+                            $sizes = $value->product_size;
+                            $sizes = explode(",",$sizes);
+                            ?>
+                            <select class="cart_product_color_{{$value->product_id}} location"  name="color" id="color">
+                                                  <option value="">--Chọn màu--</option>
+                                                  @foreach($colors as $color)
+                                            <option value="{{$color}}">{{$color}}</option>
+                                        @endforeach
+                            </select>
+                            </div>
+                            <div class="col-lg-3">
+                            <select class="cart_product_size_{{$value->product_id}} location"  name="size" id="size">
+                                                  <option value="">--Chọn size--</option>
+                                                  @foreach($sizes as $size)
+                                            <option value="{{$size}}">{{$size}}</option>
+                                        @endforeach
+                            </select>
+                                </div>
+                            </div>
+                            </div>
                             </div>
                             <div class="group-btn">
                                 <div class="qty-cart-btn qty-cart-btn-2">

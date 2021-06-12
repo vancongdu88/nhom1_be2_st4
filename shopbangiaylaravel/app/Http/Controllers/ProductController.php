@@ -151,6 +151,8 @@ class ProductController extends Controller
             $data['product_tags'] = $request->product_tags;
             $data['product_quantity'] = $request->product_quantity;
             $data['product_slug'] = $request->product_slug;
+            $data['product_color'] = $request->product_colors;
+            $data['product_size'] = $request->product_sizes;
             $data['product_price'] = $product_price;
             $data['product_desc'] = $request->product_desc;
             $data['product_content'] = $request->product_content;
@@ -237,6 +239,8 @@ class ProductController extends Controller
    $data['product_tags'] = $request->product_tags;
    $data['product_quantity'] = $request->product_quantity;
    $data['product_slug'] = $request->product_slug;
+   $data['product_color'] = $request->product_colors;
+   $data['product_size'] = $request->product_sizes;
    $data['product_price'] = $product_price;
    $data['product_desc'] = $request->product_desc;
    $data['product_content'] = $request->product_content;

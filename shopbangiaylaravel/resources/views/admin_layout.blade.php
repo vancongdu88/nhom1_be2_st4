@@ -507,6 +507,8 @@
     $('.update_quantity_order').click(function(){
         var order_product_id = $(this).data('product_id');
         var order_qty = $('.order_qty_'+order_product_id).val();
+        var order_color = $('.order_color_'+order_product_id).val();
+        var order_size = $('.order_size_'+order_product_id).val();
         var order_code = $('.order_code').val();
         var _token = $('input[name="_token"]').val();
         // alert(order_product_id);
@@ -517,11 +519,11 @@
 
                 method: 'POST',
 
-                data:{_token:_token, order_product_id:order_product_id ,order_qty:order_qty ,order_code:order_code},
+                data:{_token:_token, order_product_id:order_product_id ,order_qty:order_qty ,order_color:order_color, order_size:order_size , order_code:order_code},
                 // dataType:"JSON",
                 success:function(data){
 
-                    alert('Cập nhật số lượng thành công');
+                    alert('Cập nhật đơn hàng thành công');
                  
                    location.reload();
                     
@@ -543,6 +545,16 @@
         quantity = [];
         $("input[name='product_sales_quantity']").each(function(){
             quantity.push($(this).val());
+        });
+        //lay ra color
+        color = [];
+        $("select[name='product_color']").each(function(){
+            color.push($(this).val());
+        });
+        //lay ra size
+        size = [];
+        $("select[name='product_size']").each(function(){
+            size.push($(this).val());
         });
         //lay ra product id
         order_product_id = [];
@@ -570,7 +582,7 @@
                 $.ajax({
                         url : '{{url('/update-order-qty')}}',
                             method: 'POST',
-                            data:{_token:_token, order_status:order_status ,order_id:order_id ,quantity:quantity, order_product_id:order_product_id},
+                            data:{_token:_token, order_status:order_status ,order_id:order_id ,quantity:quantity, color:color, size:size, order_product_id:order_product_id},
                             success:function(data){
                                 alert('Thay đổi tình trạng đơn hàng thành công');
                                 location.reload();

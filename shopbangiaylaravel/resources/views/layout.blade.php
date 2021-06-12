@@ -612,7 +612,7 @@
             }
         }
         if(index > 0){
-            alert('Please select your address');
+            alert('Please select your option');
             return false
         }
     return true;
@@ -698,8 +698,26 @@ var total_after = $('.total_after').val();
 </script>
 <script type="text/javascript">
         $(document).ready(function(){
-            $('.add-to-cart').click(function(){
+            function checkforblank() {
 
+var x = document.getElementsByClassName("location");
+var i;
+var index = 0;
+for (i = 0; i < x.length; i++) {
+    if(x[i].value == ""){
+        x[i].classList.add("error");
+        index++;
+    }
+    else{
+        x[i].classList.remove("error");
+    }
+}
+if(index > 0){
+    return true;
+}
+return false;
+}
+            $('.add-to-cart').click(function(){
                 var id = $(this).data('id_product');
                 // alert(id);
                 var cart_product_id = $('.cart_product_id_' + id).val();
@@ -708,16 +726,22 @@ var total_after = $('.total_after').val();
                 var cart_product_quantity = $('.cart_product_quantity_' + id).val();
                 var cart_product_price = $('.cart_product_price_' + id).val();
                 var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var cart_product_color = $('.cart_product_color_' + id).val();
+                var cart_product_size = $('.cart_product_size_' + id).val();
                 var _token = $('input[name="_token"]').val();
-
-                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+                
+                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity && checkforblank())){
                     alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
-                }else{
-
+                }
+                else if(checkforblank()){
+                    alert("Please select your option");
+                }
+                
+                else{
                     $.ajax({
                         url: '{{url('/add-cart-ajax')}}',
                         method: 'POST',
-                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,cart_product_color:cart_product_color,cart_product_size:cart_product_size,_token:_token,cart_product_quantity:cart_product_quantity},
                         success:function(){
 
                             swal({
