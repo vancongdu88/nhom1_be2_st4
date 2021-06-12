@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //front end
 Route::get('/','HomeController@index');
+Route::get('/yeu-thich','HomeController@yeu_thich');
 //back end
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
@@ -102,4 +103,4 @@ Route::post('/calculate-fee','CheckoutController@calculate_fee');
 Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
 Route::post('/confirm-order','CheckoutController@confirm_order');
 //  Danh muc san pham
-Route::get('/danh-muc/{slug_category_product}','CategoryProduct@show_category_home'); /// mi mo mic len di t roi t giai thich cho/ thoi met qua . de im t xem cai da
+Route::get('/danh-muc/{slug_category_product}','CategoryProduct@show_category_home');
