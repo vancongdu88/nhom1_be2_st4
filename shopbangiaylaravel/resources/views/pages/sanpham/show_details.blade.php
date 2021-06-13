@@ -277,7 +277,32 @@
             <!-- Begin Single Related Product Area -->
             @foreach($relate as $key => $lienquan)
             <div class="col-lg-3 col-md-6 col-sm-6">
+            <?php
+                            $colors = $lienquan->product_color;
+                            $colors = explode(",",$colors);
+                            $sizes = $lienquan->product_size;
+                            $sizes = explode(",",$sizes);
+                            ?>
                 <div class="single-product">
+                <form>
+                @csrf
+                <input type="hidden" value="{{$lienquan->product_id}}" class="cart_product_relate_id_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productname{{$lienquan->product_id}}" value="{{$lienquan->product_name}}" class="cart_product_relate_name_{{$lienquan->product_id}}">
+                                          
+                                    <input type="hidden" value="{{$lienquan->product_quantity}}" class="cart_product_relate_quantity_{{$lienquan->product_id}}">
+                                            
+                                    <input type="hidden" value="{{$lienquan->product_image}}" class="cart_product_relate_image_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productprice{{$lienquan->product_id}}" value="{{number_format($lienquan->product_price,0,',','.')}}VNĐ">
+
+                                    <input type="hidden" value="{{$lienquan->product_price}}" class="cart_product_relate_price_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" value="1" class="cart_product_relate_qty_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" value="{{$colors[0]}}" class="cart_product_relate_color_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" value="{{$sizes[0]}}" class="cart_product_relate_size_{{$lienquan->product_id}}">
                     <!-- Begin Featured Product Image Area -->
                     <div class="product-img">
                         <a href="{{URL::to('/chi-tiet/'.$lienquan->product_slug)}}">
@@ -288,9 +313,7 @@
                         <div class="product-action">
                             <div class="product-action-inner">
                                 <div class="cart">
-                                    <a href="#">
-                                        <span>Add To Cart</span>
-                                    </a>
+                                <input type="button" value="Add To Cart" class="add-to-cart2" href="#" data-id_product="{{$lienquan->product_id}}" name="add-to-cart">
                                 </div>
                                 <ul class="add-to-links">
                                     <li  class="rav-wishlist"><a href="#" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
@@ -304,6 +327,7 @@
                         <!-- Product Action Area End Here -->
                     </div>
                     <!-- Featured Product Image Area End Here -->
+                    </form>
                     <!-- Begin Featured Product Content Area -->
                     <div class="product-contents">
                         <!-- Begin Featured Product Name Area -->

@@ -21,6 +21,9 @@ Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 Route::post('/admin-dashboard','AdminController@dashboard');
 Route::get('/logout','AdminController@logout');
+//login customer by google
+Route::get('/login-customer-google','AdminController@login_customer_google');
+Route::get('/customer/google/callback','AdminController@callback_customer_google');
 /* Product */
 Route::get('/add-product','ProductController@add_product');
 Route::get('/all-product','ProductController@all_product');
