@@ -36,6 +36,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/magnific-popup.css')}}">
         <!-- Bootstrap V4.1.3 Fremwork CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
+        <!-- Toast -->
+        <link rel="stylesheet" href="{{asset('public/frontend/css/toast.min.css')}}">
         <!-- SweetAlert -->
         <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
         <!-- Main Style CSS -->
@@ -525,8 +527,12 @@
         <script src="{{asset('public/frontend/js/jquery.nice-select.min.js')}}"></script>
         <!-- ScrollUp js -->
         <script src="{{asset('public/frontend/js/scrollUp.min.js')}}"></script>
+        <!-- Simple money -->
+        <script src="{{asset('public/frontend/js/simple.money.format.js')}}"></script>
         <!-- SweetAlert -->
         <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
+        <!-- Toast js -->
+        <script src="{{asset('public/frontend/toast.min.js')}}"></script>
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
 
@@ -734,7 +740,7 @@ return false;
                     alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
                 }
                 else if(checkforblank()){
-                    alert("Please select your option");
+                   alert("Please select your option");
                 }
                 
                 else{
@@ -814,6 +820,36 @@ return false;
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+           $( "#slider-range" ).slider({
+              orientation: "horizontal",
+              range: true,
+
+              min:{{$min_price_range}},
+              max:{{$max_price_range}},
+
+              steps:10000,
+              values: [ {{$min_price}}, {{$max_price}} ],
+             
+              slide: function( event, ui ) {
+                $( "#amount_start" ).val(ui.values[ 0 ]).simpleMoneyFormat();
+                $( "#amount_end" ).val(ui.values[ 1 ]).simpleMoneyFormat();
+
+
+                $( "#start_price" ).val(ui.values[ 0 ]);
+                $( "#end_price" ).val(ui.values[ 1 ]);
+
+              }
+
+            });
+
+            $( "#amount_start" ).val($( "#slider-range" ).slider("values",0)).simpleMoneyFormat();
+            $( "#amount_end" ).val($( "#slider-range" ).slider("values",1)).simpleMoneyFormat();
+
+        }); 
+</script>
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->

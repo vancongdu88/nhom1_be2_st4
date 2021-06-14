@@ -29,16 +29,21 @@
                                 <!-- Shop Sidebar Area -->
                                 <div class="category mt-30">
                                     <h4>Filter</h4>
+                                    <form>
                                     <div class="price-filter">
                                         <div id="slider-range"></div>
                                         <div class="price-slider-amount">
                                             <div class="label-input">
                                                 <label>price : </label>
-                                                <input type="text" id="amount" name="price"  placeholder="Add Your Price" />
+                                            <p><input type="text" id="amount_start" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
+                                            <p><input type="text" id="amount_end" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
                                             </div>
-                                            <button type="button">Filter</button> 
+                                            <input type="hidden" name="start_price" id="start_price">
+                                            <input type="hidden" name="end_price" id="end_price">
+                                            <button type="submit" name="filter_price" value="Lọc giá" class="btn btn-sm btn-default">Filter</button> 
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                                 <!-- Shop Sidebar Area End-->
                             </div>
@@ -222,5 +227,6 @@
                     </div>
                 </div>
             </div>
+            
 
 @endsection
