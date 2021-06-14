@@ -9,10 +9,16 @@
                             @if(session()->has('message'))
 							<div class="alert alert-success">
 								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
 							</div>
 							@elseif(session()->has('error'))
 							<div class="alert alert-danger">
 								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
 							</div>
 							@endif
                                 <div class="form-login-title">
@@ -37,6 +43,9 @@
                                             </label>
                                         </div>
                                         <div class="lost-password">
+                                        <a href="{{url('login-customer-google')}}">
+									           <img width="40%" alt="Đăng nhập bằng tài khoản google"  src="{{asset('public/frontend/images/login-gg.jpg')}}">
+								         </a>
                                             <a href="{{url('/quen-mat-khau')}}s">Lost your password?</a>
                                         </div>
                                     </form>
@@ -47,6 +56,14 @@
                         <!--Register Form Start-->
                         <div class="col-md-6 col-sm-6">
                             <div class="customer-login-register register-pt-0">
+                            @if(session()->has('error2'))
+							<div class="alert alert-danger">
+								{!! session()->get('error2') !!}
+                                <?php
+                                Session::forget('error2')
+                                ?>
+							</div>
+							@endif
                                 <div class="form-register-title">
                                     <h2>Register</h2>
                                 </div>

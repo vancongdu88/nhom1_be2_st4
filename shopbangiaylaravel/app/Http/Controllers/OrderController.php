@@ -156,6 +156,7 @@ class OrderController extends Controller
 		$data = $request->all();
 		$order = Order::find($data['order_id']);
 		$order->order_status = $data['order_status'];
+		$order->save();
 		//send mail confirm
 		$now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
 		$title_mail = "Đơn hàng đã đặt được xác nhận".' '.$now;
@@ -168,19 +169,25 @@ class OrderController extends Controller
 		foreach($data['order_product_id'] as $key => $product){
 				$product_mail = Product::find($product);
 				foreach($data['quantity'] as $key2 => $qty){
-
 				 	if($key==$key2){
-
-					$cart_array[] = array(
-						'product_name' => $product_mail['product_name'],
-						'product_price' => $product_mail['product_price'],
-						'product_qty' => $qty
-					);
-
+						foreach($data['color'] as $key3 => $color){
+							if($key==$key3){
+								foreach($data['size'] as $key4 => $size){
+									if($key==$key4){
+					            $cart_array[] = array(
+						            'product_name' => $product_mail['product_name'],
+						            'product_price' => $product_mail['product_price'],
+						            'product_qty' => $qty,
+						            'product_color' => $color,
+									'product_size' => $size
+					            );
+							}
+				        }
+				   }
 				}
 			}
+		}
     }
-		
 	  	//lay shipping
 	  	$details = OrderDetails::where('order_code',$order->order_code)->first();
 
@@ -278,7 +285,6 @@ class OrderController extends Controller
 
 
 		}
-		$order->save();
 
 
 	}

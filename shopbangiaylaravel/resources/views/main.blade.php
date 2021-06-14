@@ -359,6 +359,12 @@
                                      <!-- Begin Single Random Product Area -->
                                      @foreach($all_product as $key => $product)
                                      <div class="single-product single-featured-pro-2">
+                                     <?php
+                            $colors = $product->product_color;
+                            $colors = explode(",",$colors);
+                            $sizes = $product->product_size;
+                            $sizes = explode(",",$sizes);
+                            ?>
                                      <form>
                                      @csrf
                                      <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
@@ -374,6 +380,10 @@
                                     <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
 
                                     <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
+
+                                    <input type="hidden" value="{{$colors[0]}}" class="cart_product_color_{{$product->product_id}}">
+
+                                    <input type="hidden" value="{{$sizes[0]}}" class="cart_product_size_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
                                          <div class="product-img">
                                              <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
@@ -776,6 +786,8 @@
                 var cart_product_quantity = $('.cart_product_quantity_' + id).val();
                 var cart_product_price = $('.cart_product_price_' + id).val();
                 var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var cart_product_color = $('.cart_product_color_' + id).val();
+                var cart_product_size = $('.cart_product_size_' + id).val();
                 var _token = $('input[name="_token"]').val();
 
                 if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
@@ -785,7 +797,7 @@
                     $.ajax({
                         url: '{{url('/add-cart-ajax')}}',
                         method: 'POST',
-                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,cart_product_color:cart_product_color,cart_product_size:cart_product_size,_token:_token,cart_product_quantity:cart_product_quantity},
                         success:function(){
 
                             swal({

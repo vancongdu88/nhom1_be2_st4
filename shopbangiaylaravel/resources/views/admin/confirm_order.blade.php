@@ -91,11 +91,10 @@
 							<tr>
 								<th>Sản phẩm</th>
 								<th>Giá tiền</th>
-								<!-- <th>Màu</th>
-								<th>Size</th> -->
+								<th>Màu</th>
+								<th>Size</th>
 								<th>Số lượng đặt</th>
 								<th>Thành tiền</th>
-
 							</tr>
 						</thead>
 
@@ -115,8 +114,8 @@
 							<tr>
 								<td>{{$cart['product_name']}}</td>
 								<td>{{number_format($cart['product_price'],0,',','.')}}vnđ</td>
-								{{-- <td>{{$cart['product_color']}}</td>
-								<td>{{$cart['product_size']}}</td> --}}
+							    <td>{{$cart['product_color']}}</td>
+								<td>{{$cart['product_size']}}</td>
 								<td>{{$cart['product_qty']}}</td>
 								<td>{{number_format($sub_total,0,',','.')}}vnđ</td>
 							</tr>

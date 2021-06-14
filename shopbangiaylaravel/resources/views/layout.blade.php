@@ -766,6 +766,54 @@ return false;
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.add-to-cart2').click(function(){
+                var id = $(this).data('id_product');
+                // alert(id);
+                var cart_product_id = $('.cart_product_relate_id_' + id).val();
+                var cart_product_name = $('.cart_product_relate_name_' + id).val();
+                var cart_product_image = $('.cart_product_relate_image_' + id).val();
+                var cart_product_quantity = $('.cart_product_relate_quantity_' + id).val();
+                var cart_product_price = $('.cart_product_relate_price_' + id).val();
+                var cart_product_qty = $('.cart_product_relate_qty_' + id).val();
+                var cart_product_color = $('.cart_product_relate_color_' + id).val();
+                var cart_product_size = $('.cart_product_relate_size_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                
+                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+                }
+                
+                else{
+                    $.ajax({
+                        url: '{{url('/add-cart-ajax')}}',
+                        method: 'POST',
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,cart_product_color:cart_product_color,cart_product_size:cart_product_size,_token:_token,cart_product_quantity:cart_product_quantity},
+                        success:function(){
+
+                            swal({
+                                    title: "Đã thêm sản phẩm vào giỏ hàng",
+                                    text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Xem tiếp",
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Đi đến giỏ hàng",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    window.location.href = "{{url('/gio-hang')}}";
+                                });
+
+                        }
+
+                    });
+                }
+
+                
+            });
+        });
+    </script>
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->
