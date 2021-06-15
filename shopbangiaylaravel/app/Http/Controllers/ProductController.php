@@ -53,6 +53,7 @@ class ProductController extends Controller
                 $meta_desc = $value->product_desc;
                 $meta_keywords = $value->product_slug;
                 $meta_title = $value->product_name;
+                $bread_crumb = 'Detail';
                 $url_canonical = $request->url();
                 $share_images = url('public/uploads/product/'.$value->product_image);
                 $view = $value->product_views;
@@ -76,7 +77,7 @@ class ProductController extends Controller
 
         $rating = Rating::where('product_id',$product_id)->where('rating_status',0)->avg('rating');
         $rating = round($rating);
-        return view('pages.sanpham.show_details')->with('category',$cate_product)->with('comment',$comment)->with('comment_count',$comment_count)->with('user_bought_slot',$user_bought_slot)->with('view',$view)->with('product',$product)->with('brand',$brand_product)->with('product_details',$details_product)->with('relate',$related_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('gallery',$gallery)->with('product_cate',$product_cate)->with('cate_slug',$cate_slug)->with('rating',$rating)->with('share_images',$share_images);
+        return view('pages.sanpham.show_details')->with('bread_crumb',$bread_crumb)->with('category',$cate_product)->with('comment',$comment)->with('comment_count',$comment_count)->with('user_bought_slot',$user_bought_slot)->with('view',$view)->with('product',$product)->with('brand',$brand_product)->with('product_details',$details_product)->with('relate',$related_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('gallery',$gallery)->with('product_cate',$product_cate)->with('cate_slug',$cate_slug)->with('rating',$rating)->with('share_images',$share_images);
 
     }
     public function tag(Request $request, $product_tag){
@@ -95,7 +96,7 @@ class ProductController extends Controller
 
        $meta_desc = 'Tags tìm kiếm::'.$product_tag;
        $meta_keywords = 'Tags tìm kiếm:'.$product_tag;
-       $meta_title = 'Tags tìm kiếm:'.$product_tag;
+       $meta_title = 'Tags tìm kiếm';
        $url_canonical = $request->url();
        
 

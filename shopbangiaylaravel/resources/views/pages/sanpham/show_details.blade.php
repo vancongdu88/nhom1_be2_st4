@@ -102,8 +102,8 @@
                                 <input class="input-text qty text cart_product_qty_{{$value->product_id}}" step="1" min="1" max="200" name="quantity" value="1" title="Qty" size="4" type="number">
                             </div>
                             
-                            <div class="qty-cart-btn">
-                                <input type="button" class="add-to-cart" data-id_product="{{$value->product_id}}" name="add-to-cart" value="Add To Cart">
+                            <div class="qty-cart-btn" data-id_product="{{$value->product_id}}">
+                                <input type="button" class="add-to-cart" name="add-to-cart" value="Add To Cart">
                             </div>
                             <div class="option mt-3">
                                 <div class="row">
@@ -265,7 +265,7 @@
 @endforeach
             <!-- Vertical Tab Area End Here -->
             <!-- Begin Related Product Section -->
-<section class="new-product featured-pro-3 related-product related-product-2 pt-45 pb-80">
+<section class="new-product featured-pro-3 related-product related-product-2 pt-45 pb-80 pt-5">
     <div class="container">
         <!-- Begin Featured Product Title Area -->
         <div class="pos-title pos-title-2">

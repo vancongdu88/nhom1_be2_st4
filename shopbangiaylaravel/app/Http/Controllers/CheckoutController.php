@@ -142,9 +142,14 @@ class CheckoutController extends Controller
     public function login_checkout(Request $request){
 
 $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
-$brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+$brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
+//seo 
+$meta_title = "Đăng nhập";
+$bread_crumb = 'Setting';
+$url_canonical = $request->url();
+      //--seo 
 
-return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product);
+return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_title',$meta_title)->with('bread_crumb',$bread_crumb)->with('url_canonical',$url_canonical);
 }
 
 public function login_customer(Request $request){
@@ -159,6 +164,7 @@ public function login_customer(Request $request){
 if($result){
   Session::put('customer_id',$result->customer_id);
   Session::put('customer_name',$result->customer_name);
+  Session::put('back',0);
   return Redirect::to('/');
 }else{
   Session::put('error','Mật khẩu hoặc tài khoản bị sai.Làm ơn nhập lại');
@@ -172,7 +178,7 @@ public function logout_checkout(){
     Session::forget('customer_id');
     Session::forget('customer_name');
     Session::forget('coupon');
-   
+    Session::put('notification_logout',0);
     return Redirect::to('/');
    }
    public function add_customer(Request $request){
@@ -196,6 +202,7 @@ public function logout_checkout(){
      
       Session::put('customer_id',$customer_id);
       Session::put('customer_name',$request->customer_name);
+      Session::put('notification',0);
     }
     return Redirect::to('/');
    }
@@ -233,26 +240,34 @@ public function logout_checkout(){
     if(!Session::get('cart')){
 			return redirect('gio-hang');
 		}else{
-    $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
-    $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
-    $city = City::orderby('matp','ASC')->get();
+      $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+      $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+      $city = City::orderby('matp','ASC')->get();
+      //seo
+  $bread_crumb = "Checkout Processing";
+  $meta_title = "Địa chỉ giao hàng";
+  $url_canonical = $request->url();
     if(Session::get('fee')==true){
-      return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+      return Redirect::to('/checkout');
     }
     
-    return view('pages.checkout.checkout_address')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+    return view('pages.checkout.checkout_address',compact('meta_title','url_canonical','bread_crumb'))->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
   }
     }
 
-   public function checkout(){
+   public function checkout(Request $request){
     if(!Session::get('fee')){
 			return redirect('history');
 		}else{
 $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
 $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 $city = City::orderby('matp','ASC')->get();
+//seo
+  $bread_crumb = "Checkout Processing";
+  $meta_title = "Thanh toán";
+  $url_canonical = $request->url();
 
-return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+return view('pages.checkout.show_checkout',compact('meta_title','url_canonical','bread_crumb'))->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
     }
 }
 public function calculate_fee(Request $request){

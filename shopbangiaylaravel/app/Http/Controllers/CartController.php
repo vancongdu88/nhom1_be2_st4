@@ -16,10 +16,15 @@ class CartController extends Controller
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
         $dem_hang = 0;
+        $meta_desc = "Giỏ hàng của bạn"; 
+        $bread_crumb = 'Cart';
+        $meta_keywords = "Giỏ hàng Ajax";
+        $meta_title = "Giỏ hàng của bạn";
+        $url_canonical = $request->url();
         if(Session::get('cart')){
             $dem_hang = count(Session::get('cart'));
         }
-   return view('pages.cart.cart_ajax',compact('dem_hang',))->with('category',$cate_product)->with('brand',$brand_product);
+   return view('pages.cart.cart_ajax',compact('dem_hang','meta_title','url_canonical','bread_crumb'))->with('category',$cate_product)->with('brand',$brand_product);
 }
     public function add_cart_ajax(Request $request){
         // Session::forget('cart');
@@ -28,9 +33,12 @@ class CartController extends Controller
     $cart = Session::get('cart');
     if($cart==true){
         $is_avaiable = 0;
+        $key_cart = 0;
         foreach($cart as $key => $val){
-            if($val['product_id']==$data['cart_product_id']){
+            if($val['product_id']==$data['cart_product_id'] && $val['product_color']==$data['cart_product_color'] && $val['product_size']==$data['cart_product_size']){
                 $is_avaiable++;
+                $cart[$key]['product_qty'] = $val['product_qty'] + $data['cart_product_qty'];
+                Session::put('cart',$cart);
             }
         }
         if($is_avaiable == 0){
@@ -62,7 +70,6 @@ class CartController extends Controller
         );
         Session::put('cart',$cart);
     }
-
     Session::save();
 
 }

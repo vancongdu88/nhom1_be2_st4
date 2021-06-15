@@ -36,6 +36,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/magnific-popup.css')}}">
         <!-- Bootstrap V4.1.3 Fremwork CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
+        <!-- Toasty -->
+        <link rel="stylesheet" href="{{asset('public/frontend/css/toasty.min.css')}}">
         <!-- SweetAlert -->
         <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
         <!-- Main Style CSS -->
@@ -66,33 +68,24 @@
                                              </li>
                                                 <!-- List category -->
                                                 <li>
-                                                    <a href="shop.html">Category</a>
-                                                    <ul class="dropdown megamenu">
-                                                        <li>
-                                                            <h3 class="megamenu-title"><a href="#">Shop Grid Pages</a></h3>
-                                                            <ul>
+                                                <a href="#">Category</a>
+                                                    <ul class="dropdown">
                                                                 @foreach($category as $key => $danhmuc)
                                                                     <li><a href="{{URL::to('/danh-muc/'.$danhmuc->slug_category_product)}}">{{$danhmuc->category_name}}</a></li>
                                                                 @endforeach
-                                                            </ul>
-                                                        </li>
                                                     </ul>
                                                 </li>
                                                 <!-- List brand -->
                                                 <li>
-                                                    <a href="#">Brand</a>
-                                                    <ul class="dropdown megamenu">
-                                                        <li>
-                                                            <h3 class="megamenu-title"><a href="#">Brand in Pages</a></h3>
-                                                            <ul>
+                                                <a href="#">Brand</a>
+                                                    <ul class="dropdown">
                                                                 @foreach($brand as $key => $brand)
                                                                 <li><a href="{{URL::to('/thuong-hieu/'.$brand->brand_slug)}}"> <span class="pull-right"></span>{{$brand->brand_name}}</a></li>
                                                                 @endforeach
-                                                            </ul>
-                                                        </li>
                                                     </ul>
                                                 </li>
                                                 <!-- end -->
+                                                <li><a href="{{URL::to('/lien-he')}}">Contact Us</a></li>
                                          </ul>
                                      </nav>
                                  </div>
@@ -772,6 +765,8 @@
         <script src="{{asset('public/frontend/js/scrollUp.min.js')}}"></script>
         <!-- SweetAlert -->
         <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
+        <!-- Toasty -->
+        <script src="{{asset('public/frontend/js/toasty.min.js')}}"></script>
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
         <script type="text/javascript">
@@ -822,6 +817,51 @@
             });
         });
     </script>
+
+    @if(session()->has('notification_logout'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.success("Đăng xuất thành công",5000);
+    });
+    <?php
+    Session::forget('notification_logout')
+    ?>
+   </script>
+   @endif
+
+    @if(session()->has('notification'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideUpDownFade",
+                progressBar: true,
+            });
+    toast.success("Chào mừng bạn đến với shop giày của chúng tôi",5000);
+    });
+    <?php
+    Session::forget('notification')
+    ?>
+   </script>
+   @endif
+
+    @if(session()->has('back'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideUpDownFade",
+                progressBar: true,
+            });
+    toast.success("Chào mừng bạn trở lại",5000);
+    });
+    <?php
+    Session::forget('back')
+    ?>
+   </script>
+   @endif
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->

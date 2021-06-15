@@ -29,11 +29,11 @@
                                     {{csrf_field()}}
                                         <div class="form-fild">
                                             <label>Username or email address <span class="required">*</span></label>
-                                            <input name="email_account" value="" type="text">
+                                            <input name="email_account" value="" type="text" required>
                                         </div>
                                         <div class="form-fild">
                                             <label>Password <span class="required">*</span></label>
-                                            <input name="password_account" value="" type="password">
+                                            <input name="password_account" value="" type="password" required>
                                         </div>
                                         <div class="login-submit">
                                             <button type="submit" class="form-button">Login</button>
@@ -56,8 +56,10 @@
                         <!--Register Form Start-->
                         <div class="col-md-6 col-sm-6">
                             <div class="customer-login-register register-pt-0">
+                            <div class="alert-success"></div>
+                            <div class="alert-danger"></div>
                             @if(session()->has('error2'))
-							<div class="alert alert-danger">
+							<div class="alert alert-danger notify-re">
 								{!! session()->get('error2') !!}
                                 <?php
                                 Session::forget('error2')
@@ -68,23 +70,23 @@
                                     <h2>Register</h2>
                                 </div>
                                 <div class="register-form">
-                                    <form action="{{URL::to('/add-customer')}}" method="POST">
+                                    <form name="form-re" action="{{URL::to('/add-customer')}}" onsubmit="return validate()" method="POST">
                                     {{ csrf_field() }}
                                         <div class="form-fild">
                                             <label>Username <span class="required">*</span></label>
-                                            <input name="customer_name" value="" type="text">
+                                            <input name="customer_name" value="" type="text" required>
                                         </div>
                                         <div class="form-fild">
                                             <label>Your email <span class="required">*</span></label>
-                                            <input name="customer_email" value="" type="text">
+                                            <input name="customer_email" value="" type="text" required>
                                         </div>
                                         <div class="form-fild">
                                             <label>Phone <span class="required">*</span></label>
-                                            <input name="customer_phone" value="" type="text">
+                                            <input name="customer_phone" value="" type="text" required>
                                         </div>
                                         <div class="form-fild">
                                             <label>Password <span class="required">*</span></label>
-                                            <input name="customer_password" value="" type="password">
+                                            <input name="customer_password" value="" type="password" required>
                                         </div>
                                         <div class="register-submit">
                                             <button type="submit" class="form-button">Register</button>

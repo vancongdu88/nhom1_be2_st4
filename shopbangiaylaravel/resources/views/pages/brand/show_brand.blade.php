@@ -19,7 +19,7 @@
                                         $product_num = count($product_brand);
                                         @endphp
                                         <ul>
-                                            <li><a href="{{URL::to('/thuong-hieu/'.$name->brand_slug)}}">{{$name->brand_name}} ({{$product_num}})</a></li>
+                                            <li style="text-transform: capitalize"><a href="{{URL::to('/thuong-hieu/'.$name->brand_slug)}}">{{$name->brand_name}} ({{$product_num}})</a></li>
                                         </ul>
                                         @endforeach
                                     </div>
@@ -214,8 +214,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <div class="product-pagination">
-                                                <ul class="pagination pagination-sm m-t-none m-b-none">
-                                                    {!!$brand_by_id->links()!!}
+                                                <ul class="pagination pagination-sm m-t-none m-b-none justify-content-end">
                                                 </ul>
                                             </div>
                                         </div>
