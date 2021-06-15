@@ -4623,6 +4623,9 @@ textarea:focus {
 	max-width: 100%;
 	text-align: justify;
 }
+.body-wrapper{
+	z-index: 1;
+}
 #riview {
   height: 100%;
   padding: 34px 40px 38px 40px;

@@ -85,6 +85,7 @@ class OrderController extends Controller
 	        //seo 
 	        $meta_desc = "Lịch sử đơn hàng"; 
 	        $meta_keywords = "Lịch sử đơn hàng";
+			$bread_crumb = 'Đơn hàng của bạn';
 	        $meta_title = "Lịch sử đơn hàng";
 	        $url_canonical = $request->url();
 	        //--seo
@@ -95,7 +96,7 @@ class OrderController extends Controller
 
 	        $getorder = Order::where('customer_id',Session::get('customer_id'))->orderby('order_id','DESC')->paginate(5);
 
-	    	return view('pages.history.history')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('getorder',$getorder); //1
+	    	return view('pages.history.history')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('bread_crumb',$bread_crumb)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('getorder',$getorder); //1
 		}
 	}
 	public function view_history_order(Request $request,$order_code){
@@ -105,7 +106,8 @@ class OrderController extends Controller
 	        //seo 
 	        $meta_desc = "Lịch sử đơn hàng"; 
 	        $meta_keywords = "Lịch sử đơn hàng";
-	        $meta_title = "Lịch sử đơn hàng";
+			$bread_crumb = 'Đơn hàng của bạn';
+	        $meta_title = "Chi tiết đơn hàng";
 	        $url_canonical = $request->url();
 	        //--seo
 	        
@@ -140,7 +142,7 @@ class OrderController extends Controller
 				$coupon_number = 0;
 			}
 
-	    	return view('pages.history.view_history_order')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('order_details',$order_details)->with('customer',$customer)->with('shipping',$shipping)->with('coupon_condition',$coupon_condition)->with('coupon_number',$coupon_number)->with('getorder',$getorder)->with('order_status',$order_status)->with('order_code',$order_code); //1
+	    	return view('pages.history.view_history_order')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('bread_crumb',$bread_crumb)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('order_details',$order_details)->with('customer',$customer)->with('shipping',$shipping)->with('coupon_condition',$coupon_condition)->with('coupon_number',$coupon_number)->with('getorder',$getorder)->with('order_status',$order_status)->with('order_code',$order_code); //1
 		}
 	}
     public function update_qty(Request $request){

@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home-2 || Raavin - Shoes eCommerce Bootstrap 4 Template</title>
+        <title>{{$meta_title}}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
@@ -38,6 +38,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
         <!-- Toast -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/toast.min.css')}}">
+        <!-- Toasty -->
+        <link rel="stylesheet" href="{{asset('public/frontend/css/toasty.min.css')}}">
         <!-- SweetAlert -->
         <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
         <!-- Main Style CSS -->
@@ -66,7 +68,7 @@
 .featured-pro .featured-pos-content::before,
 .new-product-3 .tab-content:before,
 .vertical-tab-item:before {
-	content: url(public/frontend/images/static-info/bg_shadow.png);
+	content: url('{{asset('public/frontend/images/static-info/bg_shadow.png')}}');
 	height: 22px;
 	left: 50%;
 	position: absolute;
@@ -326,8 +328,15 @@
                 <div class="container">
                     <div class="page-banner-content">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active"><a href="login-register.html">My Account</a></li>
+                            <li><a href="{{URL::to('/')}}">Home</a></li>
+                            @isset($bread_crumb)
+                            <li>{{$bread_crumb}}</li>
+                            @endisset
+                            <li class="active"><a href="@isset($url_canonical)
+                            {{$url_canonical}}
+                            @else
+                            #
+                            @endisset">{{$meta_title}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -470,7 +479,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="payment f-right">
                                         <a href="#">
-                                            <img src="{{('public/frontend/images/payment/1.png')}}" alt="">
+                                            <img src="{{asset('public/frontend/images/payment/1.png')}}" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -532,7 +541,9 @@
         <!-- SweetAlert -->
         <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
         <!-- Toast js -->
-        <script src="{{asset('public/frontend/toast.min.js')}}"></script>
+        <script src="{{asset('public/frontend/js/toast.min.js')}}"></script>
+        <!-- Toasty -->
+        <script src="{{asset('public/frontend/js/toasty.min.js')}}"></script>
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
 
@@ -618,10 +629,51 @@
             }
         }
         if(index > 0){
-            alert('Please select your option');
+            var toast = new Toasty({
+                transition: "slideUpDownFade",
+                progressBar: true,
+            });
+    toast.error("Phiền bạn chọn địa chỉ giúp mình",5000);
             return false
         }
     return true;
+}
+
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+function validateNumber(number) {
+  const re = /^[0-9]+$/;
+  return re.test(number);
+}
+
+function validate() {
+  const $danger = $(".alert-danger");
+  const $success = $(".alert-success");
+  const email =  document.forms["form-re"]["customer_email"].value;
+  const number =  document.forms["form-re"]["customer_phone"].value;
+  const $notify = $(".notify-re");
+  $success.removeClass("alert");
+  $success.text("");
+  $danger.removeClass("alert");
+  $danger.text("");
+  if (!validateEmail(email) || !validateNumber(number)) {
+    $notify.css('display','none');
+    $danger.addClass("alert");
+    $danger.text('Email hoặc số điện thoại của bạn không đúng');
+    return false;
+  }
+   else {
+    $notify.css('display','none');
+    $success.addClass("alert");
+    $success.text('Mọi thứ đều ổn bạn vui lòng đợi kết quả trong giây lát');
+    <?php
+    sleep(2);
+    ?>
+    return true;
+  }
+  
 }
     </script>
 
@@ -702,8 +754,13 @@ var total_after = $('.total_after').val();
 
 
 </script>
+
 <script type="text/javascript">
         $(document).ready(function(){
+            var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
             function checkforblank() {
 
 var x = document.getElementsByClassName("location");
@@ -723,7 +780,7 @@ if(index > 0){
 }
 return false;
 }
-            $('.add-to-cart').click(function(){
+            $('.qty-cart-btn').click(function(){
                 var id = $(this).data('id_product');
                 // alert(id);
                 var cart_product_id = $('.cart_product_id_' + id).val();
@@ -736,11 +793,11 @@ return false;
                 var cart_product_size = $('.cart_product_size_' + id).val();
                 var _token = $('input[name="_token"]').val();
                 
-                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity && checkforblank())){
-                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+                    toast.warning('Làm ơn đặt nhỏ hơn ' + cart_product_quantity,3000);
                 }
                 else if(checkforblank()){
-                   alert("Please select your option");
+                    toast.error("Bạn chưa chọn màu và size",3000);
                 }
                 
                 else{
@@ -772,6 +829,8 @@ return false;
             });
         });
     </script>
+
+    
     <script type="text/javascript">
         $(document).ready(function(){
             $('.add-to-cart2').click(function(){
