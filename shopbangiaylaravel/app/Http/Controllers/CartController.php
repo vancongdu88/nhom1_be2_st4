@@ -8,6 +8,7 @@ use Session;
 use App\Http\Requests;
 use Carbon\Carbon;
 use App\Coupon;
+use App\Product;
 session_start();
 
 class CartController extends Controller
@@ -193,4 +194,21 @@ public function delete_product($session_id){
     }
 
 }
+public function add_wishlist(Request $request){
+    // $product = Product::where('wishlist',$wishlist)->get();
+    $data = $request->all();
+    
+    // $session_id = substr(md5(microtime()),rand(0,26),5);
+    // // $cart = Session::get('tbl_product');
+    
+    // // $cart[] = array(
+    // //     'session_id' => $session_id,
+    // //     'wishlist' => $data['wishlist'],
+    // // );   
+    // Session::put('tbl_product',$cart);
+    // Session::save();
+
+    return response()->json(['success'=>'Ajax request submitted successfully']);
 }
+}
+// nó không update lại ấy , t muốn hỏi  là làm sao để t update lại 

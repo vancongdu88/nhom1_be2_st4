@@ -96,6 +96,8 @@
 
                                             <input type="hidden" value="{{$value->product_quantity}}" class="cart_product_quantity_{{$value->product_id}}">
 
+                                            <input type="hidden" value="{{$value->wishlist}}" class="cart_product_wishlist_{{$value->product_id}}">
+                                            <p>{{$value->wishlist}}</p>
                                             <input type="hidden" value="{{$value->product_price}}" class="cart_product_price_{{$value->product_id}}">
                                             <input name="productid_hidden" type="hidden"  value="{{$value->product_id}}" />
                             <div class="quantity">
@@ -106,7 +108,7 @@
                             </div>
                             <div class="group-btn">
                                 <div class="qty-cart-btn qty-cart-btn-2">
-                                    <a href="#"><i class="fa fa-heart-o"></i>Add To Wishlist</a>
+                                    <a class="add-to-wishlist" data-id_product="{{$value->product_id}}" name="add-to-wishlist"><i class="fa fa-heart-o"></i>Add To Wishlist</a>
                                 </div>
                             </div>
                             <div class="product-meta">

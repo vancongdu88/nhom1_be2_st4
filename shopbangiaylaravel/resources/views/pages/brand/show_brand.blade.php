@@ -111,8 +111,8 @@
                                                             <!-- Product Name Area End Here -->
                                                             <!-- Begin Price Box Area -->
                                                             <div class="price-box">
-                                                                <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
-                                                                <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                                                <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                                                <span class="old-price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                                             </div>
                                                             <!-- Price Box Area End Here -->
                                                             <!-- Begin Rating Area -->
@@ -166,8 +166,8 @@
                                                         <!-- List Rating Area End Here -->
                                                         <!-- Begin Price list Box Area -->
                                                         <div class="price-box list-price-box">
-                                                            <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
-                                                            <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                                            <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                                            <span class="old-price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                                         </div>
                                                         <!-- Price List Box Area End Here -->
                                                         <!-- Begin List Text -->

@@ -44,6 +44,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/responsive.css')}}">
         <!-- Modernizr js -->
         <script src="{{asset('public/frontend/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
     </head>
     <style>
         .bg-3 {
@@ -120,6 +122,7 @@
                                                     </ul>
                                                 </li>
                                             <li><a href="{{URL::to('/lien-he')}}">Contact Us</a></li>
+                                            <li><a href="{{URL::to('/yeu-thich')}}">Wishlist</a></li>
                                                 <!-- end -->
                                          </ul>
                                     </nav>
@@ -739,6 +742,67 @@ var total_after = $('.total_after').val();
                 }
 
                 
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).ready(function(){
+            $('.add-to-wishlist').click(function(){
+                var id = $(this).data('id_product');
+                var wishlist = $('.cart_product_wishlist_' + id).val();
+                if (wishlist == 1) {
+                    $.ajax({
+                        url: '{{url('/add-wishlist')}}',
+                        method: 'POST',
+                        data:{
+                            wishlist: 0,
+                        },
+                        success:function(response){
+                            console.log(response);
+                            swal({
+                                    title: "Đã thêm vào sản phẩm yêu thích",
+                                    text: "Bạn có thể mua hàng tiếp hoặc tới trang yêu thích",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Xem tiếp",
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Đi đến yêu thích",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    window.location.href = "{{url('/yeu-thich')}}";
+                                });
+                        }
+
+                    });
+                } else {
+                    $.ajax({
+                        url: '{{url('/add-wishlist')}}',
+                        method: 'POST',
+                        data:{
+                            wishlist: 1,
+                        },
+                        success:function(){
+                            swal({
+                                    title: "Đã thêm sản phẩm vào sản phẩm yêu thích",
+                                    text: "Bạn có thể mua hàng tiếp hoặc tới trang yêu thích",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Xem tiếp",
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Đi đến yêu thích",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    window.location.href = "{{url('/yeu-thich')}}";
+                                });
+                        }
+
+                    });
+                }
             });
         });
     </script>

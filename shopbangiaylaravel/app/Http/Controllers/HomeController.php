@@ -52,4 +52,22 @@ class HomeController extends Controller
         return view('pages.sanpham.search')->with('keywords',$keywords)->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
 
     }
+
+    public function yeu_thich(Request $request){
+        //seo 
+        $meta_desc = "Yêu thích"; 
+        $meta_keywords = "Yêu thích";
+        $meta_title = "Yêu thích";
+        $url_canonical = $request->url();
+        //--seo
+ 
+        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+ 
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+ 
+        $all_product = DB::table('tbl_product')->where('product_status','0')->where('wishlist','1')->orderby(DB::raw('RAND()'))->paginate(6); 
+ 
+        return view('pages.yeuthich.yeuthich')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical); //1
+ 
+     }
 }

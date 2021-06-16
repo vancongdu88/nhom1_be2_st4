@@ -43,7 +43,7 @@
                                     <div id="grid" class="tab-pane fade">
                                         <div class="grid-view">
                                             <div class="row">
-                                                @foreach($category_by_id as $key => $product)
+                                                @foreach($all_product as $key => $product)
                                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                                     <!-- Begin Single Product Area -->
                                                     <div class="single-product single-product-3">
@@ -62,7 +62,6 @@
                                                                         </a>
                                                                     </div>
                                                                     <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
                                                                         <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
                                                                         <li class="rav-quickviewbtn">
                                                                             <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
@@ -82,8 +81,8 @@
                                                             <!-- Product Name Area End Here -->
                                                             <!-- Begin Price Box Area -->
                                                             <div class="price-box">
-                                                                <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
-                                                                <span class="old-price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                                <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                                                <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                                             </div>
                                                             <!-- Price Box Area End Here -->
                                                             <!-- Begin Rating Area -->
@@ -106,7 +105,7 @@
                                     </div>
                                     <div id="list" class="tab-pane show fade in active">
                                         <div class="list-view">
-                                            @foreach($category_by_id as $key => $product)
+                                            @foreach($all_product as $key => $product)
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4">
                                                     <!-- Begin Product Image Area -->
@@ -154,7 +153,6 @@
                                                                     </a>
                                                                 </div>
                                                                 <ul class="add-to-links">
-                                                                    <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
                                                                     <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
                                                                     <li class="rav-quickviewbtn">
                                                                         <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
@@ -179,7 +177,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <div class="product-pagination">
-                                                {{$category_by_id->links()}}
+                                                {{$all_product->links()}}
                                             </div>
                                         </div>
                                     </div>
@@ -194,9 +192,9 @@
                                     <h4>Categories</h4>
                                     <!-- Begin Category List Area -->
                                     <div class="category-list">
-                                        @foreach($category_name as $key => $name)
+                                        @foreach($all_product as $key => $name)
                                         <ul>
-                                            <li><a href="#">{{$name->category_name}}</a></li>
+                                            <li><a href="#">{{$name->product_name}}</a></li>
                                         </ul>
                                         @endforeach
                                     </div>
