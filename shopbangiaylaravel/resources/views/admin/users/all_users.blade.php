@@ -7,13 +7,21 @@
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
-            <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
+            @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
+							</div>
+							@endif
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
@@ -23,7 +31,6 @@
                     <th>Phone</th>
                     <th>Author</th>
                     <th>Admin</th>
-                    <th>User</th>
                     <th class="text-center">Thao tác</th>
                     </tr>
                   </thead>
@@ -39,7 +46,6 @@
             <td>{{ $user->admin_phone }}</td>
             <td class="text-center"><input type="checkbox" name="author_role" {{$user->hasRole('author') ? 'checked' : ''}}></td>
             <td class="text-center"><input type="checkbox" name="admin_role"  {{$user->hasRole('admin') ? 'checked' : ''}}></td>
-            <td class="text-center"><input type="checkbox" name="user_role"  {{$user->hasRole('user') ? 'checked' : ''}}></td>
            
             <td class="text-center d-flex justify-content-around">
                  <p><input type="submit" value="Phân quyền" class="btn btn-sm btn-default"></p>

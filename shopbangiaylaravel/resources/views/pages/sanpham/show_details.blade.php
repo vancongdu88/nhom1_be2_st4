@@ -102,7 +102,7 @@
                                 <input class="input-text qty text cart_product_qty_{{$value->product_id}}" step="1" min="1" max="200" name="quantity" value="1" title="Qty" size="4" type="number">
                             </div>
                             
-                            <div class="qty-cart-btn" data-id_product="{{$value->product_id}}">
+                            <div class="qty-cart-btn add-cart" data-id_product="{{$value->product_id}}">
                                 <input type="button" class="add-to-cart" name="add-to-cart" value="Add To Cart">
                             </div>
                             <div class="option mt-3">
@@ -275,6 +275,9 @@
         <!-- Begin Featured Product Content Area -->
         <div class="row">
             <!-- Begin Single Related Product Area -->
+            <?php
+            use App\Rating;
+            ?>
             @foreach($relate as $key => $lienquan)
             <div class="col-lg-3 col-md-6 col-sm-6">
             <?php
@@ -342,13 +345,21 @@
                         </div>
                         <!-- Price Box Area End Here -->
                         <!-- Begin Rating Area -->
+                        <?php
+                        $rating2 = Rating::where('product_id',$lienquan->product_id)->where('rating_status',0)->avg('rating');
+                        $rating2 = round($rating2);
+                        ?>
+                        @if($rating2 > 0)
                         <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                        <?php
+                        for($x = 1; $x <= $rating2; $x++){
+                         echo '<i class="fa fa-star"></i>';
+                        }
+                        ?>
                         </div>
+                        @else
+                        <p>Chưa có đánh giá</p>
+                        @endif
                         <!-- Rating Area End Here -->
                     </div>
                     <!-- Featured Product Content Area End Here -->

@@ -161,6 +161,11 @@ class ProductController extends Controller
             $data['brand_id'] = $request->product_brand;
             $data['product_status'] = $request->product_status;
             $data['product_image'] = $request->product_status;
+            $product_condition = Product::where('product_slug',$data['product_slug'])->get();
+        if(count($product_condition) > 0){
+            Session::put('error','Sản phẩm này hiện tại đã tồn tại, hãy nhập sản phẩm khác');
+            return Redirect::to('add-product');
+        }
     
             $get_image = $request->file('product_image');
             $get_document = $request->file('document');
@@ -190,14 +195,9 @@ class ProductController extends Controller
                
             }
             $pro_id = DB::table('tbl_product')->insertGetId($data);
-            $gallery = new Gallery();
-            $gallery->gallery_image = $new_image;
-            $gallery->gallery_name = $new_image;
-            $gallery->product_id = $pro_id;
-            $gallery->save();
     
             Session::put('message','Thêm sản phẩm thành công');
-            return Redirect::to('add-product');
+            return Redirect::to('all-product');
         }
         public function delete_product($product_id){
             $this->AuthLogin();
@@ -248,6 +248,11 @@ class ProductController extends Controller
    $data['category_id'] = $request->product_cate;
    $data['brand_id'] = $request->product_brand;
    $data['product_status'] = $request->product_status;
+   $product_condition = Product::where('product_slug',$data['product_slug'])->where('product_id','!=',$product_id)->get();
+        if(count($product_condition) > 0){
+            Session::put('error','Tên sản phẩm này đã bị trùng, hãy nhập sản phẩm khác');
+            return Redirect::to('edit-product/'.$product_id);
+        }
 
    $get_image = $request->file('product_image');
    $get_document = $request->file('document');

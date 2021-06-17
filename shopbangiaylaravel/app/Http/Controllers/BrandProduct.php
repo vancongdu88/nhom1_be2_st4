@@ -43,7 +43,11 @@ class BrandProduct extends Controller
     public function save_brand_product(Request $request){
         $this->AuthLogin();
         $data = $request->all();
-
+        $brand_condition = Brand::where('brand_slug',$data['brand_slug'])->get();
+        if(count($brand_condition) > 0){
+            Session::put('error','Thương hiệu sản phẩm này đã có, hãy điền một cái tên mới');
+            return Redirect::to('add-brand-product');
+        }
         $brand = new Brand();
         $brand->brand_name = $data['brand_product_name'];
         $brand->brand_slug = $data['brand_slug'];
@@ -59,7 +63,7 @@ class BrandProduct extends Controller
     	// DB::table('tbl_brand')->insert($data);
         
     	Session::put('message','Thêm thương hiệu sản phẩm thành công');
-    	return Redirect::to('add-brand-product');
+    	return Redirect::to('all-brand-product');
     }
     public function unactive_brand_product($brand_product_id){
         $this->AuthLogin();
@@ -87,6 +91,11 @@ class BrandProduct extends Controller
     public function update_brand_product(Request $request,$brand_product_id){
         $this->AuthLogin();
         $data = $request->all();
+        $brand_condition = Brand::where('brand_slug',$data['brand_slug'])->where('brand_id','!=',$brand_product_id)->get();
+        if(count($brand_condition) > 0){
+            Session::put('error','Tên thương hiệu bạn vừa sửa đã bị trùng');
+            return Redirect::to('edit-brand-product/'.$brand_product_id);
+        }
         $brand = Brand::find($brand_product_id);
         // $brand = new Brand();
         $brand->brand_name = $data['brand_product_name'];

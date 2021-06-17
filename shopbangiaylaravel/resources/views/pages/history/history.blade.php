@@ -10,10 +10,16 @@
                                 @if(session()->has('message'))
                     <div class="alert alert-success">
                         {!! session()->get('message') !!}
+                        <?php
+                                Session::forget('message')
+                        ?>
                     </div>
                 @elseif(session()->has('error'))
                      <div class="alert alert-danger">
                         {!! session()->get('error') !!}
+                        <?php
+                                Session::forget('error')
+                        ?>
                     </div>
                 @endif
                 <h3 class="text-center mb-5">Lịch sử đơn hàng của bạn</h3>

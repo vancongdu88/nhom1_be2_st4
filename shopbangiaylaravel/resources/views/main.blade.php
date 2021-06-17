@@ -350,6 +350,9 @@
                              <div class="pos-content">
                                  <div class="porduct-details-active owl-carousel">
                                      <!-- Begin Single Random Product Area -->
+                                     <?php
+                                        use App\Rating;
+                                        ?>
                                      @foreach($all_product as $key => $product)
                                      <div class="single-product single-featured-pro-2">
                                      <?php
@@ -412,6 +415,23 @@
                                                  <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                              </div>
                                              <!-- Price Box Area End Here -->
+                                             <?php
+                                                $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                $rating2 = round($rating2);
+                                                ?>
+                                                @if($rating2 > 0)
+                                                <div class="rating">
+                                                <?php
+                                                for($x = 1; $x <= $rating2; $x++){
+                                                 echo '<i class="fa fa-star"></i>';
+                                                }
+                                                ?>
+                                                </div>
+                                                @else
+                                                <div class="rating">
+                                                <p>Chưa có đánh giá</p>
+                                                </div>
+                                                @endif
                                          </div>
                                          <!-- Product Content Area End Here -->
                                      </div>
@@ -525,6 +545,23 @@
                                              <div class="price-box">
                                                  <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                              </div>
+                                             <?php
+                                                $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                $rating2 = round($rating2);
+                                                ?>
+                                                @if($rating2 > 0)
+                                                <div class="rating">
+                                                <?php
+                                                for($x = 1; $x <= $rating2; $x++){
+                                                 echo '<i class="fa fa-star"></i>';
+                                                }
+                                                ?>
+                                                </div>
+                                                @else
+                                                <div class="rating">
+                                                <p>Chưa có đánh giá</p>
+                                                </div>
+                                                @endif
                                              <!-- Price Box Area End Here -->
                                          </div>
                                          <!-- Product Content Area End Here -->
@@ -818,6 +855,21 @@
         });
     </script>
 
+@if(session()->has('login-gg'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.success("{!! session()->get('login-gg') !!}",5000);
+    });
+    <?php
+    Session::forget('login-gg')
+    ?>
+   </script>
+   @endif
+
     @if(session()->has('notification_logout'))
     <script type="text/javascript">
     $(document).ready(function(){
@@ -852,7 +904,7 @@
     <script type="text/javascript">
     $(document).ready(function(){
         var toast = new Toasty({
-                transition: "slideUpDownFade",
+                transition: "slideLeftRightFade",
                 progressBar: true,
             });
     toast.success("Chào mừng bạn trở lại",5000);

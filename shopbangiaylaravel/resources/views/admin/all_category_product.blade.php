@@ -7,22 +7,28 @@
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
-            <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
+            @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
+							</div>
+							@endif
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>STT</th>
                       <th>Tên danh mục</th>
-                      <th>Thuộc danh mục</th>
                       <th>Slug</th>
-                      <th>Thứ tự danh mục</th>
                       <th>Hiển thị</th>
                       <th>Thao tác</th>
                     </tr>
@@ -32,23 +38,7 @@
           <tr>
             <td>{{$loop->index + 1}}</td>
             <td>{{ $cate_pro->category_name }}</td>
-            <td>@if($cate_pro->category_parent==0)
-                <span style="color:red;">Danh mục cha</span>
-
-              @else 
-
-                @foreach($category_product as $key => $cate_sub_pro)
-
-                  @if($cate_sub_pro->category_id==$cate_pro->category_parent)
-                    <span style="color:green;">{{$cate_sub_pro->category_name}}</span>
-                  @endif
-
-                @endforeach
-
-              @endif
-            </td>
             <td>{{ $cate_pro->slug_category_product }}</td>
-            <td>{{ $cate_pro->category_order }}</td>
             <td class="text-center"><span class="text-ellipsis">
               <?php
                if($cate_pro->category_status==0){

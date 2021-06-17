@@ -5,12 +5,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
+                        <div class="alert-success"></div>
+                        <div class="alert-danger"></div>
                         @if(session()->has('message'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success notify-re">
                         {!! session()->get('message') !!}
                     </div>
                 @elseif(session()->has('error'))
-                     <div class="alert alert-danger">
+                     <div class="alert alert-danger notify-re">
                         {!! session()->get('error') !!}
                     </div>
                 @endif
@@ -36,7 +38,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-12">
-                            <form method="POST">
+                            <form name="form-re" onsubmit="return checkforblank() && validate()">
                             @csrf
                                 <div class="checkbox-form">
                                     <h3>Billing Details</h3>
@@ -44,25 +46,25 @@
                                         <div class="col-md-12">
                                             <div class="checkout-form-list">
                                                 <label>Your Email <span class="required">*</span></label>
-                                                <input placeholder="Please type your Email" type="text" name="shipping_email" class="shipping_email">
+                                                <input placeholder="Please type your Email" type="text" name="customer_email" class="shipping_email location" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="checkout-form-list">
                                                 <label>Your name <span class="required">*</span></label>
-                                                <input placeholder="Please type your name" type="text" name="shipping_name" class="shipping_name">
+                                                <input placeholder="Please type your name" type="text" name="shipping_name" class="shipping_name location" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="checkout-form-list">
                                                 <label>Address <span class="required">*</span></label>
-                                                <input placeholder="Street address" type="text" name="shipping_address" class="shipping_address">
+                                                <input placeholder="Street address" type="text" name="shipping_address" class="shipping_address location" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="checkout-form-list">
                                                 <label>Your number <span class="required">*</span></label>
-                                                <input placeholder="Please type your number" type="text" name="shipping_phone" class="shipping_phone">
+                                                <input placeholder="Please type your number" type="text" name="customer_phone" class="shipping_phone location" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -90,8 +92,8 @@
                                             <div class="country-select clearfix">
                                                 <label>Payment <span class="required">*</span></label>
                                                 <select class="payment_select" name="payment_select">
-                                                  <option value="0">Credit Card</option>
                                                   <option value="1">Cash</option>
+                                                  <option value="0">Credit Card</option>
                                                 </select>
                                             </div>
                                         </div>
