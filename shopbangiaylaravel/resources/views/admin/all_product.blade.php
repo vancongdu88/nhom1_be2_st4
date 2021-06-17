@@ -7,13 +7,21 @@
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
-            <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
+            @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
+							</div>
+							@endif
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>

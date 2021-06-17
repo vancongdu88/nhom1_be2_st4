@@ -90,8 +90,7 @@ public function select_gallery(Request $request){
                                 <thead>
                                   <tr>
                                       <th>Thứ tự</th>
-                                    <th>Tên hình ảnh</th>
-                                    <th>Hình ảnh</th>
+                                    <th class="text-center">Hình ảnh</th>
                                     <th>Quản lý</th>
                                   </tr>
                                 </thead>
@@ -106,12 +105,11 @@ public function select_gallery(Request $request){
 
                  <tr>
                                      <td>'.$i.'</td>
-                                    <td contenteditable class="edit_gal_name" data-gal_id="'.$gal->gallery_id.'">'.$gal->gallery_name.'</td>
-                                    <td>
+                                    <td class="text-center d-flex flex-column align-items-center">
 
                                     <img src="'.url('public/uploads/gallery/'.$gal->gallery_image).'" class="img-thumbnail" width="120" height="120">
 
-                                    <input type="file" class="file_image" style="width:40%" data-gal_id="'.$gal->gallery_id.'" id="file-'.$gal->gallery_id.'" name="file" accept="image/*" />
+                                    <input type="file" class="file_image" style="width:80%" data-gal_id="'.$gal->gallery_id.'" id="file-'.$gal->gallery_id.'" name="file" accept="image/*" required/>
 
                                     </td>
                                     <td>

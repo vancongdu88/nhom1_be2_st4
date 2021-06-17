@@ -5,13 +5,21 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Thêm sản phẩm</h1>
           <!-- DataTales Example -->
-          <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
+          @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
+							</div>
+							@endif
           <div class="card shadow mb-4">
           <div class="col-lg-8 m-auto">
                 <div class="p-5">
@@ -22,7 +30,7 @@
                   {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputEmail" class="dark"> Tên sản phẩm</label>
-                      <input type="text" class="form-control" data-validation="length" data-validation-length="min10" data-validation-error-msg="Làm ơn điền ít nhất 10 ký tự" name="product_name" class="form-control " id="slug" onkeyup="ChangeToSlug();"  placeholder="Nhập tên sản phẩm">
+                      <input type="text" class="form-control" data-validation="length" data-validation-length="min7" data-validation-error-msg="Làm ơn điền ít nhất 10 ký tự" name="product_name" class="form-control " id="slug" onkeyup="ChangeToSlug();"  placeholder="Nhập tên sản phẩm">
                     </div>
                     <div class="form-group">
                     <label for="exampleInputEmail"> Số lượng sp</label>
@@ -33,12 +41,12 @@
                       <input type="text" class="form-control" name="product_slug" id="convert_slug">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Giá bán</label>
-                      <input type="text" class="form-control price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="product_price"  placeholder="Nhập giá bán">
-                    </div>
-                    <div class="form-group">
                         <label for="exampleInputEmail">Giá gốc</label>
                       <input type="text" class="form-control  price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="price_cost" placeholder="Nhập giá gốc">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail">Giá bán (Giá khuyến mãi)</label>
+                      <input type="text" class="form-control price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="product_price"  placeholder="Nhập giá bán">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Hình ảnh sản phẩm</label>

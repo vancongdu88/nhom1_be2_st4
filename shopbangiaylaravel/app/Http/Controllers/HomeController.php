@@ -22,13 +22,11 @@ class HomeController extends Controller
         if(Session::get('cart')){
             $dem_hang = count(Session::get('cart'));
         }
-    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','DESC')->get(); 
         
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
         $all_product = DB::table('tbl_product')->where('product_status','0')->orderby(DB::raw('RAND()'))->paginate(6); 
-
-        $cate_pro_tabs = CategoryProductModel::where('category_parent','<>',0)->orderBy('category_order','ASC')->get();
 
     	return view('main')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('dem_hang',$dem_hang);
     }

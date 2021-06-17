@@ -105,15 +105,17 @@ class AdminController extends Controller
             Session::put('customer_id',$account_name->customer_id);
             Session::put('customer_picture',$account_name->customer_picture);
             Session::put('customer_name',$account_name->customer_name);
+            Session::put('login-gg', "Đăng nhập bằng tài khoản google ".$account_name->customer_email." thành công");
 
         }elseif($customer_new){
             $account_name = Customer::where('customer_id',$authUser->user)->first();
             Session::put('customer_id',$account_name->customer_id);
             Session::put('customer_picture',$account_name->customer_picture);
             Session::put('customer_name',$account_name->customer_name);
+            Session::put('login-gg', "Đăng nhập bằng tài khoản google ".$account_name->customer_email." thành công");
         }
 
-        return redirect('/dang-nhap')->with('message', 'Đăng nhập bằng tài khoản google <span style="color:red">'.$account_name->customer_email.'</span> thành công');  
+        return redirect('/');  
     }
     
 }

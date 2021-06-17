@@ -39,26 +39,26 @@ class CategoryProduct extends Controller
     }
     public function all_category_product(){
         $this->AuthLogin();
-        $category_product = CategoryProductModel::where('category_parent',0)->orderBy('category_id','DESC')->get();
 
-        $all_category_product = DB::table('tbl_category_product')->orderBy('category_parent','DESC')->orderBy('category_order','ASC')->paginate(10);
+        $all_category_product = DB::table('tbl_category_product')->orderBy('category_id','DESC')->paginate(10);
 
-        $manager_category_product  = view('admin.all_category_product')->with('all_category_product',$all_category_product)->with('category_product',$category_product);
+        $manager_category_product  = view('admin.all_category_product')->with('all_category_product',$all_category_product);
 
         return view('admin_layout')->with('admin.all_category_product', $manager_category_product);
     }
     public function save_category_product(Request $request){
         $this->AuthLogin();
         $data = array();
-
         $data['category_name'] = $request->category_product_name;
-        $data['category_parent'] = $request->category_parent;
         $data['meta_keywords'] = $request->category_product_keywords;
         $data['slug_category_product'] = $request->slug_category_product;
         $data['category_desc'] = $request->category_product_desc;
         $data['category_status'] = $request->category_product_status;
-        $data['category_order'] = $request->category_parent;
-
+        $cate_condition = CategoryProductModel::where('slug_category_product',$data['slug_category_product'])->get();
+        if(count($cate_condition) > 0){
+            Session::put('error','Danh mục sản phẩm này đã có, hãy điền danh mục mới');
+            return Redirect::to('add-category-product');
+        }
         DB::table('tbl_category_product')->insert($data);
         Session::put('message','Thêm danh mục sản phẩm thành công');
         return Redirect::to('all-category-product');
@@ -91,10 +91,14 @@ class CategoryProduct extends Controller
         $this->AuthLogin();
         $data = array();
         $data['category_name'] = $request->category_product_name;
-        $data['category_parent'] = $request->category_parent;
         $data['meta_keywords'] = $request->category_product_keywords;
         $data['slug_category_product'] = $request->slug_category_product;
         $data['category_desc'] = $request->category_product_desc;
+        $cate_condition = CategoryProductModel::where('slug_category_product',$data['slug_category_product'])->where('category_id','!=',$category_product_id)->get();
+        if(count($cate_condition) > 0){
+            Session::put('error','Tên danh mục bạn vừa sửa đã bị trùng');
+            return Redirect::to('edit-category-product/'.$category_product_id);
+        }
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->update($data);
         Session::put('message','Cập nhật danh mục sản phẩm thành công');
         return Redirect::to('all-category-product');

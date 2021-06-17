@@ -116,6 +116,12 @@ Route::get('/checkout','CheckoutController@checkout');
 Route::post('/calculate-fee','CheckoutController@calculate_fee');
 Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
 Route::post('/confirm-order','CheckoutController@confirm_order');
+//Delivery
+Route::get('/delivery','DeliveryController@delivery');
+Route::post('/select-delivery','DeliveryController@select_delivery');
+Route::post('/insert-delivery','DeliveryController@insert_delivery');
+Route::post('/select-feeship','DeliveryController@select_feeship');
+Route::post('/update-delivery','DeliveryController@update_delivery');
 /* User */
 Route::get('users','UserController@index')->middleware('auth.roles');
 Route::get('add-users','UserController@add_users')->middleware('auth.roles');

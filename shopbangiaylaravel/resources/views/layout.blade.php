@@ -630,10 +630,10 @@
         }
         if(index > 0){
             var toast = new Toasty({
-                transition: "slideUpDownFade",
+                transition: "slideLeftRightFade",
                 progressBar: true,
             });
-    toast.error("Phiền bạn chọn địa chỉ giúp mình",5000);
+    toast.error("Bạn không thể để trống những trường này",5000);
             return false
         }
     return true;
@@ -660,14 +660,21 @@ function validate() {
   $danger.text("");
   if (!validateEmail(email) || !validateNumber(number)) {
     $notify.css('display','none');
-    $danger.addClass("alert");
-    $danger.text('Email hoặc số điện thoại của bạn không đúng');
+    var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.error("Email hoặc số điện thoại của bạn không đúng",5000);
+    $('input[name="customer_email"]').addClass("error");
+    $('input[name="customer_phone"]').addClass("error");
+    /* $danger.addClass("alert");
+    $danger.text('Email hoặc số điện thoại của bạn không đúng'); */
     return false;
   }
    else {
     $notify.css('display','none');
-    $success.addClass("alert");
-    $success.text('Mọi thứ đều ổn bạn vui lòng đợi kết quả trong giây lát');
+    /* $success.addClass("alert");
+    $success.text('Mọi thứ đều ổn bạn vui lòng đợi kết quả trong giây lát'); */
     <?php
     sleep(2);
     ?>
@@ -704,6 +711,7 @@ function validate() {
 $(document).ready(function(){
   $('.send_order').click(function(){
 var total_after = $('.total_after').val();
+if(checkforblank() && validate()){
       swal({
         title: "Xác nhận đơn hàng",
         text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
@@ -747,6 +755,7 @@ var total_after = $('.total_after').val();
             }
     
       });
+    }
 
      
   });
@@ -780,7 +789,7 @@ if(index > 0){
 }
 return false;
 }
-            $('.qty-cart-btn').click(function(){
+            $('.add-cart').click(function(){
                 var id = $(this).data('id_product');
                 // alert(id);
                 var cart_product_id = $('.cart_product_id_' + id).val();

@@ -77,6 +77,9 @@
                                     <div id="grid" class="tab-pane show fade in active">
                                         <div class="grid-view">
                                             <div class="row">
+                                            <?php
+                                              use App\Rating;
+                                              ?>
                                                 @foreach($brand_by_id as $key => $product)
                                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                                     <!-- Begin Single Product Area -->
@@ -121,13 +124,21 @@
                                                             </div>
                                                             <!-- Price Box Area End Here -->
                                                             <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
+                                                            <?php
+                                                                $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                                $rating2 = round($rating2);
+                                                                ?>
+                                                                @if($rating2 > 0)
+                                                                <div class="rating">
+                                                                <?php
+                                                                for($x = 1; $x <= $rating2; $x++){
+                                                                 echo '<i class="fa fa-star"></i>';
+                                                                }
+                                                                ?>
+                                                                </div>
+                                                                @else
+                                                                <p>Chưa có đánh giá</p>
+                                                                @endif
                                                             <!-- Rating Area End Here -->
                                                         </div>
                                                         <!-- Product Content Area End Here -->
@@ -157,17 +168,25 @@
                                                     <div class="pro-list-content">
                                                         <!-- Begin Product Name Area -->
                                                         <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">{{$product->product_name}}</a>
+                                                            <a href="product-details.html" title="{{$product->product_name}}">{{$product->product_name}}</a>
                                                         </h5>
                                                         <!-- Product Name Area End Here -->
                                                         <!-- Begin List Rating Area -->
-                                                        <div class="rating list-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
+                                                        <?php
+                                                           $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                           $rating2 = round($rating2);
+                                                           ?>
+                                                           @if($rating2 > 0)
+                                                           <div class="rating list-rating">
+                                                           <?php
+                                                           for($x = 1; $x <= $rating2; $x++){
+                                                            echo '<i class="fa fa-star"></i>';
+                                                           }
+                                                           ?>
+                                                           </div>
+                                                           @else
+                                                           <p>Chưa có đánh giá</p>
+                                                           @endif
                                                         <!-- List Rating Area End Here -->
                                                         <!-- Begin Price list Box Area -->
                                                         <div class="price-box list-price-box">

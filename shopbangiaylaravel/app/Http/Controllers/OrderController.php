@@ -90,7 +90,7 @@ class OrderController extends Controller
 	        $url_canonical = $request->url();
 	        //--seo
 	        
-	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
 	        
 	        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
@@ -111,7 +111,7 @@ class OrderController extends Controller
 	        $url_canonical = $request->url();
 	        //--seo
 	        
-	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
 	        
 	        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
@@ -159,6 +159,7 @@ class OrderController extends Controller
 		$order = Order::find($data['order_id']);
 		$order->order_status = $data['order_status'];
 		$order->save();
+		Session::put('notification','Cập nhật trạng thái đơn hàng thành công');
 		//send mail confirm
 		$now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
 		$title_mail = "Đơn hàng đã đặt được xác nhận".' '.$now;

@@ -5,13 +5,21 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Thêm Thương Hiệu</h1>
           <!-- DataTales Example -->
-          <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
+          @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
+							</div>
+							@endif
           <div class="card shadow mb-4">
           <div class="col-lg-8 m-auto">
                 <div class="p-5">

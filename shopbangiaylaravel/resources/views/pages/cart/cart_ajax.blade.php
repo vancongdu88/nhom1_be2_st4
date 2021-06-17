@@ -25,8 +25,8 @@
                                                 <th class="cart-product-name">Product</th>
                                                 <th class="cart-product-name">In stock</th>
                                                 <th class="raavin-product-price">Unit Price</th>
-                                                <th class="raavin-product-quantity">Color</th>
-                                                <th class="raavin-product-quantity">Size</th>
+                                                <th class="raavin-product-quantity">Shoe color</th>
+                                                <th class="raavin-product-quantity">Shoe size</th>
                                                 <th class="raavin-product-quantity">Quantity</th>
                                                 <th class="raavin-product-subtotal">Total</th>
                                             </tr>
