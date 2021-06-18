@@ -119,11 +119,13 @@ class BrandProduct extends Controller
     }
     public function show_brand_home(Request $request, $brand_slug){
         Session::forget('brand_id');
+        Session::forget('category_id');
+        Session::forget('price');
         //database
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
        
-        $brand_by_id = DB::table('tbl_product')->join('tbl_brand','tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_brand.brand_slug',$brand_slug)->paginate(6);
+        $brand_by_id = DB::table('tbl_product')->join('tbl_brand','tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_brand.brand_slug',$brand_slug)->get();
 
         $brand_name = DB::table('tbl_brand')->where('tbl_brand.brand_slug',$brand_slug)->limit(1)->get();
         $brand_by_slug = Brand::where('brand_slug',$brand_slug)->get();
@@ -131,22 +133,21 @@ class BrandProduct extends Controller
         foreach($brand_by_slug as $key => $brand){
             $brand_id = $brand->brand_id;
         }
-        $min_price = Product::with('brand')->where('brand_id',$brand_id)->min('product_price');
-        $max_price = Product::with('brand')->where('brand_id',$brand_id)->max('product_price');
+        $min_price = Product::with('brand')->where('brand_id',$brand_id)->min('price_cost');
+        $max_price = Product::with('brand')->where('brand_id',$brand_id)->max('price_cost');
         $min_price_range = $min_price;
         $max_price_range = $max_price;
         if(isset($_GET['start_price']) && $_GET['end_price']){
-            Session::forget('price');
 
             $price_array = array(
                 'min_price' => $_GET['start_price'],
                 'max_price' => $_GET['end_price']
               );
               Session::put('price',$price_array);
-            $brand_by_id = Product::with('brand')->where('brand_id',$brand_id)->whereBetween('product_price',[$_GET['start_price'],$_GET['end_price']])->orderBy('product_price','ASC')->get();
+            $brand_by_id = Product::with('brand')->where('brand_id',$brand_id)->whereBetween('price_cost',[$_GET['start_price'],$_GET['end_price']])->orderBy('price_cost','DESC')->get();
         
         }else{
-            $brand_by_id = Product::with('brand')->where('brand_id',$brand_id)->orderBy('product_id','DESC')->get();
+            $brand_by_id = Product::with('brand')->where('brand_id',$brand_id)->orderBy('price_cost','DESC')->get();
         }
 
         foreach($brand_name as $key => $val){

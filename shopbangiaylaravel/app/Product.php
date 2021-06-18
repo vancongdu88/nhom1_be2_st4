@@ -20,4 +20,8 @@ class Product extends Model
     public function brand(){
         return $this->belongsTo('App\Brand','brand_id');
     }
+    public function procondition(){
+        return $this->belongsTo('App\ProductCondition','product_condition_id');
+    }
+
 }

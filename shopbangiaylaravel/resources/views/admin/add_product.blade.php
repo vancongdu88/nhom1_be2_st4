@@ -41,11 +41,20 @@
                       <input type="text" class="form-control" name="product_slug" id="convert_slug">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Giá gốc</label>
-                      <input type="text" class="form-control  price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="price_cost" placeholder="Nhập giá gốc">
+                        <label for="exampleInputEmail">Loại sản phẩm</label>
+                        <select name="product_condition" class="form-control input-sm m-bot15 condition" required>
+                                         <option value="">Chọn loại sản phẩm</option>
+                                         @foreach($pro_condition as $key => $condition)
+                                         <option value="{{$condition->product_condition_id}}">{{$condition->product_condition_name}}</option>
+                                         @endforeach
+                        </select>                   
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Giá bán (Giá khuyến mãi)</label>
+                        <label for="exampleInputEmail">Giá bán</label>
+                      <input type="text" class="form-control  price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="price_cost" placeholder="Nhập giá gốc">
+                    </div>
+                    <div class="form-group product_price">
+                        <label for="exampleInputEmail">Giá khuyến mãi</label>
                       <input type="text" class="form-control price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="product_price"  placeholder="Nhập giá bán">
                     </div>
                     <div class="form-group">

@@ -919,6 +919,28 @@ function validate() {
                    $('#'+result).html(data);     
                 }
             });
+        });
+        
+            var product_price = $('.product_price');
+                if($('.condition').val() == 1 || $('.condition').val() == '')
+                {
+                product_price.css('display','none');
+                }
+        $('.condition').on('change',function(){
+            var action = $(this).attr('id');
+            var ma_id = $(this).val();
+            var value_price_sale = $('input[name="product_price"]');
+            // alert(action);
+            //  alert(matp);
+            //   alert(_token);
+
+            if(ma_id == 1 || ma_id == ""){
+                product_price.css('display','none');
+                value_price_sale.val(0);
+            }else{
+              product_price.css('display','block');
+              value_price_sale.css('border-color','green');
+            }
         }); 
     })
 

@@ -26,9 +26,13 @@ class HomeController extends Controller
         
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
-        $all_product = DB::table('tbl_product')->where('product_status','0')->orderby(DB::raw('RAND()'))->paginate(6); 
+        $all_product = DB::table('tbl_product')->where('product_status','0')->orderby(DB::raw('RAND()'))->take(8)->get();
 
-    	return view('main')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('dem_hang',$dem_hang);
+        $sale_product = DB::table('tbl_product')->where('product_status','0')->where('product_condition_id',3)->orderby('product_id','desc')->get();
+
+        $new_product = DB::table('tbl_product')->where('product_status','0')->where('product_condition_id',2)->orderby('product_id','desc')->get();
+
+    	return view('main',compact('sale_product','new_product'))->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('dem_hang',$dem_hang);
     }
 
     public function search(Request $request){
@@ -59,7 +63,7 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         //--seo
  
-        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','DESC')->get();
  
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
  

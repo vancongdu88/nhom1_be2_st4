@@ -14,19 +14,29 @@
                     <div class="tab-content product-details-tab product-details-large" id="myTabContent">
                     <div class="tab-pane fade show active" id="single-slide" role="tabpanel" aria-labelledby="single-slide-tab-1">
                             <!--Single Product Image Start-->
-                            <div class="single-product-img img-full">
+                            <div style="overflow:hidden" class="single-product-img img-full">
                             <!-- node -->
                                 <img src="{{asset($share_images)}}">
                                 <a class="popup-img venobox vbox-item" href="{{asset($share_images)}}" data-gall="myGallery"><i class="fa fa-expand"></i></a>
+                                @if($value->product_condition_id == 3)
+                                <div class="sticker"><span>Sale</span></div>
+                                @elseif($value->product_condition_id == 2)
+                                <div class="sticker"><span>New</span></div>
+                                @endif
                             </div>
                             <!--Single Product Image End-->
                         </div>
                     @foreach($gallery as $key => $gal)
                     <div class="tab-pane fade" id="single-slide{{$loop->index + 1}}" role="tabpanel" aria-labelledby="single-slide-tab-2">
                                       <!--Single Product Image Start-->
-                                      <div class="single-product-img img-full">
+                                      <div style="overflow:hidden" class="single-product-img img-full">
                                         <img src="{{asset('public/uploads/gallery/'.$gal->gallery_image)}}" alt="{{$gal->gallery_name}}">
                                         <a class="popup-img venobox vbox-item" href="{{asset('public/uploads/gallery/'.$gal->gallery_image)}}" data-gall="myGallery"><i class="fa fa-expand"></i></a>
+                                        @if($value->product_condition_id == 3)
+                                        <div class="sticker"><span>Sale</span></div>
+                                        @elseif($value->product_condition_id == 2)
+                                        <div class="sticker"><span>New</span></div>
+                                        @endif
                                       </div>
                                       <!--Single Product Image End-->
                                   </div>
@@ -81,7 +91,12 @@
                         <!-- Review Area End Here -->
                         <!-- Begin Price Box Area -->
                         <div class="price-box-2">
+                        @if($value->product_condition_id == 1)
+                        <span class="price">{{number_format($value->price_cost,0,',','.').'VNĐ'}}</span>
+                        @else
                             <span class="price">{{number_format($value->product_price,0,',','.').'VNĐ'}}</span>
+                            <span class="old-price">{{number_format($value->price_cost,0,',','.').'VNĐ'}}</span>
+                        @endif
                         </div>
                         <!-- Price Box Area End Here -->
                         <p class="short-desc">{{$value->category_desc}}</p>
@@ -97,8 +112,9 @@
                                             <input type="hidden" value="{{$value->product_quantity}}" class="cart_product_quantity_{{$value->product_id}}">
 
                                             <input type="hidden" value="{{$value->wishlist}}" class="cart_product_wishlist_{{$value->product_id}}">
-                                            <p>{{$value->wishlist}}</p>
+
                                             <input type="hidden" value="{{$value->product_price}}" class="cart_product_price_{{$value->product_id}}">
+
                                             <input name="productid_hidden" type="hidden"  value="{{$value->product_id}}" />
                             <div class="quantity">
                                 <input class="input-text qty text cart_product_qty_{{$value->product_id}}" step="1" min="1" max="200" name="quantity" value="1" title="Qty" size="4" type="number">
@@ -301,7 +317,11 @@
 
                                     <input type="hidden" id="wishlist_productprice{{$lienquan->product_id}}" value="{{number_format($lienquan->product_price,0,',','.')}}VNĐ">
 
+                                    @if($lienquan->product_condition_id == 1)
+                                    <input type="hidden" value="{{$lienquan->price_cost}}" class="cart_product_relate_price_{{$lienquan->product_id}}">
+                                    @else
                                     <input type="hidden" value="{{$lienquan->product_price}}" class="cart_product_relate_price_{{$lienquan->product_id}}">
+                                    @endif
 
                                     <input type="hidden" value="1" class="cart_product_relate_qty_{{$lienquan->product_id}}">
 
@@ -313,7 +333,14 @@
                         <a href="{{URL::to('/chi-tiet/'.$lienquan->product_slug)}}">
                         <img class="primary-img" src="{{URL::to('public/uploads/product/'.$lienquan->product_image)}}" alt="">
                         </a>
+                        @if($lienquan->product_condition_id == 3)
                         <div class="sticker"><span>Sale</span></div>
+                                            
+                        @elseif($lienquan->product_condition_id == 2)
+                                            
+                        <div class="sticker"><span>New</span></div>
+                                            
+                        @endif
                         <!-- Begin Product Action Area -->
                         <div class="product-action">
                             <div class="product-action-inner">
@@ -341,10 +368,16 @@
                         </h5>
                         <!-- Featured Product Name Area End Here -->
                         <!-- Begin Price Box Area -->
+                        @if($lienquan->product_condition_id == 1)
                         <div class="price-box">
-                            <span class="price">{{number_format($lienquan->price_cost,0,',','.').' '.'VNĐ'}}</span>
-                            <span class="old-price">{{number_format($lienquan->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                <span class="price">{{number_format($lienquan->price_cost,0,',','.').' '.'VNĐ'}}</span>
                         </div>
+                                @else
+                        <div class="price-box">
+                                <span class="price">{{number_format($lienquan->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                <span class="old-price">{{number_format($lienquan->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                        </div>
+                                @endif
                         <!-- Price Box Area End Here -->
                         <!-- Begin Rating Area -->
                         <?php
@@ -360,7 +393,11 @@
                         ?>
                         </div>
                         @else
-                        <p>Chưa có đánh giá</p>
+                        <div class="rating">
+                        <p>
+                        Chưa có đánh giá
+                        </p>
+                        </div>
                         @endif
                         <!-- Rating Area End Here -->
                     </div>

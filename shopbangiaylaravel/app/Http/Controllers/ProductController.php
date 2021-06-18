@@ -83,7 +83,7 @@ class ProductController extends Controller
     public function tag(Request $request, $product_tag){
 
        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
-       $brand_product = DB::table(' ')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+       $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
 
        $tag = str_replace("-"," ",$product_tag);
@@ -123,10 +123,11 @@ class ProductController extends Controller
     public function add_product(){
         $this->AuthLogin();
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get(); 
-        $brand_product = DB::table('tbl_brand')->orderby('brand_id','desc')->get(); 
+        $brand_product = DB::table('tbl_brand')->orderby('brand_id','desc')->get();
+        $pro_condition = DB::table('tbl_product_conditon')->orderby('product_condition_id','ASC')->get();
        
 
-        return view('admin.add_product')->with('cate_product', $cate_product)->with('brand_product',$brand_product);
+        return view('admin.add_product',compact('pro_condition'))->with('cate_product', $cate_product)->with('brand_product',$brand_product);
     	
 
     }
@@ -135,6 +136,7 @@ class ProductController extends Controller
     	$all_product = DB::table('tbl_product')
         ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
         ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
+        ->join('tbl_product_conditon','tbl_product_conditon.product_condition_id','=','tbl_product.product_condition_id')
         ->orderby('tbl_product.product_id','desc')->paginate(5);
     	$manager_product  = view('admin.all_product')->with('all_product',$all_product);
     	return view('admin_layout')->with('admin.all_product', $manager_product);
@@ -154,6 +156,7 @@ class ProductController extends Controller
             $data['product_slug'] = $request->product_slug;
             $data['product_color'] = $request->product_colors;
             $data['product_size'] = $request->product_sizes;
+            $data['product_condition_id'] = $request->product_condition;
             $data['product_price'] = $product_price;
             $data['product_desc'] = $request->product_desc;
             $data['product_content'] = $request->product_content;
@@ -203,16 +206,17 @@ class ProductController extends Controller
             $this->AuthLogin();
             DB::table('tbl_product')->where('product_id',$product_id)->delete();
             Session::put('message','Xóa sản phẩm thành công');
-            return Redirect::to('all-product');
+            return redirect()->back();
         }
         public function edit_product($product_id){
             $this->AuthLogin();
            $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get(); 
-           $brand_product = DB::table('tbl_brand')->orderby('brand_id','desc')->get(); 
+           $brand_product = DB::table('tbl_brand')->orderby('brand_id','desc')->get();
+           $pro_condition = DB::table('tbl_product_conditon')->orderby('product_condition_id','ASC')->get();
    
            $edit_product = DB::table('tbl_product')->where('product_id',$product_id)->get();
    
-           $manager_product  = view('admin.edit_product')->with('edit_product',$edit_product)->with('cate_product',$cate_product)->with('brand_product',$brand_product);
+           $manager_product  = view('admin.edit_product')->with('edit_product',$edit_product)->with('cate_product',$cate_product)->with('brand_product',$brand_product)->with('pro_condition',$pro_condition);
    
            return view('admin_layout')->with('admin.edit_product', $manager_product);
        }
@@ -220,14 +224,14 @@ class ProductController extends Controller
         $this->AuthLogin();
        DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status'=>1]);
        Session::put('message','Không kích hoạt sản phẩm thành công');
-       return Redirect::to('all-product');
+       return redirect()->back();
 
    }
    public function active_product($product_id){
         $this->AuthLogin();
        DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status'=>0]);
        Session::put('message','Kích hoạt sản phẩm thành công');
-       return Redirect::to('all-product');
+       return redirect()->back();
    }
    public function update_product(Request $request,$product_id){
     $this->AuthLogin();
@@ -242,6 +246,7 @@ class ProductController extends Controller
    $data['product_slug'] = $request->product_slug;
    $data['product_color'] = $request->product_colors;
    $data['product_size'] = $request->product_sizes;
+   $data['product_condition_id'] = $request->product_condition;
    $data['product_price'] = $product_price;
    $data['product_desc'] = $request->product_desc;
    $data['product_content'] = $request->product_content;

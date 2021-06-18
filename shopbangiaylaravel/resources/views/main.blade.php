@@ -340,7 +340,7 @@
                          <div class="col-lg-12">
                              <!-- Begin Featured Product Title Area -->
                              <div class="pos-title pos-title-2">
-                                 <h2>Featured products</h2>
+                                 <h2>Sale products</h2>
                                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Separated.</p>
                              </div>
                              <!-- Featured Product Title Area End Here -->
@@ -353,7 +353,120 @@
                                      <?php
                                         use App\Rating;
                                         ?>
-                                     @foreach($all_product as $key => $product)
+                                     @foreach($sale_product as $key => $product)
+                                     <div class="single-product single-featured-pro-2">
+                                     <?php
+                            $colors = $product->product_color;
+                            $colors = explode(",",$colors);
+                            $sizes = $product->product_size;
+                            $sizes = explode(",",$sizes);
+                            ?>
+                                     <form>
+                                     @csrf
+                                     <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productname{{$product->product_id}}" value="{{$product->product_name}}" class="cart_product_name_{{$product->product_id}}">
+                                          
+                                    <input type="hidden" value="{{$product->product_quantity}}" class="cart_product_quantity_{{$product->product_id}}">
+                                            
+                                    <input type="hidden" value="{{$product->product_image}}" class="cart_product_image_{{$product->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productprice{{$product->product_id}}" value="{{number_format($product->product_price,0,',','.')}}VNĐ">
+
+                                    <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+
+                                    <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
+
+                                    <input type="hidden" value="{{$colors[0]}}" class="cart_product_color_{{$product->product_id}}">
+
+                                    <input type="hidden" value="{{$sizes[0]}}" class="cart_product_size_{{$product->product_id}}">
+                                         <!-- Begin Product Image Area -->
+                                         <div class="product-img">
+                                             <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
+                                                 <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
+                                                 <div class="sticker"><span>Sale</span></div>
+                                             </a>
+                                             <div class="product-action">
+                                                         <div class="product-action-inner">
+                                                             <div class="cart">
+                                                                 <input type="button" value="Add To Cart" class="add-to-cart" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
+                                                             </div>
+                                                             <ul class="add-to-links">
+                                                                 <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
+                                                                 <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
+                                                                 <li class="rav-quickviewbtn">
+                                                                     <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
+                                                                 </li>
+                                                             </ul>
+                                                         </div>
+                                                     </div>
+                                         </div>
+                                         <!-- Product Image Area End Here -->
+                                         </form>
+                                         <!-- Begin Product Content Area -->
+                                         <div class="product-contents">
+                                             <!-- Begin Product Name Area -->
+                                             <h5 class="product-name">
+                                                 <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}" title="Printed Chiffon Dress">{{$product->product_name}}</a>
+                                             </h5>
+                                             <!-- Product Name Area End Here -->
+                                             <!-- Begin Price Box Area -->
+                                             @if($product->product_condition_id == 1)
+                                             <div class="price-box">
+                                                 <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @else
+                                             <div class="price-box">
+                                                 <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                 <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @endif
+                                             <!-- Price Box Area End Here -->
+                                             <?php
+                                                $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                $rating2 = round($rating2);
+                                                ?>
+                                                @if($rating2 > 0)
+                                                <div class="rating">
+                                                <?php
+                                                for($x = 1; $x <= $rating2; $x++){
+                                                 echo '<i class="fa fa-star"></i>';
+                                                }
+                                                ?>
+                                                </div>
+                                                @else
+                                                <div class="rating">
+                                                <p>Chưa có đánh giá</p>
+                                                </div>
+                                                @endif
+                                         </div>
+                                         <!-- Product Content Area End Here -->
+                                     </div>
+                                     @endforeach
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <!-- Random Product Content Area End Here -->
+                         </div>
+                     </div>
+                 </div>
+            </section>
+            <!-- Featured Porduct Section End Here -->
+            <!-- Begin New Product Section -->
+            <section class="new-product new-product-2 pb-30">
+                 <div class="container-fluid  pl-40 pr-40">
+                     <div class="col-lg-12 p-0">
+                         <!-- Begin New Product Title Area -->
+                         <div class="pos-title pos-title-2">
+                             <h2>new arrivals</h2>
+                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Separated.</p>
+                         </div>
+                         <!-- New Product Title Area End Here -->
+                         <div class="order-2 order-lg-1">
+                            <div class="porduct-details-active owl-carousel">
+                                     <!-- Begin Single Random Product Area -->
+                                     @foreach($new_product as $key => $product)
                                      <div class="single-product single-featured-pro-2">
                                      <?php
                             $colors = $product->product_color;
@@ -411,9 +524,16 @@
                                              </h5>
                                              <!-- Product Name Area End Here -->
                                              <!-- Begin Price Box Area -->
+                                             @if($product->product_condition_id == 1)
+                                             <div class="price-box">
+                                                 <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @else
                                              <div class="price-box">
                                                  <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                 <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
                                              </div>
+                                             @endif
                                              <!-- Price Box Area End Here -->
                                              <?php
                                                 $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
@@ -437,40 +557,12 @@
                                      </div>
                                      @endforeach
                                  </div>
-                             </div>
-                         </div>
-                     </div>
-                     <!-- Random Product Content Area End Here -->
-                         </div>
-                     </div>
-                 </div>
-            </section>
-            <!-- Featured Porduct Section End Here -->
-            <!-- Begin New Product Section -->
-            <section class="new-product new-product-2 pb-30">
-                 <div class="container-fluid  pl-40 pr-40">
-                     <div class="col-lg-12 p-0">
-                         <!-- Begin New Product Title Area -->
-                         <div class="pos-title pos-title-2">
-                             <h2>new arrivals</h2>
-                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Separated.</p>
-                         </div>
-                         <!-- New Product Title Area End Here -->
-                         <div class="order-2 order-lg-1">
+
                             <div class="banner-static-2">
                                 <div class="banner-img">
                                     <div class="banner-box">
                                         <a href="#">
                                             <img src="{{('public/frontend/images/banner/3_2.jpg')}}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="banner-static-2 mt-30">
-                                <div class="banner-img">
-                                    <div class="banner-box">
-                                        <a href="#">
-                                            <img src="{{('public/frontend/images/banner/4_2.jpg')}}" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -507,15 +599,22 @@
                                     <input type="hidden" value="{{$product->product_image}}" class="cart_product_image_{{$product->product_id}}">
 
                                     <input type="hidden" id="wishlist_productprice{{$product->product_id}}" value="{{number_format($product->product_price,0,',','.')}}VNĐ">
-
+                                    @if($product->product_condition_id == 1)
+                                    <input type="hidden" value="{{$product->price_cost}}" class="cart_product_price_{{$product->product_id}}">
+                                    @else
                                     <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+                                    @endif
 
                                     <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
                                          <div class="product-img">
                                              <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                  <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
+                                                 @if($product->product_condition_id == 3)
+                                                 <div class="sticker"><span>Sale</span></div>
+                                                 @elseif($product->product_condition_id == 2)
                                                  <div class="sticker"><span>New</span></div>
+                                                 @endif
                                              </a>
                                              <div class="product-action">
                                                          <div class="product-action-inner">
@@ -542,9 +641,16 @@
                                              </h5>
                                              <!-- Product Name Area End Here -->
                                              <!-- Begin Price Box Area -->
+                                             @if($product->product_condition_id == 1)
+                                             <div class="price-box">
+                                                 <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @else
                                              <div class="price-box">
                                                  <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                 <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
                                              </div>
+                                             @endif
                                              <?php
                                                 $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
                                                 $rating2 = round($rating2);
