@@ -135,3 +135,5 @@ Route::get('/danh-muc/{slug_category_product}','CategoryProduct@show_category_ho
 // Send Mail 
 Route::get('/send-coupon-vip/{coupon_time}/{coupon_condition}/{coupon_number}/{coupon_code}','MailController@send_coupon_vip');
 Route::get('/send-coupon/{coupon_time}/{coupon_condition}/{coupon_number}/{coupon_code}','MailController@send_coupon');
+Route::get('/yeu-thich','HomeController@yeu_thich');
+Route::post('/add-wishlist','CartController@add_wishlist');
