@@ -42,12 +42,24 @@
                       <input type="text" class="form-control" value="{{$pro->product_slug}}" name="product_slug" id="convert_slug">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Giá bán</label>
-                      <input type="text" class="form-control price_format" value="{{$pro->product_price}}" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="product_price"  placeholder="Nhập giá bán">
+                        <label for="exampleInputEmail condition">Loại sản phẩm</label>
+                        <select name="product_condition" class="form-control input-sm m-bot15 condition" required>
+                        @foreach($pro_condition as $key => $con)
+                            @if($con->product_condition_id==$pro->product_condition_id)
+                            <option selected value="{{$con->product_condition_id}}">{{$con->product_condition_name}}</option>
+                            @else
+                            <option value="{{$con->product_condition_id}}">{{$con->product_condition_name}}</option>
+                        @endif
+                        @endforeach
+                        </select>                   
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Giá gốc</label>
+                        <label for="exampleInputEmail">Giá bán</label>
                       <input type="text" class="form-control  price_format" value="{{$pro->price_cost}}" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="price_cost" placeholder="Nhập giá gốc">
+                    </div>
+                    <div class="form-group product_price">
+                        <label for="exampleInputEmail ">Giá khuyến mãi</label>
+                      <input type="text" class="form-control price_format" value="{{$pro->product_price}}" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="product_price"  placeholder="Nhập giá bán">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Hình ảnh sản phẩm</label>

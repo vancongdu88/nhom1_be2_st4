@@ -82,22 +82,53 @@
                                               ?>
                                                 @foreach($brand_by_id as $key => $product)
                                                 <div class="col-lg-4 col-md-6 col-sm-6">
+                                                <?php
+                                                $colors = $product->product_color;
+                                                $colors = explode(",",$colors);
+                                                $sizes = $product->product_size;
+                                                $sizes = explode(",",$sizes);
+                                                ?>
                                                     <!-- Begin Single Product Area -->
                                                     <div class="single-product single-product-3">
+                                                    <form>
+                                                   @csrf
+                                                   <input type="hidden" value="{{$product->product_id}}" class="cart_product_relate_id_{{$product->product_id}}">
+
+                                                    <input type="hidden" id="wishlist_productname{{$product->product_id}}" value="{{$product->product_name}}" class="cart_product_relate_name_{{$product->product_id}}">
+                                          
+                                                    <input type="hidden" value="{{$product->product_quantity}}" class="cart_product_relate_quantity_{{$product->product_id}}">
+                                            
+                                                    <input type="hidden" value="{{$product->product_image}}" class="cart_product_relate_image_{{$product->product_id}}">
+
+                                                    <input type="hidden" id="wishlist_productprice{{$product->product_id}}" value="{{number_format($product->product_price,0,',','.')}}VNĐ">
+
+                                                    @if($product->product_condition_id == 1)
+                                    <input type="hidden" value="{{$product->price_cost}}" class="cart_product_price_{{$product->product_id}}">
+                                    @else
+                                    <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+                                    @endif
+
+                                                    <input type="hidden" value="1" class="cart_product_relate_qty_{{$product->product_id}}">
+
+                                                    <input type="hidden" value="{{$colors[0]}}" class="cart_product_relate_color_{{$product->product_id}}">
+
+                                                    <input type="hidden" value="{{$sizes[0]}}" class="cart_product_relate_size_{{$product->product_id}}">
                                                         <!-- Begin Product Image Area -->
                                                         <div class="product-img">
                                                             <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                                 <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                             </a>
-                                                            <div class="sticker"><span>New</span></div>
+                                                            @if($product->product_condition_id == 3)
+                                                 <div class="sticker"><span>Sale</span></div>
+                                                 @elseif($product->product_condition_id == 2)
+                                                 <div class="sticker"><span>New</span></div>
+                                                 @endif
                                                             <!-- Begin Product Action Area -->
                                                             <div class="product-action">
                                                                 <div class="product-action-inner">
-                                                                    <div class="cart">
-                                                                        <a href="shopping-cart.html">
-                                                                            <span>Add To Cart</span>
-                                                                        </a>
-                                                                    </div>
+                                                                <div class="cart">
+                                                              <input type="button" value="Add To Cart" class="add-to-cart2" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
+                                                              </div>
                                                                     <ul class="add-to-links">
                                                                         <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
                                                                         <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
@@ -118,10 +149,16 @@
                                                             </h5>
                                                             <!-- Product Name Area End Here -->
                                                             <!-- Begin Price Box Area -->
-                                                            <div class="price-box">
-                                                                <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
-                                                                <span class="old-price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
-                                                            </div>
+                                                            @if($product->product_condition_id == 1)
+                                             <div class="price-box">
+                                                 <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @else
+                                             <div class="price-box">
+                                                 <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                 <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @endif
                                                             <!-- Price Box Area End Here -->
                                                             <!-- Begin Rating Area -->
                                                             <?php
@@ -137,11 +174,14 @@
                                                                 ?>
                                                                 </div>
                                                                 @else
+                                                                <div class="rating">
                                                                 <p>Chưa có đánh giá</p>
+                                                                </div>
                                                                 @endif
                                                             <!-- Rating Area End Here -->
                                                         </div>
                                                         <!-- Product Content Area End Here -->
+                                                        </form>
                                                     </div>
                                                     <!-- Single Product Area End Here -->
                                                 </div>
@@ -154,12 +194,46 @@
                                         <div class="list-view">
                                             @foreach($brand_by_id as $key => $product)
                                             <div class="row">
+                                            <?php
+                                                $colors = $product->product_color;
+                                                $colors = explode(",",$colors);
+                                                $sizes = $product->product_size;
+                                                $sizes = explode(",",$sizes);
+                                                ?>
                                                 <div class="col-lg-4 col-md-4">
+                                                <form>
+                                                   @csrf
+                                                   <input type="hidden" value="{{$product->product_id}}" class="cart_product_relate_id_{{$product->product_id}}">
+
+                                                    <input type="hidden" id="wishlist_productname{{$product->product_id}}" value="{{$product->product_name}}" class="cart_product_relate_name_{{$product->product_id}}">
+                                          
+                                                    <input type="hidden" value="{{$product->product_quantity}}" class="cart_product_relate_quantity_{{$product->product_id}}">
+                                            
+                                                    <input type="hidden" value="{{$product->product_image}}" class="cart_product_relate_image_{{$product->product_id}}">
+
+                                                    <input type="hidden" id="wishlist_productprice{{$product->product_id}}" value="{{number_format($product->product_price,0,',','.')}}VNĐ">
+
+                                                    @if($product->product_condition_id == 1)
+                                    <input type="hidden" value="{{$product->price_cost}}" class="cart_product_price_{{$product->product_id}}">
+                                    @else
+                                    <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+                                    @endif
+
+                                                    <input type="hidden" value="1" class="cart_product_relate_qty_{{$product->product_id}}">
+
+                                                    <input type="hidden" value="{{$colors[0]}}" class="cart_product_relate_color_{{$product->product_id}}">
+
+                                                    <input type="hidden" value="{{$sizes[0]}}" class="cart_product_relate_size_{{$product->product_id}}">
                                                     <!-- Begin Product Image Area -->
                                                     <div class="product-img pro-list-item pro-list-sidebar-items">
                                                         <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                             <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                         </a>
+                                                        @if($product->product_condition_id == 3)
+                                                 <div class="sticker"><span>Sale</span></div>
+                                                 @elseif($product->product_condition_id == 2)
+                                                 <div class="sticker"><span>New</span></div>
+                                                 @endif
                                                     </div>
                                                     <!-- Product Image Area End Here -->
                                                 </div>
@@ -185,14 +259,22 @@
                                                            ?>
                                                            </div>
                                                            @else
+                                                           <div class="rating list-rating">
                                                            <p>Chưa có đánh giá</p>
+                                                           </div>
                                                            @endif
                                                         <!-- List Rating Area End Here -->
                                                         <!-- Begin Price list Box Area -->
-                                                        <div class="price-box list-price-box">
-                                                            <span class="price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
-                                                            <span class="old-price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
-                                                        </div>
+                                                        @if($product->product_condition_id == 1)
+                                             <div class="price-box">
+                                                 <span class="price-box list-price-box">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @else
+                                             <div class="price-box list-price-box">
+                                                 <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
+                                                 <span class="old-price">{{number_format($product->price_cost,0,',','.').' '.'VNĐ'}}</span>
+                                             </div>
+                                             @endif
                                                         <!-- Price List Box Area End Here -->
                                                         <!-- Begin List Text -->
                                                         <div class="list-text">
@@ -202,11 +284,9 @@
                                                         <!-- Begin Product Action Area -->
                                                         <div class="product-action product-action-2">
                                                             <div class="product-action-inner">
-                                                                <div class="cart">
-                                                                    <a href="shopping-cart.html">
-                                                                        <span>Add To Cart</span>
-                                                                    </a>
-                                                                </div>
+                                                            <div class="cart">
+                                                              <input type="button" value="Add To Cart" class="add-to-cart2" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
+                                                              </div>
                                                                 <ul class="add-to-links">
                                                                     <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
                                                                     <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
@@ -219,6 +299,7 @@
                                                         <!-- Product Action Area End Here -->
                                                     </div>
                                                     <!-- Product List Content Area End Here -->
+                                                    </form>
                                                 </div>
                                             </div>
                                             @endforeach

@@ -111,55 +111,33 @@ class CategoryProduct extends Controller
     }
 
     public function show_category_home(Request $request ,$slug_category_product){
-
+        Session::forget('category_id');
+        Session::forget('brand_id');
+        Session::forget('price');
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
         $category_by_slug = CategoryProductModel::where('slug_category_product',$slug_category_product)->get();
 
-        $min_price = Product::min('product_price');
-        $max_price = Product::max('product_price');
-
-
-
-        $min_price_range = $min_price + 500000;
-        $max_price_range = $max_price + 10000000;
-
         foreach($category_by_slug as $key => $cate){
             $category_id = $cate->category_id;
         }
+        $min_price = Product::with('category')->where('category_id',$category_id)->min('price_cost');
+        $max_price = Product::with('category')->where('category_id',$category_id)->max('price_cost');
+        $min_price_range = $min_price;
+        $max_price_range = $max_price;
 
-        if(isset($_GET['sort_by'])){
+        if(isset($_GET['start_price']) && $_GET['end_price']){
 
-            $sort_by = $_GET['sort_by'];
-
-            if($sort_by=='giam_dan'){
-
-                $category_by_id = Product::with('category')->where('category_id',$category_id)->orderBy('product_price','DESC')->paginate(4)->appends(request()->query());
-
-            }elseif($sort_by=='tang_dan'){
-
-              $category_by_id = Product::with('category')->where('category_id',$category_id)->orderBy('product_price','ASC')->paginate(4)->appends(request()->query());
-
-            }elseif($sort_by=='kytu_za'){
-
-            $category_by_id = Product::with('category')->where('category_id',$category_id)->orderBy('product_name','DESC')->paginate(4)->appends(request()->query());
-
-
-            }elseif($sort_by=='kytu_az'){
-
-                $category_by_id = Product::with('category')->where('category_id',$category_id)->orderBy('product_name','ASC')->paginate(4)->appends(request()->query());
-            }                                                                                               
-
-        }elseif(isset($_GET['start_price']) && $_GET['end_price']){
-
-            $min_price = $_GET['start_price'];
-            $max_price = $_GET['end_price'];
-
-            $category_by_id = Product::with('category')->whereBetween('product_price',[$min_price,$max_price])->orderBy('product_price','ASC')->paginate(4);
-
+            $price_array = array(
+                'min_price' => $_GET['start_price'],
+                'max_price' => $_GET['end_price']
+              );
+              Session::put('price',$price_array);
+            $category_by_id = Product::with('category')->where('category_id',$category_id)->whereBetween('price_cost',[$_GET['start_price'],$_GET['end_price']])->orderBy('price_cost','DESC')->get();
+        
         }else{
-            $category_by_id = Product::with('category')->where('category_id',$category_id)->orderBy('product_id','DESC')->paginate(4);
+            $category_by_id = Product::with('category')->where('category_id',$category_id)->orderBy('price_cost','DESC')->get();
         }
 
 
@@ -169,10 +147,12 @@ class CategoryProduct extends Controller
             //seo 
             $meta_desc = $val->category_desc; 
             $meta_keywords = $val->meta_keywords;
+            $bread_crumb = 'Category';
             $meta_title = $val->category_name;
             $url_canonical = $request->url();
             //--seo
         }
-        return view('pages.category.show_category')->with('category',$cate_product)->with('brand',$brand_product)->with('category_by_id',$category_by_id)->with('category_name',$category_name)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('min_price',$min_price)->with('max_price',$max_price)->with('max_price_range',$max_price_range)->with('min_price_range',$min_price_range);
+        Session::put('category_id',$category_id);
+        return view('pages.category.show_category',compact('bread_crumb'))->with('category',$cate_product)->with('brand',$brand_product)->with('category_by_id',$category_by_id)->with('category_name',$category_name)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('min_price',$min_price)->with('max_price',$max_price)->with('max_price_range',$max_price_range)->with('min_price_range',$min_price_range);
     }
 }

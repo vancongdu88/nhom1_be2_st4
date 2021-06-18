@@ -31,8 +31,9 @@
                       <th>Thư viện ảnh</th>
                       <th>Số lượng</th>
                       <th>Slug</th>
+                      <th>Loại sản phẩm</th>
                       <th>Giá bán</th>
-                      <th>Giá gốc</th>
+                      <th>Giá khuyến mãi</th>
                       <th>Hình ảnh sản phẩm</th>
                       <th>Danh mục</th>
                       <th>Thương hiệu</th>
@@ -48,8 +49,13 @@
                       <td><a href="{{url('/add-gallery/'.$pro->product_id)}}">Thêm thư viện ảnh</a></td>
                       <td>{{ $pro->product_quantity }}</td>
                       <td>{{ $pro->product_slug }}</td>
-                      <td>{{ number_format($pro->product_price,0,',','.') }}đ</td>
+                      <td>{{ $pro->product_condition_name }}</td>
                       <td>{{ number_format($pro->price_cost,0,',','.') }}đ</td>
+                      <td>@if($pro->product_price == 0)
+                        Không có
+                      @else
+                      {{ number_format($pro->product_price,0,',','.') }}đ</td>
+                      @endif
                       <td><img src="public/uploads/product/{{ $pro->product_image }}" height="100" width="100"></td>
                       <td>{{ $pro->category_name }}</td>
                       <td>{{ $pro->brand_name }}</td>
