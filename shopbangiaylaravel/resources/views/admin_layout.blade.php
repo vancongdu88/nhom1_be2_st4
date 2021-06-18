@@ -23,7 +23,8 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('public/backend/css/bootstrap-tagsinput.css')}}" type="text/css"/>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+  <!-- Toasty -->
+  <link rel="stylesheet" href="{{asset('public/frontend/css/toasty.min.css')}}">
   <!-- Custom styles for this template-->
   <link href="{{asset('public/backend/css/sb-admin-2.css')}}" rel="stylesheet">
   
@@ -153,6 +154,17 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{URL::to('/insert-coupon')}}">Thêm coupon</a>
             <a class="collapse-item" href="{{URL::to('/list-coupon')}}">Danh sách coupon</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseShip" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fa fa-truck" aria-hidden="true"></i>
+          <span>Phí vận chuyển</span></span>
+        </a>
+        <div id="collapseShip" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{URL::to('/delivery')}}">Liệt kê phí vận chuyển</a>
           </div>
         </div>
       </li>
@@ -454,6 +466,8 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('public/backend/js/demo/chart-area-demo.js')}}"></script>
   <script src="{{asset('public/backend/js/demo/chart-pie-demo.js')}}"></script>
+  <!-- Toasty -->
+  <script src="{{asset('public/frontend/js/toasty.min.js')}}"></script>
   <script  type="text/javascript">
        // Replace the <textarea id="editor1"> with a CKEditor
        // instance, using default configuration.
@@ -504,9 +518,57 @@
  
 </script>
 <script type="text/javascript">
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+function validateNumber(number) {
+  const re = /^[0-9]+$/;
+  return re.test(number);
+}
+
+function validate() {
+  const $danger = $(".alert-danger");
+  const $success = $(".alert-success");
+  const email =  document.forms["form-re"]["admin_email"].value;
+  const number =  document.forms["form-re"]["admin_phone"].value;
+  const $notify = $(".notify-re");
+  $success.removeClass("alert");
+  $success.text("");
+  $danger.removeClass("alert");
+  $danger.text("");
+  var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+  if (!validateEmail(email) || !validateNumber(number)) {
+    $notify.css('display','none');
+    toast.error("Email hoặc số điện thoại của bạn không đúng",5000);
+    $('input[name="admin_email"]').addClass("error");
+    $('input[name="admin_phone"]').addClass("error");
+    /* $danger.addClass("alert");
+    $danger.text('Email hoặc số điện thoại của bạn không đúng'); */
+    return false;
+  }
+   else {
+    $notify.css('display','none');
+    /* $success.addClass("alert");
+    $success.text('Mọi thứ đều ổn bạn vui lòng đợi kết quả trong giây lát'); */
+    toast.success("Thông tin sẽ được gửi đi và kiểm tra, vui lòng đợi ...",5000);
+    <?php
+    sleep(6);
+    ?>
+    return true;
+  }
+  
+}
+</script>
+<script type="text/javascript">
     $('.update_quantity_order').click(function(){
         var order_product_id = $(this).data('product_id');
         var order_qty = $('.order_qty_'+order_product_id).val();
+        var order_color = $('.order_color_'+order_product_id).val();
+        var order_size = $('.order_size_'+order_product_id).val();
         var order_code = $('.order_code').val();
         var _token = $('input[name="_token"]').val();
         // alert(order_product_id);
@@ -517,11 +579,11 @@
 
                 method: 'POST',
 
-                data:{_token:_token, order_product_id:order_product_id ,order_qty:order_qty ,order_code:order_code},
+                data:{_token:_token, order_product_id:order_product_id ,order_qty:order_qty ,order_color:order_color, order_size:order_size , order_code:order_code},
                 // dataType:"JSON",
                 success:function(data){
 
-                    alert('Cập nhật số lượng thành công');
+                    alert('Cập nhật đơn hàng thành công');
                  
                    location.reload();
                     
@@ -543,6 +605,16 @@
         quantity = [];
         $("input[name='product_sales_quantity']").each(function(){
             quantity.push($(this).val());
+        });
+        //lay ra color
+        color = [];
+        $("select[name='product_color']").each(function(){
+            color.push($(this).val());
+        });
+        //lay ra size
+        size = [];
+        $("select[name='product_size']").each(function(){
+            size.push($(this).val());
         });
         //lay ra product id
         order_product_id = [];
@@ -570,9 +642,16 @@
                 $.ajax({
                         url : '{{url('/update-order-qty')}}',
                             method: 'POST',
-                            data:{_token:_token, order_status:order_status ,order_id:order_id ,quantity:quantity, order_product_id:order_product_id},
+                            data:{_token:_token, order_status:order_status ,order_id:order_id ,quantity:quantity, color:color, size:size, order_product_id:order_product_id},
                             success:function(data){
-                                alert('Thay đổi tình trạng đơn hàng thành công');
+                              var toast = new Toasty({
+                                  transition: "slideLeftRightFade",
+                                  progressBar: true,
+                                    });
+                                toast.success("Cập nhật trạng thái đơn hàng thành công, trang sẽ được load lại ...",5000);
+                                <?php
+                                sleep(6);
+                                ?>
                                 location.reload();
                             }
                 });
@@ -601,8 +680,15 @@
                 },
                 data:{rating_status:rating_status,comment_status:comment_status,comment_id:comment_id,comment_product_id:comment_product_id},
                 success:function(data){
+                  var toast = new Toasty({
+                                  transition: "slideLeftRightFade",
+                                  progressBar: true,
+                                    });
+                                toast.success(alert+", trang sẽ được load lại ...",3000);
+                                <?php
+                                sleep(4);
+                                ?>
                     location.reload();
-                   $('#notify_comment').html('<span class="text text-alert">'+alert+'</span>');
 
                 }
             });
@@ -634,6 +720,209 @@
 
 
     });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        load_gallery();
+
+        function load_gallery(){
+            var pro_id = $('.pro_id').val();
+            var _token = $('input[name="_token"]').val();
+            // alert(pro_id);
+            $.ajax({
+                url:"{{url('/select-gallery')}}",
+                method:"POST",
+                data:{pro_id:pro_id,_token:_token},
+                success:function(data){
+                    $('#gallery_load').html(data);
+                }
+            });
+        }
+
+        $('#file').change(function(){
+            var error = '';
+            var files = $('#file')[0].files;
+
+            if(files.length>5){
+                error+='<p>Bạn chọn tối đa chỉ được 5 ảnh</p>';
+            }else if(files.length==''){
+                error+='<p>Bạn không được bỏ trống ảnh</p>';
+            }else if(files.size > 2000000){
+                error+='<p>File ảnh không được lớn hơn 2MB</p>';
+            }
+
+            if(error==''){
+
+            }else{
+                $('#file').val('');
+                $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
+                return false;
+            }
+
+        });
+
+        $(document).on('blur','.edit_gal_name',function(){
+            var gal_id = $(this).data('gal_id');
+            var gal_text = $(this).text();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url('/update-gallery-name')}}",
+                method:"POST",
+                data:{gal_id:gal_id,gal_text:gal_text,_token:_token},
+                success:function(data){
+                    load_gallery();
+                    $('#error_gallery').html('<span class="text-danger">Cập nhật tên hình ảnh thành công</span>');
+                }
+            });
+        });
+
+        $(document).on('click','.delete-gallery',function(){
+            var gal_id = $(this).data('gal_id');
+          
+            var _token = $('input[name="_token"]').val();
+            if(confirm('Bạn muốn xóa hình ảnh này không?')){
+                $.ajax({
+                    url:"{{url('/delete-gallery')}}",
+                    method:"POST",
+                    data:{gal_id:gal_id,_token:_token},
+                    success:function(data){
+                        load_gallery();
+                        var toast = new Toasty({
+                                  transition: "slideLeftRightFade",
+                                  progressBar: true,
+                                    });
+                                toast.success("Xóa hình ảnh thành công",3000);
+                    }
+                });
+            }
+        });
+
+        $(document).on('change','.file_image',function(){
+
+            var gal_id = $(this).data('gal_id');
+            var image = document.getElementById("file-"+gal_id).files[0];
+
+            var form_data = new FormData();
+
+            form_data.append("file", document.getElementById("file-"+gal_id).files[0]);
+            form_data.append("gal_id",gal_id);
+
+
+          
+                $.ajax({
+                    url:"{{url('/update-gallery')}}",
+                    method:"POST",
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data:form_data,
+
+                    contentType:false,
+                    cache:false,
+                    processData:false,
+                    success:function(data){
+                        load_gallery();
+                        var toast = new Toasty({
+                                  transition: "slideLeftRightFade",
+                                  progressBar: true,
+                                    });
+                                toast.success("Thay đổi sẽ hình ảnh thành công",3000);
+                    }
+                });
+            
+        });
+
+
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        fetch_delivery();
+
+        function fetch_delivery(){
+            var _token = $('input[name="_token"]').val();
+             $.ajax({
+                url : '{{url('/select-feeship')}}',
+                method: 'POST',
+                data:{_token:_token},
+                success:function(data){
+                   $('#load_delivery').html(data);
+                }
+            });
+        }
+        $(document).on('blur','.fee_feeship_edit',function(){
+
+            var feeship_id = $(this).data('feeship_id');
+            var fee_value = $(this).text();
+             var _token = $('input[name="_token"]').val();
+            // alert(feeship_id);
+            // alert(fee_value);
+            $.ajax({
+                url : '{{url('/update-delivery')}}',
+                method: 'POST',
+                data:{feeship_id:feeship_id, fee_value:fee_value, _token:_token},
+                success:function(data){
+                  var toast = new Toasty({
+                                  transition: "slideLeftRightFade",
+                                  progressBar: true,
+                                    });
+                                toast.success("Thay đổi phí vận chuyển thành công",3000);
+                   fetch_delivery();
+                }
+            });
+
+        });
+        
+        $('.add_delivery').click(function(){
+
+           var city = $('.city').val();
+           var province = $('.province').val();
+           var wards = $('.wards').val();
+           var fee_ship = $('.fee_ship').val();
+            var _token = $('input[name="_token"]').val();
+           // alert(city);
+           // alert(province);
+           // alert(wards);
+           // alert(fee_ship);
+            $.ajax({
+                url : '{{url('/insert-delivery')}}',
+                method: 'POST',
+                data:{city:city, province:province, _token:_token, wards:wards, fee_ship:fee_ship},
+                success:function(data){
+                   fetch_delivery();
+                }
+            });
+
+
+        });
+        $('.choose').on('change',function(){
+            var action = $(this).attr('id');
+            var ma_id = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            var result = '';
+            // alert(action);
+            //  alert(matp);
+            //   alert(_token);
+
+            if(action=='city'){
+                result = 'province';
+            }else{
+                result = 'wards';
+            }
+            $.ajax({
+                url : '{{url('/select-delivery')}}',
+                method: 'POST',
+                data:{action:action,ma_id:ma_id,_token:_token},
+                success:function(data){
+                   $('#'+result).html(data);     
+                }
+            });
+        }); 
+    })
+
+
 </script>
 <script type="text/javascript">
  

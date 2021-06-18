@@ -19,7 +19,7 @@
                                         $product_num = count($product_brand);
                                         @endphp
                                         <ul>
-                                            <li><a href="{{URL::to('/thuong-hieu/'.$name->brand_slug)}}">{{$name->brand_name}} ({{$product_num}})</a></li>
+                                            <li style="text-transform: capitalize"><a href="{{URL::to('/thuong-hieu/'.$name->brand_slug)}}">{{$name->brand_name}} ({{$product_num}})</a></li>
                                         </ul>
                                         @endforeach
                                     </div>
@@ -29,16 +29,21 @@
                                 <!-- Shop Sidebar Area -->
                                 <div class="category mt-30">
                                     <h4>Filter</h4>
+                                    <form>
                                     <div class="price-filter">
                                         <div id="slider-range"></div>
                                         <div class="price-slider-amount">
                                             <div class="label-input">
                                                 <label>price : </label>
-                                                <input type="text" id="amount" name="price"  placeholder="Add Your Price" />
+                                            <p><input type="text" id="amount_start" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
+                                            <p><input type="text" id="amount_end" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
                                             </div>
-                                            <button type="button">Filter</button> 
+                                            <input type="hidden" name="start_price" id="start_price">
+                                            <input type="hidden" name="end_price" id="end_price">
+                                            <button type="submit" name="filter_price" value="Lọc giá" class="btn btn-sm btn-default">Filter</button> 
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                                 <!-- Shop Sidebar Area End-->
                             </div>
@@ -72,6 +77,9 @@
                                     <div id="grid" class="tab-pane show fade in active">
                                         <div class="grid-view">
                                             <div class="row">
+                                            <?php
+                                              use App\Rating;
+                                              ?>
                                                 @foreach($brand_by_id as $key => $product)
                                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                                     <!-- Begin Single Product Area -->
@@ -116,13 +124,21 @@
                                                             </div>
                                                             <!-- Price Box Area End Here -->
                                                             <!-- Begin Rating Area -->
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
+                                                            <?php
+                                                                $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                                $rating2 = round($rating2);
+                                                                ?>
+                                                                @if($rating2 > 0)
+                                                                <div class="rating">
+                                                                <?php
+                                                                for($x = 1; $x <= $rating2; $x++){
+                                                                 echo '<i class="fa fa-star"></i>';
+                                                                }
+                                                                ?>
+                                                                </div>
+                                                                @else
+                                                                <p>Chưa có đánh giá</p>
+                                                                @endif
                                                             <!-- Rating Area End Here -->
                                                         </div>
                                                         <!-- Product Content Area End Here -->
@@ -152,17 +168,25 @@
                                                     <div class="pro-list-content">
                                                         <!-- Begin Product Name Area -->
                                                         <h5 class="product-name">
-                                                            <a href="product-details.html" title="Printed Chiffon Dress">{{$product->product_name}}</a>
+                                                            <a href="product-details.html" title="{{$product->product_name}}">{{$product->product_name}}</a>
                                                         </h5>
                                                         <!-- Product Name Area End Here -->
                                                         <!-- Begin List Rating Area -->
-                                                        <div class="rating list-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
+                                                        <?php
+                                                           $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                           $rating2 = round($rating2);
+                                                           ?>
+                                                           @if($rating2 > 0)
+                                                           <div class="rating list-rating">
+                                                           <?php
+                                                           for($x = 1; $x <= $rating2; $x++){
+                                                            echo '<i class="fa fa-star"></i>';
+                                                           }
+                                                           ?>
+                                                           </div>
+                                                           @else
+                                                           <p>Chưa có đánh giá</p>
+                                                           @endif
                                                         <!-- List Rating Area End Here -->
                                                         <!-- Begin Price list Box Area -->
                                                         <div class="price-box list-price-box">
@@ -209,8 +233,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <div class="product-pagination">
-                                                <ul class="pagination pagination-sm m-t-none m-b-none">
-                                                    {!!$brand_by_id->links()!!}
+                                                <ul class="pagination pagination-sm m-t-none m-b-none justify-content-end">
                                                 </ul>
                                             </div>
                                         </div>
@@ -222,5 +245,6 @@
                     </div>
                 </div>
             </div>
+            
 
 @endsection

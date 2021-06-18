@@ -25,14 +25,19 @@
                                                 <th class="cart-product-name">Product</th>
                                                 <th class="cart-product-name">In stock</th>
                                                 <th class="raavin-product-price">Unit Price</th>
+                                                <th class="raavin-product-quantity">Shoe color</th>
+                                                <th class="raavin-product-quantity">Shoe size</th>
                                                 <th class="raavin-product-quantity">Quantity</th>
                                                 <th class="raavin-product-subtotal">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <?php
+                                        use App\Product;
+                                        ?>
                                         @if(Session::get('cart')==false)
                                         <tr>
-							<td colspan="7"><center>
+							<td colspan="9"><center>
 							@php 
 							echo 'Làm ơn thêm sản phẩm vào giỏ hàng';
 							@endphp
@@ -53,6 +58,35 @@
                                                 <td class="raavin-product-name"><a href="#">{{$cart['product_name']}}</a></td>
                                                 <td class="raavin-product-name"><a href="#">{{$cart['product_quantity']}}</a></td>
                                                 <td class="raavin-product-price"><span class="amount">{{number_format($cart['product_price'],0,',','.')}}đ</span></td>
+                                                <?php
+                                                $product = Product::where('product_id',$cart['product_id'])->first();
+                                                $colors = $product->product_color;
+                                                $colors = explode(",",$colors);
+                                                $sizes = $product->product_size;
+                                                $sizes = explode(",",$sizes);
+                                                ?>
+                                                <td class="raavin-product-quantity">
+                                                <select class="cart_product_color"  name="cart_color[{{$cart['session_id']}}]" >
+                                                    @foreach($colors as $color)
+                                                    @if($color == $cart['product_color'])
+                                                    <option selected value="{{$color}}">{{$color}}</option>
+                                                    @else
+                                                    <option value="{{$color}}">{{$color}}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                                </td>
+                                                <td class="raavin-product-quantity">
+                                                <select class="cart_product_color"  name="cart_size[{{$cart['session_id']}}]">
+                                                    @foreach($sizes as $size)
+                                                    @if($size == $cart['product_size'])
+                                                    <option selected value="{{$size}}">{{$size}}</option>
+                                                    @else
+                                                    <option value="{{$size}}">{{$size}}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                                </td>
                                                 <td class="raavin-product-quantity">
                                                     <input class="input-text qty text" step="1" min="1" max="200" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" title="Qty" size="4" type="number">
                                                 </td>

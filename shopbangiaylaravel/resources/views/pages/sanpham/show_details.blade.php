@@ -103,8 +103,36 @@
                             <div class="quantity">
                                 <input class="input-text qty text cart_product_qty_{{$value->product_id}}" step="1" min="1" max="200" name="quantity" value="1" title="Qty" size="4" type="number">
                             </div>
-                            <div class="qty-cart-btn">
-                                <input type="button" class="add-to-cart" data-id_product="{{$value->product_id}}" name="add-to-cart" value="Add To Cart">
+                            
+                            <div class="qty-cart-btn add-cart" data-id_product="{{$value->product_id}}">
+                                <input type="button" class="add-to-cart" name="add-to-cart" value="Add To Cart">
+                            </div>
+                            <div class="option mt-3">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                            <?php
+                            $colors = $value->product_color;
+                            $colors = explode(",",$colors);
+                            $sizes = $value->product_size;
+                            $sizes = explode(",",$sizes);
+                            ?>
+                            <select class="cart_product_color_{{$value->product_id}} location"  name="color" id="color">
+                                                  <option value="">--Chọn màu--</option>
+                                                  @foreach($colors as $color)
+                                            <option value="{{$color}}">{{$color}}</option>
+                                        @endforeach
+                            </select>
+                            </div>
+                            <div class="col-lg-3">
+                            <select class="cart_product_size_{{$value->product_id}} location"  name="size" id="size">
+                                                  <option value="">--Chọn size--</option>
+                                                  @foreach($sizes as $size)
+                                            <option value="{{$size}}">{{$size}}</option>
+                                        @endforeach
+                            </select>
+                                </div>
+                            </div>
+                            </div>
                             </div>
                             <div class="group-btn">
                                 <div class="qty-cart-btn qty-cart-btn-2">
@@ -239,7 +267,7 @@
 @endforeach
             <!-- Vertical Tab Area End Here -->
             <!-- Begin Related Product Section -->
-<section class="new-product featured-pro-3 related-product related-product-2 pt-45 pb-80">
+<section class="new-product featured-pro-3 related-product related-product-2 pt-45 pb-80 pt-5">
     <div class="container">
         <!-- Begin Featured Product Title Area -->
         <div class="pos-title pos-title-2">
@@ -249,9 +277,37 @@
         <!-- Begin Featured Product Content Area -->
         <div class="row">
             <!-- Begin Single Related Product Area -->
+            <?php
+            use App\Rating;
+            ?>
             @foreach($relate as $key => $lienquan)
             <div class="col-lg-3 col-md-6 col-sm-6">
+            <?php
+                            $colors = $lienquan->product_color;
+                            $colors = explode(",",$colors);
+                            $sizes = $lienquan->product_size;
+                            $sizes = explode(",",$sizes);
+                            ?>
                 <div class="single-product">
+                <form>
+                @csrf
+                <input type="hidden" value="{{$lienquan->product_id}}" class="cart_product_relate_id_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productname{{$lienquan->product_id}}" value="{{$lienquan->product_name}}" class="cart_product_relate_name_{{$lienquan->product_id}}">
+                                          
+                                    <input type="hidden" value="{{$lienquan->product_quantity}}" class="cart_product_relate_quantity_{{$lienquan->product_id}}">
+                                            
+                                    <input type="hidden" value="{{$lienquan->product_image}}" class="cart_product_relate_image_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" id="wishlist_productprice{{$lienquan->product_id}}" value="{{number_format($lienquan->product_price,0,',','.')}}VNĐ">
+
+                                    <input type="hidden" value="{{$lienquan->product_price}}" class="cart_product_relate_price_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" value="1" class="cart_product_relate_qty_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" value="{{$colors[0]}}" class="cart_product_relate_color_{{$lienquan->product_id}}">
+
+                                    <input type="hidden" value="{{$sizes[0]}}" class="cart_product_relate_size_{{$lienquan->product_id}}">
                     <!-- Begin Featured Product Image Area -->
                     <div class="product-img">
                         <a href="{{URL::to('/chi-tiet/'.$lienquan->product_slug)}}">
@@ -262,9 +318,7 @@
                         <div class="product-action">
                             <div class="product-action-inner">
                                 <div class="cart">
-                                    <a href="#">
-                                        <span>Add To Cart</span>
-                                    </a>
+                                <input type="button" value="Add To Cart" class="add-to-cart2" href="#" data-id_product="{{$lienquan->product_id}}" name="add-to-cart">
                                 </div>
                                 <ul class="add-to-links">
                                     <li  class="rav-wishlist"><a href="#" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
@@ -278,6 +332,7 @@
                         <!-- Product Action Area End Here -->
                     </div>
                     <!-- Featured Product Image Area End Here -->
+                    </form>
                     <!-- Begin Featured Product Content Area -->
                     <div class="product-contents">
                         <!-- Begin Featured Product Name Area -->
@@ -292,13 +347,21 @@
                         </div>
                         <!-- Price Box Area End Here -->
                         <!-- Begin Rating Area -->
+                        <?php
+                        $rating2 = Rating::where('product_id',$lienquan->product_id)->where('rating_status',0)->avg('rating');
+                        $rating2 = round($rating2);
+                        ?>
+                        @if($rating2 > 0)
                         <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                        <?php
+                        for($x = 1; $x <= $rating2; $x++){
+                         echo '<i class="fa fa-star"></i>';
+                        }
+                        ?>
                         </div>
+                        @else
+                        <p>Chưa có đánh giá</p>
+                        @endif
                         <!-- Rating Area End Here -->
                     </div>
                     <!-- Featured Product Content Area End Here -->

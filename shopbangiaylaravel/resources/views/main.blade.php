@@ -36,6 +36,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/magnific-popup.css')}}">
         <!-- Bootstrap V4.1.3 Fremwork CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
+        <!-- Toasty -->
+        <link rel="stylesheet" href="{{asset('public/frontend/css/toasty.min.css')}}">
         <!-- SweetAlert -->
         <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
         <!-- Main Style CSS -->
@@ -66,33 +68,24 @@
                                              </li>
                                                 <!-- List category -->
                                                 <li>
-                                                    <a href="shop.html">Category</a>
-                                                    <ul class="dropdown megamenu">
-                                                        <li>
-                                                            <h3 class="megamenu-title"><a href="#">Shop Grid Pages</a></h3>
-                                                            <ul>
+                                                <a href="#">Category</a>
+                                                    <ul class="dropdown">
                                                                 @foreach($category as $key => $danhmuc)
                                                                     <li><a href="{{URL::to('/danh-muc/'.$danhmuc->slug_category_product)}}">{{$danhmuc->category_name}}</a></li>
                                                                 @endforeach
-                                                            </ul>
-                                                        </li>
                                                     </ul>
                                                 </li>
                                                 <!-- List brand -->
                                                 <li>
-                                                    <a href="#">Brand</a>
-                                                    <ul class="dropdown megamenu">
-                                                        <li>
-                                                            <h3 class="megamenu-title"><a href="#">Brand in Pages</a></h3>
-                                                            <ul>
+                                                <a href="#">Brand</a>
+                                                    <ul class="dropdown">
                                                                 @foreach($brand as $key => $brand)
                                                                 <li><a href="{{URL::to('/thuong-hieu/'.$brand->brand_slug)}}"> <span class="pull-right"></span>{{$brand->brand_name}}</a></li>
                                                                 @endforeach
-                                                            </ul>
-                                                        </li>
                                                     </ul>
                                                 </li>
                                                 <!-- end -->
+                                                <li><a href="{{URL::to('/lien-he')}}">Contact Us</a></li>
                                          </ul>
                                      </nav>
                                  </div>
@@ -357,8 +350,17 @@
                              <div class="pos-content">
                                  <div class="porduct-details-active owl-carousel">
                                      <!-- Begin Single Random Product Area -->
+                                     <?php
+                                        use App\Rating;
+                                        ?>
                                      @foreach($all_product as $key => $product)
                                      <div class="single-product single-featured-pro-2">
+                                     <?php
+                            $colors = $product->product_color;
+                            $colors = explode(",",$colors);
+                            $sizes = $product->product_size;
+                            $sizes = explode(",",$sizes);
+                            ?>
                                      <form>
                                      @csrf
                                      <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
@@ -374,6 +376,10 @@
                                     <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
 
                                     <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
+
+                                    <input type="hidden" value="{{$colors[0]}}" class="cart_product_color_{{$product->product_id}}">
+
+                                    <input type="hidden" value="{{$sizes[0]}}" class="cart_product_size_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
                                          <div class="product-img">
                                              <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
@@ -409,6 +415,23 @@
                                                  <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                              </div>
                                              <!-- Price Box Area End Here -->
+                                             <?php
+                                                $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                $rating2 = round($rating2);
+                                                ?>
+                                                @if($rating2 > 0)
+                                                <div class="rating">
+                                                <?php
+                                                for($x = 1; $x <= $rating2; $x++){
+                                                 echo '<i class="fa fa-star"></i>';
+                                                }
+                                                ?>
+                                                </div>
+                                                @else
+                                                <div class="rating">
+                                                <p>Chưa có đánh giá</p>
+                                                </div>
+                                                @endif
                                          </div>
                                          <!-- Product Content Area End Here -->
                                      </div>
@@ -522,6 +545,23 @@
                                              <div class="price-box">
                                                  <span class="price">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</span>
                                              </div>
+                                             <?php
+                                                $rating2 = Rating::where('product_id',$product->product_id)->where('rating_status',0)->avg('rating');
+                                                $rating2 = round($rating2);
+                                                ?>
+                                                @if($rating2 > 0)
+                                                <div class="rating">
+                                                <?php
+                                                for($x = 1; $x <= $rating2; $x++){
+                                                 echo '<i class="fa fa-star"></i>';
+                                                }
+                                                ?>
+                                                </div>
+                                                @else
+                                                <div class="rating">
+                                                <p>Chưa có đánh giá</p>
+                                                </div>
+                                                @endif
                                              <!-- Price Box Area End Here -->
                                          </div>
                                          <!-- Product Content Area End Here -->
@@ -762,6 +802,8 @@
         <script src="{{asset('public/frontend/js/scrollUp.min.js')}}"></script>
         <!-- SweetAlert -->
         <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
+        <!-- Toasty -->
+        <script src="{{asset('public/frontend/js/toasty.min.js')}}"></script>
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
         <script type="text/javascript">
@@ -776,6 +818,8 @@
                 var cart_product_quantity = $('.cart_product_quantity_' + id).val();
                 var cart_product_price = $('.cart_product_price_' + id).val();
                 var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var cart_product_color = $('.cart_product_color_' + id).val();
+                var cart_product_size = $('.cart_product_size_' + id).val();
                 var _token = $('input[name="_token"]').val();
 
                 if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
@@ -785,7 +829,7 @@
                     $.ajax({
                         url: '{{url('/add-cart-ajax')}}',
                         method: 'POST',
-                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,cart_product_color:cart_product_color,cart_product_size:cart_product_size,_token:_token,cart_product_quantity:cart_product_quantity},
                         success:function(){
 
                             swal({
@@ -810,6 +854,66 @@
             });
         });
     </script>
+
+@if(session()->has('login-gg'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.success("{!! session()->get('login-gg') !!}",5000);
+    });
+    <?php
+    Session::forget('login-gg')
+    ?>
+   </script>
+   @endif
+
+    @if(session()->has('notification_logout'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.success("Đăng xuất thành công",5000);
+    });
+    <?php
+    Session::forget('notification_logout')
+    ?>
+   </script>
+   @endif
+
+    @if(session()->has('notification'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideUpDownFade",
+                progressBar: true,
+            });
+    toast.success("Chào mừng bạn đến với shop giày của chúng tôi",5000);
+    });
+    <?php
+    Session::forget('notification')
+    ?>
+   </script>
+   @endif
+
+    @if(session()->has('back'))
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.success("Chào mừng bạn trở lại",5000);
+    });
+    <?php
+    Session::forget('back')
+    ?>
+   </script>
+   @endif
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->

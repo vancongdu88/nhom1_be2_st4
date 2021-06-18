@@ -2805,6 +2805,8 @@ fieldset:disabled a.btn {
   box-shadow: none;
 }
 
+.error {border: 1px red solid !important;}
+
 .btn-link:disabled, .btn-link.disabled {
   color: #858796;
   pointer-events: none;

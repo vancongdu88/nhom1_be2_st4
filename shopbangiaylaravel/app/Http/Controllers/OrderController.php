@@ -85,17 +85,18 @@ class OrderController extends Controller
 	        //seo 
 	        $meta_desc = "Lịch sử đơn hàng"; 
 	        $meta_keywords = "Lịch sử đơn hàng";
+			$bread_crumb = 'Đơn hàng của bạn';
 	        $meta_title = "Lịch sử đơn hàng";
 	        $url_canonical = $request->url();
 	        //--seo
 	        
-	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
 	        
 	        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
 	        $getorder = Order::where('customer_id',Session::get('customer_id'))->orderby('order_id','DESC')->paginate(5);
 
-	    	return view('pages.history.history')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('getorder',$getorder); //1
+	    	return view('pages.history.history')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('bread_crumb',$bread_crumb)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('getorder',$getorder); //1
 		}
 	}
 	public function view_history_order(Request $request,$order_code){
@@ -105,11 +106,12 @@ class OrderController extends Controller
 	        //seo 
 	        $meta_desc = "Lịch sử đơn hàng"; 
 	        $meta_keywords = "Lịch sử đơn hàng";
-	        $meta_title = "Lịch sử đơn hàng";
+			$bread_crumb = 'Đơn hàng của bạn';
+	        $meta_title = "Chi tiết đơn hàng";
 	        $url_canonical = $request->url();
 	        //--seo
 	        
-	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+	    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
 	        
 	        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
@@ -140,13 +142,15 @@ class OrderController extends Controller
 				$coupon_number = 0;
 			}
 
-	    	return view('pages.history.view_history_order')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('order_details',$order_details)->with('customer',$customer)->with('shipping',$shipping)->with('coupon_condition',$coupon_condition)->with('coupon_number',$coupon_number)->with('getorder',$getorder)->with('order_status',$order_status)->with('order_code',$order_code); //1
+	    	return view('pages.history.view_history_order')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('bread_crumb',$bread_crumb)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('order_details',$order_details)->with('customer',$customer)->with('shipping',$shipping)->with('coupon_condition',$coupon_condition)->with('coupon_number',$coupon_number)->with('getorder',$getorder)->with('order_status',$order_status)->with('order_code',$order_code); //1
 		}
 	}
     public function update_qty(Request $request){
 		$data = $request->all();
 		$order_details = OrderDetails::where('product_id',$data['order_product_id'])->where('order_code',$data['order_code'])->first();
 		$order_details->product_sales_quantity = $data['order_qty'];
+		$order_details->product_color = $data['order_color'];
+		$order_details->product_size = $data['order_size'];
 		$order_details->save();
 	}
     public function update_order_qty(Request $request){
@@ -155,6 +159,7 @@ class OrderController extends Controller
 		$order = Order::find($data['order_id']);
 		$order->order_status = $data['order_status'];
 		$order->save();
+		Session::put('notification','Cập nhật trạng thái đơn hàng thành công');
 		//send mail confirm
 		$now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
 		$title_mail = "Đơn hàng đã đặt được xác nhận".' '.$now;
@@ -167,20 +172,25 @@ class OrderController extends Controller
 		foreach($data['order_product_id'] as $key => $product){
 				$product_mail = Product::find($product);
 				foreach($data['quantity'] as $key2 => $qty){
-
 				 	if($key==$key2){
-
-					$cart_array[] = array(
-						'product_name' => $product_mail['product_name'],
-						'product_price' => $product_mail['product_price'],
-						'product_qty' => $qty
-					);
-
+						foreach($data['color'] as $key3 => $color){
+							if($key==$key3){
+								foreach($data['size'] as $key4 => $size){
+									if($key==$key4){
+					            $cart_array[] = array(
+						            'product_name' => $product_mail['product_name'],
+						            'product_price' => $product_mail['product_price'],
+						            'product_qty' => $qty,
+						            'product_color' => $color,
+									'product_size' => $size
+					            );
+							}
+				        }
+				   }
 				}
 			}
 		}
-
-		
+    }
 	  	//lay shipping
 	  	$details = OrderDetails::where('order_code',$order->order_code)->first();
 

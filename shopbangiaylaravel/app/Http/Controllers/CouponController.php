@@ -54,6 +54,11 @@ class CouponController extends Controller
     }
     public function insert_coupon_code(Request $request){
     	$data = $request->all();
+        $coupon_condition = Coupon::where('coupon_code',$data['coupon_code'])->get();
+        if(count($coupon_condition) > 0){
+            Session::put('error','Mã giảm giá này đã có, hãy điền một cái tên mới');
+            return Redirect::to('insert-coupon');
+        }
         $coupon_number = filter_var($data['coupon_number'], FILTER_SANITIZE_NUMBER_INT);
     	$coupon = new Coupon;
 
@@ -67,7 +72,7 @@ class CouponController extends Controller
     	$coupon->save();
 
     	Session::put('message','Thêm mã giảm giá thành công');
-        return Redirect::to('insert-coupon');
+        return Redirect::to('list-coupon');
 
 
     }

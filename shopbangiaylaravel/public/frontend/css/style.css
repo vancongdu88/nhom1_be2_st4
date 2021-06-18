@@ -4513,7 +4513,7 @@ textarea:focus {
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
 }
-.error {border: 1px red solid;}
+.error {border: 1px red solid !important;}
 .qty-cart-btn:hover {
 	background: #333;
 }
@@ -4622,6 +4622,9 @@ textarea:focus {
 #description p {
 	max-width: 100%;
 	text-align: justify;
+}
+.body-wrapper{
+	z-index: 1;
 }
 #riview {
   height: 100%;

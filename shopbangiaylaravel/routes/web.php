@@ -21,6 +21,9 @@ Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 Route::post('/admin-dashboard','AdminController@dashboard');
 Route::get('/logout','AdminController@logout');
+//login customer by google
+Route::get('/login-customer-google','AdminController@login_customer_google');
+Route::get('/customer/google/callback','AdminController@callback_customer_google');
 /* Product */
 Route::get('/add-product','ProductController@add_product');
 Route::get('/all-product','ProductController@all_product');
@@ -113,6 +116,12 @@ Route::get('/checkout','CheckoutController@checkout');
 Route::post('/calculate-fee','CheckoutController@calculate_fee');
 Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
 Route::post('/confirm-order','CheckoutController@confirm_order');
+//Delivery
+Route::get('/delivery','DeliveryController@delivery');
+Route::post('/select-delivery','DeliveryController@select_delivery');
+Route::post('/insert-delivery','DeliveryController@insert_delivery');
+Route::post('/select-feeship','DeliveryController@select_feeship');
+Route::post('/update-delivery','DeliveryController@update_delivery');
 /* User */
 Route::get('users','UserController@index')->middleware('auth.roles');
 Route::get('add-users','UserController@add_users')->middleware('auth.roles');

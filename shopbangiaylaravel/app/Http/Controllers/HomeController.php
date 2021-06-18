@@ -22,26 +22,24 @@ class HomeController extends Controller
         if(Session::get('cart')){
             $dem_hang = count(Session::get('cart'));
         }
-    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_parent','desc')->orderby('category_order','ASC')->get(); 
+    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','DESC')->get(); 
         
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
         $all_product = DB::table('tbl_product')->where('product_status','0')->orderby(DB::raw('RAND()'))->paginate(6); 
-
-        $cate_pro_tabs = CategoryProductModel::where('category_parent','<>',0)->orderBy('category_order','ASC')->get();
 
     	return view('main')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('dem_hang',$dem_hang);
     }
 
     public function search(Request $request){
         
+        $keywords = $request->keywords_submit;
+
         //seo 
-        $meta_desc = "Tìm kiếm sản phẩm"; 
+        $meta_desc = "Tìm kiếm sản phẩm";
         $meta_keywords = "Tìm kiếm sản phẩm";
         $meta_title = "Tìm kiếm sản phẩm";
-        $url_canonical = $request->url();
         //--seo
-        $keywords = $request->keywords_submit;
 
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
@@ -49,7 +47,7 @@ class HomeController extends Controller
         $search_product = DB::table('tbl_product')->where('product_name','like','%'.$keywords.'%')->get(); 
 
 
-        return view('pages.sanpham.search')->with('keywords',$keywords)->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        return view('pages.sanpham.search')->with('keywords',$keywords)->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title);
 
     }
 

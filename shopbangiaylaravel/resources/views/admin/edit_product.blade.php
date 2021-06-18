@@ -5,13 +5,21 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Sửa sản phẩm</h1>
           <!-- DataTales Example -->
-          <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
+          @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
+							</div>
+							@endif
           <div class="card shadow mb-4">
           <div class="col-lg-8 m-auto">
                 <div class="p-5">
@@ -80,8 +88,16 @@
                                             @else
                                             <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>
                                             @endif
-                                        @endforeach        
+                        @endforeach        
                         </select>                    
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail"> Màu sản phẩm</label>
+                      <input type="text" class="form-control" value="{{$pro->product_color}}" id="exampleInputEmail" data-role="tagsinput" name="product_colors">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail"> Size sản phẩm</label>
+                      <input type="text" class="form-control" value="{{$pro->product_size}}" id="exampleInputEmail" data-role="tagsinput" name="product_sizes">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail"> Tags sản phẩm</label>
@@ -96,7 +112,7 @@
                                              @else
                                             <option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
                                              @endif
-                                        @endforeach        
+                        @endforeach        
                         </select>                    
                     </div>
                     <div class="form-group">

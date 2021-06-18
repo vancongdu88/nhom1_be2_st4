@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home-2 || Raavin - Shoes eCommerce Bootstrap 4 Template</title>
+        <title>{{$meta_title}}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
@@ -36,6 +36,10 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/magnific-popup.css')}}">
         <!-- Bootstrap V4.1.3 Fremwork CSS -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
+        <!-- Toast -->
+        <link rel="stylesheet" href="{{asset('public/frontend/css/toast.min.css')}}">
+        <!-- Toasty -->
+        <link rel="stylesheet" href="{{asset('public/frontend/css/toasty.min.css')}}">
         <!-- SweetAlert -->
         <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
         <!-- Main Style CSS -->
@@ -66,7 +70,7 @@
 .featured-pro .featured-pos-content::before,
 .new-product-3 .tab-content:before,
 .vertical-tab-item:before {
-	content: url(public/frontend/images/static-info/bg_shadow.png);
+	content: url('{{asset('public/frontend/images/static-info/bg_shadow.png')}}');
 	height: 22px;
 	left: 50%;
 	position: absolute;
@@ -327,8 +331,15 @@
                 <div class="container">
                     <div class="page-banner-content">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active"><a href="login-register.html">My Account</a></li>
+                            <li><a href="{{URL::to('/')}}">Home</a></li>
+                            @isset($bread_crumb)
+                            <li>{{$bread_crumb}}</li>
+                            @endisset
+                            <li class="active"><a href="@isset($url_canonical)
+                            {{$url_canonical}}
+                            @else
+                            #
+                            @endisset">{{$meta_title}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -471,7 +482,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="payment f-right">
                                         <a href="#">
-                                            <img src="{{('public/frontend/images/payment/1.png')}}" alt="">
+                                            <img src="{{asset('public/frontend/images/payment/1.png')}}" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -528,8 +539,14 @@
         <script src="{{asset('public/frontend/js/jquery.nice-select.min.js')}}"></script>
         <!-- ScrollUp js -->
         <script src="{{asset('public/frontend/js/scrollUp.min.js')}}"></script>
+        <!-- Simple money -->
+        <script src="{{asset('public/frontend/js/simple.money.format.js')}}"></script>
         <!-- SweetAlert -->
         <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
+        <!-- Toast js -->
+        <script src="{{asset('public/frontend/js/toast.min.js')}}"></script>
+        <!-- Toasty -->
+        <script src="{{asset('public/frontend/js/toasty.min.js')}}"></script>
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
 
@@ -615,10 +632,58 @@
             }
         }
         if(index > 0){
-            alert('Please select your address');
+            var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.error("Bạn không thể để trống những trường này",5000);
             return false
         }
     return true;
+}
+
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+function validateNumber(number) {
+  const re = /^[0-9]+$/;
+  return re.test(number);
+}
+
+function validate() {
+  const $danger = $(".alert-danger");
+  const $success = $(".alert-success");
+  const email =  document.forms["form-re"]["customer_email"].value;
+  const number =  document.forms["form-re"]["customer_phone"].value;
+  const $notify = $(".notify-re");
+  $success.removeClass("alert");
+  $success.text("");
+  $danger.removeClass("alert");
+  $danger.text("");
+  if (!validateEmail(email) || !validateNumber(number)) {
+    $notify.css('display','none');
+    var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.error("Email hoặc số điện thoại của bạn không đúng",5000);
+    $('input[name="customer_email"]').addClass("error");
+    $('input[name="customer_phone"]').addClass("error");
+    /* $danger.addClass("alert");
+    $danger.text('Email hoặc số điện thoại của bạn không đúng'); */
+    return false;
+  }
+   else {
+    $notify.css('display','none');
+    /* $success.addClass("alert");
+    $success.text('Mọi thứ đều ổn bạn vui lòng đợi kết quả trong giây lát'); */
+    <?php
+    sleep(2);
+    ?>
+    return true;
+  }
+  
 }
     </script>
 
@@ -649,6 +714,7 @@
 $(document).ready(function(){
   $('.send_order').click(function(){
 var total_after = $('.total_after').val();
+if(checkforblank() && validate()){
       swal({
         title: "Xác nhận đơn hàng",
         text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
@@ -692,6 +758,7 @@ var total_after = $('.total_after').val();
             }
     
       });
+    }
 
      
   });
@@ -699,10 +766,33 @@ var total_after = $('.total_after').val();
 
 
 </script>
+
 <script type="text/javascript">
         $(document).ready(function(){
-            $('.add-to-cart').click(function(){
+            var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+            function checkforblank() {
 
+var x = document.getElementsByClassName("location");
+var i;
+var index = 0;
+for (i = 0; i < x.length; i++) {
+    if(x[i].value == ""){
+        x[i].classList.add("error");
+        index++;
+    }
+    else{
+        x[i].classList.remove("error");
+    }
+}
+if(index > 0){
+    return true;
+}
+return false;
+}
+            $('.add-cart').click(function(){
                 var id = $(this).data('id_product');
                 // alert(id);
                 var cart_product_id = $('.cart_product_id_' + id).val();
@@ -711,16 +801,72 @@ var total_after = $('.total_after').val();
                 var cart_product_quantity = $('.cart_product_quantity_' + id).val();
                 var cart_product_price = $('.cart_product_price_' + id).val();
                 var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var cart_product_color = $('.cart_product_color_' + id).val();
+                var cart_product_size = $('.cart_product_size_' + id).val();
                 var _token = $('input[name="_token"]').val();
-
+                
                 if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
-                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
-                }else{
-
+                    toast.warning('Làm ơn đặt nhỏ hơn ' + cart_product_quantity,3000);
+                }
+                else if(checkforblank()){
+                    toast.error("Bạn chưa chọn màu và size",3000);
+                }
+                
+                else{
                     $.ajax({
                         url: '{{url('/add-cart-ajax')}}',
                         method: 'POST',
-                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,cart_product_color:cart_product_color,cart_product_size:cart_product_size,_token:_token,cart_product_quantity:cart_product_quantity},
+                        success:function(){
+
+                            swal({
+                                    title: "Đã thêm sản phẩm vào giỏ hàng",
+                                    text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Xem tiếp",
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Đi đến giỏ hàng",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    window.location.href = "{{url('/gio-hang')}}";
+                                });
+
+                        }
+
+                    });
+                }
+
+                
+            });
+        });
+    </script>
+
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.add-to-cart2').click(function(){
+                var id = $(this).data('id_product');
+                // alert(id);
+                var cart_product_id = $('.cart_product_relate_id_' + id).val();
+                var cart_product_name = $('.cart_product_relate_name_' + id).val();
+                var cart_product_image = $('.cart_product_relate_image_' + id).val();
+                var cart_product_quantity = $('.cart_product_relate_quantity_' + id).val();
+                var cart_product_price = $('.cart_product_relate_price_' + id).val();
+                var cart_product_qty = $('.cart_product_relate_qty_' + id).val();
+                var cart_product_color = $('.cart_product_relate_color_' + id).val();
+                var cart_product_size = $('.cart_product_relate_size_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                
+                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+                }
+                
+                else{
+                    $.ajax({
+                        url: '{{url('/add-cart-ajax')}}',
+                        method: 'POST',
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,cart_product_color:cart_product_color,cart_product_size:cart_product_size,_token:_token,cart_product_quantity:cart_product_quantity},
                         success:function(){
 
                             swal({
@@ -806,6 +952,36 @@ var total_after = $('.total_after').val();
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+           $( "#slider-range" ).slider({
+              orientation: "horizontal",
+              range: true,
+
+              min:{{$min_price_range}},
+              max:{{$max_price_range}},
+
+              steps:10000,
+              values: [ {{$min_price}}, {{$max_price}} ],
+             
+              slide: function( event, ui ) {
+                $( "#amount_start" ).val(ui.values[ 0 ]).simpleMoneyFormat();
+                $( "#amount_end" ).val(ui.values[ 1 ]).simpleMoneyFormat();
+
+
+                $( "#start_price" ).val(ui.values[ 0 ]);
+                $( "#end_price" ).val(ui.values[ 1 ]);
+
+              }
+
+            });
+
+            $( "#amount_start" ).val($( "#slider-range" ).slider("values",0)).simpleMoneyFormat();
+            $( "#amount_end" ).val($( "#slider-range" ).slider("values",1)).simpleMoneyFormat();
+
+        }); 
+</script>
     </body>
 
 <!-- Mirrored from demo.devitems.com/raavin-v3/raavin/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Jun 2020 15:11:29 GMT -->

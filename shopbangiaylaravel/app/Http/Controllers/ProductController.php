@@ -53,6 +53,7 @@ class ProductController extends Controller
                 $meta_desc = $value->product_desc;
                 $meta_keywords = $value->product_slug;
                 $meta_title = $value->product_name;
+                $bread_crumb = 'Detail';
                 $url_canonical = $request->url();
                 $share_images = url('public/uploads/product/'.$value->product_image);
                 $view = $value->product_views;
@@ -76,7 +77,7 @@ class ProductController extends Controller
 
         $rating = Rating::where('product_id',$product_id)->where('rating_status',0)->avg('rating');
         $rating = round($rating);
-        return view('pages.sanpham.show_details')->with('category',$cate_product)->with('comment',$comment)->with('comment_count',$comment_count)->with('user_bought_slot',$user_bought_slot)->with('view',$view)->with('product',$product)->with('brand',$brand_product)->with('product_details',$details_product)->with('relate',$related_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('gallery',$gallery)->with('product_cate',$product_cate)->with('cate_slug',$cate_slug)->with('rating',$rating)->with('share_images',$share_images);
+        return view('pages.sanpham.show_details')->with('bread_crumb',$bread_crumb)->with('category',$cate_product)->with('comment',$comment)->with('comment_count',$comment_count)->with('user_bought_slot',$user_bought_slot)->with('view',$view)->with('product',$product)->with('brand',$brand_product)->with('product_details',$details_product)->with('relate',$related_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('gallery',$gallery)->with('product_cate',$product_cate)->with('cate_slug',$cate_slug)->with('rating',$rating)->with('share_images',$share_images);
 
     }
     public function tag(Request $request, $product_tag){
@@ -95,7 +96,7 @@ class ProductController extends Controller
 
        $meta_desc = 'Tags tìm kiếm::'.$product_tag;
        $meta_keywords = 'Tags tìm kiếm:'.$product_tag;
-       $meta_title = 'Tags tìm kiếm:'.$product_tag;
+       $meta_title = 'Tags tìm kiếm';
        $url_canonical = $request->url();
        
 
@@ -151,6 +152,8 @@ class ProductController extends Controller
             $data['product_tags'] = $request->product_tags;
             $data['product_quantity'] = $request->product_quantity;
             $data['product_slug'] = $request->product_slug;
+            $data['product_color'] = $request->product_colors;
+            $data['product_size'] = $request->product_sizes;
             $data['product_price'] = $product_price;
             $data['product_desc'] = $request->product_desc;
             $data['product_content'] = $request->product_content;
@@ -158,6 +161,11 @@ class ProductController extends Controller
             $data['brand_id'] = $request->product_brand;
             $data['product_status'] = $request->product_status;
             $data['product_image'] = $request->product_status;
+            $product_condition = Product::where('product_slug',$data['product_slug'])->get();
+        if(count($product_condition) > 0){
+            Session::put('error','Sản phẩm này hiện tại đã tồn tại, hãy nhập sản phẩm khác');
+            return Redirect::to('add-product');
+        }
     
             $get_image = $request->file('product_image');
             $get_document = $request->file('document');
@@ -187,14 +195,9 @@ class ProductController extends Controller
                
             }
             $pro_id = DB::table('tbl_product')->insertGetId($data);
-            $gallery = new Gallery();
-            $gallery->gallery_image = $new_image;
-            $gallery->gallery_name = $new_image;
-            $gallery->product_id = $pro_id;
-            $gallery->save();
     
             Session::put('message','Thêm sản phẩm thành công');
-            return Redirect::to('add-product');
+            return Redirect::to('all-product');
         }
         public function delete_product($product_id){
             $this->AuthLogin();
@@ -237,12 +240,19 @@ class ProductController extends Controller
    $data['product_tags'] = $request->product_tags;
    $data['product_quantity'] = $request->product_quantity;
    $data['product_slug'] = $request->product_slug;
+   $data['product_color'] = $request->product_colors;
+   $data['product_size'] = $request->product_sizes;
    $data['product_price'] = $product_price;
    $data['product_desc'] = $request->product_desc;
    $data['product_content'] = $request->product_content;
    $data['category_id'] = $request->product_cate;
    $data['brand_id'] = $request->product_brand;
    $data['product_status'] = $request->product_status;
+   $product_condition = Product::where('product_slug',$data['product_slug'])->where('product_id','!=',$product_id)->get();
+        if(count($product_condition) > 0){
+            Session::put('error','Tên sản phẩm này đã bị trùng, hãy nhập sản phẩm khác');
+            return Redirect::to('edit-product/'.$product_id);
+        }
 
    $get_image = $request->file('product_image');
    $get_document = $request->file('document');

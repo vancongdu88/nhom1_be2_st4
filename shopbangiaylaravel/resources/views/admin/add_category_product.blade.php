@@ -5,13 +5,21 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Thêm Danh Mục</h1>
           <!-- DataTales Example -->
-          <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
+          @if(session()->has('message'))
+							<div class="alert alert-success">
+								{!! session()->get('message') !!}
+                                <?php
+                                Session::forget('message')
+                                ?>
+							</div>
+							@elseif(session()->has('error'))
+							<div class="alert alert-danger">
+								{!! session()->get('error') !!}
+                                <?php
+                                Session::forget('error')
+                                ?>
+							</div>
+							@endif
           <div class="card shadow mb-4">
           <div class="col-lg-8 m-auto">
                 <div class="p-5">
@@ -35,17 +43,6 @@
                     <div class="form-group">
                         <label for="exampleInputEmail">Từ khóa danh mục</label>
                         <textarea style="resize: none"  rows="8" class="form-control" name="category_product_keywords" placeholder="Nội dung từ khoá" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền ít nhất 5 ký tự"></textarea>
-                    </div>
-                    <div class="form-group">
-                                    <label for="exampleInputPassword1">Thuộc danh mục</label>
-                                      <select name="category_parent" class="form-control input-sm m-bot15">
-                                        <option value="0">---Danh mục cha---</option>
-                                        @foreach($category as $key => $val)
-                                           <option value="{{$val->category_id}}">{{$val->category_name}}</option>
-                                        @endforeach
-                                            
-                                            
-                                    </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Hiển thị</label>

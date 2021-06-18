@@ -17,10 +17,15 @@ class CartController extends Controller
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
         $dem_hang = 0;
+        $meta_desc = "Giỏ hàng của bạn"; 
+        $bread_crumb = 'Cart';
+        $meta_keywords = "Giỏ hàng Ajax";
+        $meta_title = "Giỏ hàng của bạn";
+        $url_canonical = $request->url();
         if(Session::get('cart')){
             $dem_hang = count(Session::get('cart'));
         }
-   return view('pages.cart.cart_ajax',compact('dem_hang',))->with('category',$cate_product)->with('brand',$brand_product);
+   return view('pages.cart.cart_ajax',compact('dem_hang','meta_title','url_canonical','bread_crumb'))->with('category',$cate_product)->with('brand',$brand_product);
 }
     public function add_cart_ajax(Request $request){
         // Session::forget('cart');
@@ -29,9 +34,12 @@ class CartController extends Controller
     $cart = Session::get('cart');
     if($cart==true){
         $is_avaiable = 0;
+        $key_cart = 0;
         foreach($cart as $key => $val){
-            if($val['product_id']==$data['cart_product_id']){
+            if($val['product_id']==$data['cart_product_id'] && $val['product_color']==$data['cart_product_color'] && $val['product_size']==$data['cart_product_size']){
                 $is_avaiable++;
+                $cart[$key]['product_qty'] = $val['product_qty'] + $data['cart_product_qty'];
+                Session::put('cart',$cart);
             }
         }
         if($is_avaiable == 0){
@@ -42,6 +50,8 @@ class CartController extends Controller
                 'product_image' => $data['cart_product_image'],
                 'product_quantity' => $data['cart_product_quantity'],
                 'product_qty' => $data['cart_product_qty'],
+                'product_color' => $data['cart_product_color'],
+                'product_size' => $data['cart_product_size'],
                 'product_price' => $data['cart_product_price'],
             );
             Session::put('cart',$cart);
@@ -54,12 +64,13 @@ class CartController extends Controller
             'product_image' => $data['cart_product_image'],
             'product_quantity' => $data['cart_product_quantity'],
             'product_qty' => $data['cart_product_qty'],
+            'product_color' => $data['cart_product_color'],
+            'product_size' => $data['cart_product_size'],
             'product_price' => $data['cart_product_price'],
 
         );
         Session::put('cart',$cart);
     }
-
     Session::save();
 
 }
@@ -150,7 +161,32 @@ public function update_cart(Request $request){
     $cart = Session::get('cart');
     if($cart==true){
         $message = '';
+        foreach($data['cart_color'] as $key => $color){
+            $i = 0;
+            foreach($cart as $session => $val){
+                $i++;
 
+                if($val['session_id']==$key){
+
+                    $cart[$session]['product_color'] = $color;
+
+                }
+            }
+
+        }
+        foreach($data['cart_size'] as $key => $size){
+            $i = 0;
+            foreach($cart as $session => $val){
+                $i++;
+
+                if($val['session_id']==$key){
+
+                    $cart[$session]['product_size'] = $size;
+
+                }
+            }
+
+        }
         foreach($data['cart_qty'] as $key => $qty){
             $i = 0;
             foreach($cart as $session => $val){
@@ -159,7 +195,7 @@ public function update_cart(Request $request){
                 if($val['session_id']==$key && $qty<$cart[$session]['product_quantity']){
 
                     $cart[$session]['product_qty'] = $qty;
-                    $message.='<p style="color:blue">'.$i.') Cập nhật số lượng :'.$cart[$session]['product_name'].' thành công</p>';
+
 
                 }elseif($val['session_id']==$key && $qty>$cart[$session]['product_quantity']){
                     $message.='<p style="color:red">'.$i.') Cập nhật số lượng :'.$cart[$session]['product_name'].' thất bại</p>';
@@ -168,7 +204,7 @@ public function update_cart(Request $request){
             }
 
         }
-
+        $message.='<p class="mb-0" style="color:blue">Cập nhật số lượng sản phẩm thành công</p>';
         Session::put('cart',$cart);
         return redirect()->back()->with('message',$message);
     }else{
