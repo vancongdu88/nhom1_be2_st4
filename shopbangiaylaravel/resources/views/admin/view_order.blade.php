@@ -76,7 +76,6 @@
                       <th>Size</th>
                       <th>Số lượng</th>
                       <th>Giá bán</th>
-                      <th>Giá gốc</th>
                       <th>Tổng tiền</th>
                     </tr>
                   </thead>
@@ -113,6 +112,9 @@
             ?>
             <select {{$order_status==2 ? 'disabled' : ''}} class="order_color_{{$details->product_id}}" name="product_color">
                 @foreach($colors as $color)
+                <?php
+                $color = str_replace(' ', '', $color);
+                ?>
                 @if($color == $details->product_color)
                 <option selected value="{{$color}}">{{$color}}</option>
                 @else
@@ -147,7 +149,6 @@
 @endif
             </td>
             <td>{{number_format($details->product_price ,0,',','.')}}đ</td>
-            <td>{{number_format($details->product->price_cost ,0,',','.')}}đ</td>
             <td>{{number_format($subtotal ,0,',','.')}}đ</td>
           </tr>
           @endforeach

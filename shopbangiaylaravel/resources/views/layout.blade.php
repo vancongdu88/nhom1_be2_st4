@@ -84,6 +84,8 @@
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
         <!-- Begin Body Wrapper -->
+        <div id="preloader">
+        </div>
         <div class="body-wrapper">
             <!-- Begin Header Area -->
             <header>
@@ -183,9 +185,7 @@
                                                      if($customer_id!=NULL){ 
                                                         ?>
                                                         <li><a href="#"><i class="fa fa-user"></i>Hello {{$customer_name}}</a></li>
-                                                         <li><a href="wishlist.html"><i class="fa fa-heart"></i>My Wishlist</a></li>
                                                          <li><a href="{{URL::to('/history')}}"><i class="fa fa-history" aria-hidden="true"></i>History Order</a></li>
-                                                         <li><a href="checkout.html"><i class="fa fa-check-square"></i>Checkout</a></li>
                                                          <li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-unlock"></i>Logout</a></li>
                                                         <?php
                                                     }else{
@@ -372,97 +372,6 @@
                                     </div>
                                 </div>
                                 <!-- Footer Bolck Area End Here -->
-                                <!-- Begin Footer Bolck Area -->
-                                <div class="col-lg-2 col-md-5 col-sm-6">
-                                    <div class="footer-block second-child">
-                                        <h4>My Account</h4>
-                                        <ul>
-                                            <li><a href="#">Checkout</a></li>
-                                            <li><a href="#">My account</a></li>
-                                            <li><a href="#">My orders</a></li>
-                                            <li><a href="#">My credit slips</a></li>
-                                            <li><a href="#">My addresses</a></li>
-                                            <li><a href="#">My personal info</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Footer Bolck Area End Here -->
-                                <!-- Begin Footer Bolck Area -->
-                                <div class="col-lg-2 col-md-3 col-sm-6">
-                                    <div class="footer-block">
-                                        <h4>Information</h4>
-                                        <ul>
-                                            <li><a href="#">Specials</a></li>
-                                            <li><a href="#">New products</a></li>
-                                            <li><a href="#">Best sellers</a></li>
-                                            <li><a href="#">Our stores</a></li>
-                                            <li><a href="#">Contact us</a></li>
-                                            <li><a href="#">About us</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Footer Bolck Area End Here -->
-                                <!-- Begin Footer Bolck Area -->
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="footer-block">
-                                        <h4>Categories</h4>
-                                        <ul>
-                                            <li><a href="#">Women</a></li>
-                                            <li><a href="#">Men</a></li>
-                                            <li><a href="#">Footwear</a></li>
-                                            <li><a href="#">Jewellery</a></li>
-                                            <li><a href="#">Accessories</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Footer Bolck Area End Here -->
-                                <!-- Begin Footer Bolck Area -->
-                                <div class="col-lg-3 col-md-8 col-sm-12">
-                                    <div class="newsletter-block-left">
-                                        <h4>Sign up to newsletter</h4>
-                                        <form action="#">
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="Enter your e-mail" value="Enter your e-mail" onblur="if(this.value==''){this.value='Enter your e-mail'}" onfocus="if(this.value=='Enter your e-mail'){this.value=''}">
-                                                <button class="btn btn-default button button-small" type="submit" name="submitNewsletter">
-                                                    <span>Subscribe</span>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- Begin Social Block Area -->
-                                    <div class="social-block">
-                                        <h4>Follow Us</h4>
-                                        <ul>
-                                            <li class="facebook">
-                                                <a class="_blank" data-toggle="tooltip" href="https://www.facebook.com/" title="Facebook" target="_blank">
-                                                    <i class="fa fa-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li class="twetter">
-                                                <a class="_blank" data-toggle="tooltip" href="https://www.twitter.com/" title="Twetter" target="_blank">
-                                                    <i class="fa fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li class="rss">
-                                                <a class="_blank" data-toggle="tooltip" href="https://www.rss.com/" title="RSS" target="_blank">
-                                                    <i class="fa fa-rss"></i>
-                                                </a>
-                                            </li>
-                                            <li class="youtube">
-                                                <a class="_blank" data-toggle="tooltip" href="https://www.youtube.com/" title="Youtube" target="_blank">
-                                                    <i class="fa fa-youtube"></i>
-                                                </a>
-                                            </li>
-                                            <li class="google-plus">
-                                                <a class="_blank" data-toggle="tooltip" href="https://www.plus.google.com/discover" title="Google Plus" target="_blank">
-                                                    <i class="fa fa-google-plus"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- Social Block Area End Here -->
-                                </div>
-                                <!-- Footer Bolck Area End Here -->
                             </div>
                         </div>
                     </div>
@@ -470,24 +379,9 @@
                     <!-- Begin Footer Static Bottom Area -->
                     <div class="footer-static-bottom">
                         <div class="container">
-                            <div class="row">
-                                <!-- Begin Copyright Area -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="copyright">
-                                        <span>Copyright &copy; 2018 <a href="#">Raavin.</a> All rights reserved.</span>
+                            <div class="copyright">
+                                        <span>Copyright &copy; 2020 <a href="#">DTQ VIETNAM.</a> All rights reserved.</span>
                                     </div>
-                                </div>
-                                <!-- Copyright Area End Here -->
-                                <!-- Begin Footer Payment Area -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="payment f-right">
-                                        <a href="#">
-                                            <img src="{{asset('public/frontend/images/payment/1.png')}}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Footer Payment Area End Here -->
-                            </div>
                         </div>
                     </div>
                     <!-- Footer Static Bottom Area End Here -->
@@ -550,6 +444,12 @@
         <!-- Main/Activator js -->
         <script src="{{asset('public/frontend/js/main.js')}}"></script>
 
+        <script type="text/javascript">
+        var loader = document.getElementById('preloader');
+        window.addEventListener("load",function(){
+            loader.style.display = "none";
+        })
+        </script>
         <script type="text/javascript">
         $(document).ready(function(){
             $('.choose').on('change',function(){
@@ -714,13 +614,14 @@ function validate() {
 $(document).ready(function(){
   $('.send_order').click(function(){
 var total_after = $('.total_after').val();
+var loader = document.getElementById('preloader');
 if(checkforblank() && validate()){
       swal({
         title: "Xác nhận đơn hàng",
         text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
+        confirmButtonClass: "btn-success",
         confirmButtonText: "Cảm ơn, Mua hàng",
 
           cancelButtonText: "Đóng,chưa mua",
@@ -744,7 +645,11 @@ if(checkforblank() && validate()){
                   url: '{{url('/confirm-order')}}',
                   method: 'POST',
                   data:{shipping_email:shipping_email,shipping_name:shipping_name,shipping_address:shipping_address,shipping_phone:shipping_phone,shipping_notes:shipping_notes,_token:_token,order_fee:order_fee,order_coupon:order_coupon,shipping_method:shipping_method},
+                  beforeSend: function(){
+                    loader.style.display = "block";
+                        },
                   success:function(){
+                    loader.style.display = "none";
                      swal("Đơn hàng", "Đơn hàng của bạn đã được gửi thành công", "success");
                      window.setTimeout(function(){ 
                      location.reload();

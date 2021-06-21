@@ -148,7 +148,6 @@ class ProductController extends Controller
             
             $product_price = filter_var($request->product_price, FILTER_SANITIZE_NUMBER_INT);
             $price_cost = filter_var($request->price_cost, FILTER_SANITIZE_NUMBER_INT);
-           
             $data['product_name'] = $request->product_name;
             $data['price_cost'] = $price_cost;
             $data['product_tags'] = $request->product_tags;

@@ -7,8 +7,12 @@ use DB;
 use Session;
 use App\SocialCustomers;
 use App\Customer;
+use App\Order;
+use App\Comment;
+use App\Statistic;
 use Socialite;
 use Auth;
+use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -33,7 +37,31 @@ class AdminController extends Controller
     }
     public function show_dashboard(){
         $this->AuthLogin();
-    	return view('admin.dashboard');
+        $dauthangnay = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $samonthnow = Statistic::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
+        $sadaynow = Statistic::where('order_date',$now)->get();
+        $allneworder = Order::where('order_status',1)->get();
+        $allnewcomment = Comment::where('comment_status',1)->get();
+        $totalneworder = count($allneworder);
+        $totalnewcomment = count($allnewcomment);
+        if(count($sadaynow) > 0){
+            foreach($sadaynow as $key => $value){
+                $totalsaday = $value->sales;
+                $proinday = $value->quantity;
+            }
+        }
+        else{
+            $totalsaday = 0;
+            $proinday = 0;
+        }
+        $totalsamonth = 0;
+        $proinmonth = 0;
+        foreach($samonthnow as $key => $value){
+            $totalsamonth += $value->sales;
+            $proinmonth += $value->quantity;
+        }
+    	return view('admin.dashboard',compact('totalsaday','totalsamonth','totalneworder','totalnewcomment','proinmonth','proinday'));
     }
     public function dashboard(Request $request){
     	$this->validate($request,[

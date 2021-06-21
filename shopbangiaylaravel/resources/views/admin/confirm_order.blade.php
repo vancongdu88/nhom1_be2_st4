@@ -130,7 +130,7 @@
 
 				</div>
 				<p style="color:#fff;text-align: center;font-size: 15px;">Xem lại lịch sử đơn hàng đã đặt tại : <a target="_blank" href="{{url('/history')}}">lịch sử đơn hàng của bạn</a></p>
-				<p style="color:#fff;text-align: center;font-size: 15px;">Mọi chi tiết xin liên hệ website tại : <a target="_blank" href="http://hieutantutorial.com/">Shop</a>, hoặc liên hệ qua số hotline : 19005689.Xin cảm ơn quý khách đã đặt hàng shop chúng tôi.</p>
+				<p style="color:#fff;text-align: center;font-size: 15px;">Mọi chi tiết xin liên hệ website tại : <a target="_blank" href="{{URL::to('/')}}">Shop</a>, hoặc liên hệ qua số hotline : 19005689.Xin cảm ơn quý khách đã đặt hàng shop chúng tôi.</p>
 
 			</div>
 		</div>

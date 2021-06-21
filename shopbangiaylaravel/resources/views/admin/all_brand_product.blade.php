@@ -34,6 +34,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php
+                  use App\Product;
+                  ?>
                   @foreach($all_brand_product as $key => $brand_pro)
           <tr>
             <td>{{$loop->index + 1}}</td>
@@ -56,9 +59,19 @@
             <td class="text-center d-flex justify-content-around">
               <a href="{{URL::to('/edit-brand-product/'.$brand_pro->brand_id)}}" class="active styling-edit" title="Sửa">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>
-              <a onclick="return confirm('Bạn có chắc là muốn xóa thương hiệu này ko?')" title="Xoá" href="{{URL::to('/delete-brand-product/'.$brand_pro->brand_id)}}" class="active styling-edit">
+                <?php
+                $all_product_brand = Product::where('brand_id',$brand_pro->brand_id)->get();
+                $total_pro = count($all_product_brand);
+                ?>
+                @if($total_pro > 0)
+                <a onclick="return confirm('Hiện tại đang có {{$total_pro}} sản phẩm thuộc brand này, bạn có chắc muốn xóa brand này ?')" title="Xoá" href="{{URL::to('/delete-brand-product/'.$brand_pro->brand_id)}}" class="active styling-edit">
                 <i class="fa fa-times text-danger text"></i>
-              </a>
+                </a>
+                @else
+                <a onclick="return confirm('Bạn có chắc là muốn xóa thương hiệu này ko?')" title="Xoá" href="{{URL::to('/delete-brand-product/'.$brand_pro->brand_id)}}" class="active styling-edit">
+                <i class="fa fa-times text-danger text"></i>
+                </a>
+                @endif
             </td>
           </tr>
           @endforeach
