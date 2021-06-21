@@ -34,7 +34,7 @@ class CategoryProduct extends Controller
     }
     public function add_category_product(){
         $this->AuthLogin();
-        $category = CategoryProductModel::where('category_parent',0)->orderBy('category_id','DESC')->get();
+        $category = CategoryProductModel::orderBy('category_id','DESC')->get();
         return view('admin.add_category_product')->with(compact('category'));
     }
     public function all_category_product(){
@@ -106,8 +106,14 @@ class CategoryProduct extends Controller
     public function delete_category_product($category_product_id){
         $this->AuthLogin();
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->delete();
+        $all_product_cate = Product::where('category_id',$category_product_id)->get();
+        if(count($all_product_cate) > 0){
+            foreach($all_product_cate as $key => $product){
+                $product->delete();
+            }
+        }
         Session::put('message','Xóa danh mục sản phẩm thành công');
-        return Redirect::to('all-category-product');
+        return redirect()->back();
     }
 
     public function show_category_home(Request $request ,$slug_category_product){

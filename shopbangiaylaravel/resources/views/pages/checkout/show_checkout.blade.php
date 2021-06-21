@@ -156,7 +156,7 @@
 													@if($cou['coupon_condition']==1)
                                                     <tr class="cart-subtotal">
                                                 <th>Coupon</th>
-                                                <td><span class="amount">{{$cou['coupon_code']}}/ Discount {{$cou['coupon_number']}}%</span></td>
+                                                <td><span class="amount">{{$cou['coupon_code']}}/ Discount {{$cou['coupon_number']}}% <a href="{{url('/unset-coupon')}}"><i class="fa fa-times"></i></a></span></td>
                                             </tr>
 														<p>
 															@php 

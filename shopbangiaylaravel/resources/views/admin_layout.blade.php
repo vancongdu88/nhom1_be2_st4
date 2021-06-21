@@ -514,6 +514,13 @@
         dayNamesMin: [ "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật" ],
         duration: "slow"
     });
+    $( "#datepicker" ).datepicker({
+        prevText:"Tháng trước",
+        nextText:"Tháng sau",
+        dateFormat:"yy/mm/dd",
+        dayNamesMin: [ "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật" ],
+        duration: "slow"
+    });
   } );
  
 </script>
@@ -525,6 +532,26 @@ function validateEmail(email) {
 function validateNumber(number) {
   const re = /^[0-9]+$/;
   return re.test(number);
+}
+function checkprice(){
+  var price_cost =  document.getElementById("price_cost").value.replace(/,/g,'');
+  var product_price =  document.getElementById("product_price").value.replace(/,/g,'');
+  if(parseInt(product_price) >= parseInt(price_cost))
+  {
+    var toast = new Toasty({
+                transition: "slideLeftRightFade",
+                progressBar: true,
+            });
+    toast.error("Giá khuyến mãi không được lớn hơn giá bán",3000);
+    document.getElementById("price_cost").classList.add("error");
+    document.getElementById("product_price").classList.add("error");
+    return false;
+  }
+  else{
+    document.getElementById("price_cost").classList.remove("error");
+    document.getElementById("product_price").classList.remove("error");
+    return true;
+  }
 }
 
 function validate() {
@@ -717,8 +744,6 @@ function validate() {
 
                 }
             });
-
-
     });
 </script>
 <script type="text/javascript">
@@ -933,7 +958,6 @@ function validate() {
             // alert(action);
             //  alert(matp);
             //   alert(_token);
-
             if(ma_id == 1 || ma_id == ""){
                 product_price.css('display','none');
                 value_price_sale.val(0);

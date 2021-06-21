@@ -165,10 +165,30 @@ class OrderController extends Controller
 		$title_mail = "Đơn hàng đã đặt được xác nhận".' '.$now;
 		$customer = Customer::where('customer_id',$order->customer_id)->first();
 		$data['email'][] = $customer->customer_email;
-
-		
+		$total = 0;
+		if($customer->customer_vip != 1){
+			foreach($data['order_product_id'] as $key => $product){
+				$product2 = Product::find($product);
+				foreach($data['quantity'] as $key2 => $qty){
+					if($key==$key2){
+						if($product2->product_condition_id == 1)
+						{
+							$total += $product2['price_cost'] * $qty;
+						}
+						else
+						{
+							$total += $product2['product_price'] * $qty;
+						}
+					}
+				}
+			}
+			if($total >= 20000000)
+			{
+				$customer->customer_vip = 1;
+				$customer->save();
+			}
+		}
 	  	//lay san pham
-	  	
 		foreach($data['order_product_id'] as $key => $product){
 				$product_mail = Product::find($product);
 				foreach($data['quantity'] as $key2 => $qty){
@@ -177,9 +197,15 @@ class OrderController extends Controller
 							if($key==$key3){
 								foreach($data['size'] as $key4 => $size){
 									if($key==$key4){
+										if($product_mail->product_condition_id == 1){
+											$price_sale = $product_mail['price_cost'];
+										}
+										else{
+											$price_sale = $product_mail['product_price'];
+										}
 					            $cart_array[] = array(
 						            'product_name' => $product_mail['product_name'],
-						            'product_price' => $product_mail['product_price'],
+						            'product_price' => $price_sale,
 						            'product_qty' => $qty,
 						            'product_color' => $color,
 									'product_size' => $size
@@ -244,8 +270,12 @@ class OrderController extends Controller
 				$product_quantity = $product->product_quantity;
 				$product_sold = $product->product_sold;
 				//them
-				$product_price = $product->product_price;
-				$product_cost = $product->price_cost;
+				if($product->product_condition_id == 1){
+					$product_price = $product->price_cost;
+				}
+				else{
+					$product_price = $product->product_price;
+				}
 				$now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
 				foreach($data['quantity'] as $key2 => $qty){
@@ -260,16 +290,13 @@ class OrderController extends Controller
 						$quantity+=$qty;
 						$total_order+=1;
 						$sales+=$product_price*$qty;
-						$profit = $sales - ($product_cost*$qty);
 					}
-
 				}
 			}
 			//update doanh so db
 			if($statistic_count>0){
 				$statistic_update = Statistic::where('order_date',$order_date)->first();
 				$statistic_update->sales = $statistic_update->sales + $sales;
-				$statistic_update->profit =  $statistic_update->profit + $profit;
 				$statistic_update->quantity =  $statistic_update->quantity + $quantity;
 				$statistic_update->total_order = $statistic_update->total_order + $total_order;
 				$statistic_update->save();
@@ -279,7 +306,6 @@ class OrderController extends Controller
 				$statistic_new = new Statistic();
 				$statistic_new->order_date = $order_date;
 				$statistic_new->sales = $sales;
-				$statistic_new->profit =  $profit;
 				$statistic_new->quantity =  $quantity;
 				$statistic_new->total_order = $total_order;
 				$statistic_new->save();

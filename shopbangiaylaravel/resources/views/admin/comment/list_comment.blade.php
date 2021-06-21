@@ -23,11 +23,15 @@
                     <th>Tên người gửi</th>
                     <th>Bình luận</th>
                     <th>Ngày gửi</th>
+                    <th>Đánh giá</th>
                     <th>Sản phẩm</th>
                     <th>Quản lý</th>
                     </tr>
                   </thead>
                   <tbody>
+                  <?php
+                  use App\Rating;
+                  ?>
                   @foreach($comment as $key => $comm)
           <tr>
             <td>
@@ -60,6 +64,16 @@
               @endif
               </td>
             <td class="text-center">{{ $comm->comment_date }}</td>
+            <?php
+            $rating = Rating::where('comment_comment_id',$comm->comment_id)->first();
+            ?>
+            <td class="d-flex border-bottom-0">
+            <?php
+                        for($x = 1; $x <= $rating->rating; $x++){
+                         echo '<i style="color:#e9b436" class="fa fa-star" aria-hidden="true"></i>';
+                        }
+                        ?>
+            </td>
             <td><a href="{{url('/chi-tiet/'.$comm->product->product_slug)}}" target="_blank">{{ $comm->product->product_name }}</a></td>
             <td class="text-center">
               <a onclick="return confirm('Bạn có chắc là muốn xóa bình luận này ko?')" title="Xoá" href="{{URL::to('/delete-comment/'.$comm->comment_id)}}" class="active styling-edit">

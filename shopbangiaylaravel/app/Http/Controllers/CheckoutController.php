@@ -135,6 +135,7 @@ class CheckoutController extends Controller
        $message->to($data['email'])->subject($title_mail);//send this mail with subject
        $message->from($data['email'],$title_mail);//send from this mail
    });
+   Session::put('message','Đặt hàng thành công, xem lại đơn hàng của bạn tại đây.');
     Session::forget('coupon');
     Session::forget('fee');
     Session::forget('cart');

@@ -21,6 +21,7 @@ Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 Route::post('/admin-dashboard','AdminController@dashboard');
 Route::get('/logout','AdminController@logout');
+Route::post('/filter-by-date','AdminController@filter_by_date');
 //login customer by google
 Route::get('/login-customer-google','AdminController@login_customer_google');
 Route::get('/customer/google/callback','AdminController@callback_customer_google');

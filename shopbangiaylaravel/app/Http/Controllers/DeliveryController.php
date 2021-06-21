@@ -56,12 +56,14 @@ class DeliveryController extends Controller
 	}
 	public function insert_delivery(Request $request){
 		$data = $request->all();
+		$ship_price = filter_var($data['fee_ship'], FILTER_SANITIZE_NUMBER_INT);
 		$fee_ship = new Feeship();
 		$fee_ship->fee_matp = $data['city'];
 		$fee_ship->fee_maqh = $data['province'];
 		$fee_ship->fee_xaid = $data['wards'];
-		$fee_ship->fee_feeship = $data['fee_ship'];
+		$fee_ship->fee_feeship = $ship_price;
 		$fee_ship->save();
+		Session::put('message','Thêm phí vận chuyển thành công');
 	}
     public function delivery(Request $request){
 

@@ -100,7 +100,11 @@
                         </div>
                         <!-- Price Box Area End Here -->
                         <p class="short-desc">{{$value->category_desc}}</p>
-                        <p class="stock">{{$value->product_quantity}} in stock</p>
+                        @if($value->product_quantity == 0)
+                        <b><h4 class="text-danger">Hết hàng</h4></b>
+                        @else
+                        <p class="stock">{{$value->product_quantity}} in stock</>
+                        @endif
                         <form class="pro-details-cart">
                         @csrf
                         <input type="hidden" id="product_viewed_id" value="{{$value->product_id}}" class="cart_product_id_{{$value->product_id}}">
@@ -113,16 +117,21 @@
 
                                             <input type="hidden" value="{{$value->wishlist}}" class="cart_product_wishlist_{{$value->product_id}}">
 
-                                            <input type="hidden" value="{{$value->product_price}}" class="cart_product_price_{{$value->product_id}}">
+                                            @if($value->product_condition_id == 1)
+                                    <input type="hidden" value="{{$value->price_cost}}" class="cart_product_price_{{$value->product_id}}">
+                                    @else
+                                    <input type="hidden" value="{{$value->product_price}}" class="cart_product_price_{{$value->product_id}}">
+                                    @endif
 
                                             <input name="productid_hidden" type="hidden"  value="{{$value->product_id}}" />
                             <div class="quantity">
-                                <input class="input-text qty text cart_product_qty_{{$value->product_id}}" step="1" min="1" max="200" name="quantity" value="1" title="Qty" size="4" type="number">
+                                <input {{$value->product_quantity == 0 ? 'disabled' : ''}} class="input-text qty text cart_product_qty_{{$value->product_id}}" step="1" min="1" max="200" name="quantity" value="1" title="Qty" size="4" type="number">
                             </div>
-                            
+                            @if($value->product_quantity > 0)
                             <div class="qty-cart-btn add-cart" data-id_product="{{$value->product_id}}">
                                 <input type="button" class="add-to-cart" name="add-to-cart" value="Add To Cart">
                             </div>
+                            @endif
                             <div class="option mt-3">
                                 <div class="row">
                                     <div class="col-lg-3">
@@ -132,7 +141,7 @@
                             $sizes = $value->product_size;
                             $sizes = explode(",",$sizes);
                             ?>
-                            <select class="cart_product_color_{{$value->product_id}} location"  name="color" id="color">
+                            <select {{$value->product_quantity == 0 ? 'disabled' : ''}} class="cart_product_color_{{$value->product_id}} location"  name="color" id="color">
                                                   <option value="">--Chọn màu--</option>
                                                   @foreach($colors as $color)
                                             <option value="{{$color}}">{{$color}}</option>
@@ -140,13 +149,13 @@
                             </select>
                             </div>
                             <div class="col-lg-3">
-                            <select class="cart_product_size_{{$value->product_id}} location"  name="size" id="size">
+                            <select {{$value->product_quantity == 0 ? 'disabled' : ''}} class="cart_product_size_{{$value->product_id}} location"  name="size" id="size">
                                                   <option value="">--Chọn size--</option>
                                                   @foreach($sizes as $size)
                                             <option value="{{$size}}">{{$size}}</option>
                                         @endforeach
                             </select>
-                                </div>
+                            </div>
                             </div>
                             </div>
                             </div>
@@ -158,14 +167,14 @@
                             <div class="product-meta">
                                 <p>
                                     Categories:
-                                    <a href="#">{{$value->category_name}}</a>
+                                    <a href="{{url('/danh-muc/'.$value->slug_category_product)}}">{{$value->category_name}}</a>
 
                                 </p>
                             </div>
                             <div class="product-meta">
                                 <p>
                                     Brand:
-                                    <a href="#">{{$value->brand_name}}</a>
+                                    <a href="{{url('/thuong-hieu/'.$value->brand_slug)}}">{{$value->brand_name}}</a>
 
                                 </p>
                             </div>
@@ -286,9 +295,15 @@
 <section class="new-product featured-pro-3 related-product related-product-2 pt-45 pb-80 pt-5">
     <div class="container">
         <!-- Begin Featured Product Title Area -->
+        @if (count($relate) == 0)
+        <div class="pos-title pos-title-2">
+            <h2>Hiện chưa có sản phẩm liên quan nào</h2>
+        </div>
+        @else
         <div class="pos-title pos-title-2">
             <h2>Related Products</h2>
         </div>
+        @endif
         <!-- Featured Product Title Area End Here -->
         <!-- Begin Featured Product Content Area -->
         <div class="row">
@@ -329,7 +344,7 @@
 
                                     <input type="hidden" value="{{$sizes[0]}}" class="cart_product_relate_size_{{$lienquan->product_id}}">
                     <!-- Begin Featured Product Image Area -->
-                    <div class="product-img">
+                    <div style="min-height:255px;max-height:255px" class="product-img">
                         <a href="{{URL::to('/chi-tiet/'.$lienquan->product_slug)}}">
                         <img class="primary-img" src="{{URL::to('public/uploads/product/'.$lienquan->product_image)}}" alt="">
                         </a>
@@ -347,13 +362,6 @@
                                 <div class="cart">
                                 <input type="button" value="Add To Cart" class="add-to-cart2" href="#" data-id_product="{{$lienquan->product_id}}" name="add-to-cart">
                                 </div>
-                                <ul class="add-to-links">
-                                    <li  class="rav-wishlist"><a href="#" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                    <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                    <li class="rav-quickviewbtn">
-                                        <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                         <!-- Product Action Area End Here -->

@@ -65,7 +65,7 @@
 
                                                     <input type="hidden" value="{{$sizes[0]}}" class="cart_product_relate_size_{{$product->product_id}}">
                                                         <!-- Begin Product Image Area -->
-                                                        <div class="product-img">
+                                                        <div style="min-height:255px;max-height:255px" class="product-img">
                                                             <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                                 <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                             </a>
@@ -80,13 +80,6 @@
                                                                 <div class="cart">
                                                               <input type="button" value="Add To Cart" class="add-to-cart2" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                                               </div>
-                                                                    <ul class="add-to-links">
-                                                                        <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                        <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                        <li class="rav-quickviewbtn">
-                                                                            <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                        </li>
-                                                                    </ul>
                                                                 </div>
                                                                 </form>
                                                             </div>
@@ -237,13 +230,6 @@
                                                             <div class="cart">
                                                               <input type="button" value="Add To Cart" class="add-to-cart2" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                                               </div>
-                                                                <ul class="add-to-links">
-                                                                    <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                    <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                    <li class="rav-quickviewbtn">
-                                                                        <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                    </li>
-                                                                </ul>
                                                             </div>
                                                             </form>
                                                         </div>

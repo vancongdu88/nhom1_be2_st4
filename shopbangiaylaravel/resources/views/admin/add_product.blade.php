@@ -26,7 +26,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Thông tin sản phẩm</h1>
                   </div>
-                  <form class="user" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
+                  <form class="user" action="{{URL::to('/save-product')}}" method="post" onsubmit="return checkprice()" enctype="multipart/form-data">
                   {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputEmail" class="dark"> Tên sản phẩm</label>
@@ -51,15 +51,15 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Giá bán</label>
-                      <input type="text" class="form-control  price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="price_cost" placeholder="Nhập giá gốc">
+                      <input type="text" class="form-control  price_format" id="price_cost" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="price_cost" placeholder="Nhập giá gốc">
                     </div>
                     <div class="form-group product_price">
                         <label for="exampleInputEmail">Giá khuyến mãi</label>
-                      <input type="text" class="form-control price_format" id="exampleInputEmail" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="product_price"  placeholder="Nhập giá bán">
+                      <input type="text" class="form-control price_format" id="product_price" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="product_price"  placeholder="Nhập giá bán">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Hình ảnh sản phẩm</label>
-                      <input type="file" class="form-control" id="exampleInputEmail" name="product_image">
+                      <input type="file" class="form-control" id="exampleInputEmail" name="product_image" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Tài liệu</label>
@@ -74,8 +74,21 @@
                         <textarea style="resize: none"  rows="8" class="form-control form-control-user" name="product_content" id="id4" placeholder="Nội dung sản phẩm"></textarea>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputEmail"> Màu sản phẩm</label>
+                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_colors" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail"> Size sản phẩm</label>
+                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_sizes" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail"> Tags sản phẩm</label>
+                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_tags" required>
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputEmail">Danh mục sản phẩm</label>
-                        <select name="product_cate" class="form-control">
+                        <select name="product_cate" class="form-control" required>
+                        <option value="">--Chọn danh mục--</option>
                                         @foreach($cate_product as $key => $cate)
                                             <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>
                                         @endforeach
@@ -83,20 +96,9 @@
                         </select>                    
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail"> Màu sản phẩm</label>
-                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_colors">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail"> Size sản phẩm</label>
-                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_sizes">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail"> Tags sản phẩm</label>
-                      <input type="text" class="form-control" id="exampleInputEmail" data-role="tagsinput" name="product_tags">
-                    </div>
-                    <div class="form-group">
                         <label for="exampleInputEmail"> Thương hiệu</label>
-                        <select name="product_brand" class="form-control">
+                        <select name="product_brand" class="form-control" required>
+                        <option value="">--Chọn thương hiệu--</option>
                                         @foreach($brand_product as $key => $brand)
                                             <option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
                                         @endforeach
@@ -106,8 +108,8 @@
                     <div class="form-group">
                         <label for="exampleInputEmail">Hiển thị</label>
                         <select name="product_status" class="form-control input-sm m-bot15">
+                                         <option value="1">Ẩn</option>
                                          <option value="0">Hiển thị</option>
-                                            <option value="1">Ẩn</option>
                                             
                         </select>                   
                     </div>

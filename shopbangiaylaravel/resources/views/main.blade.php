@@ -86,6 +86,7 @@
                                                 </li>
                                                 <!-- end -->
                                                 <li><a href="{{URL::to('/lien-he')}}">Contact Us</a></li>
+                                                <li><a href="{{URL::to('/yeu-thich')}}">Wishlist</a></li>
                                          </ul>
                                      </nav>
                                  </div>
@@ -304,8 +305,8 @@
                                 </div>
                                 <p>Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula</p>
                                 <div class="default-btn-2 slide-btn">
-                                    <a class="links links-4" href="shop.html">Shop mens</a>
-                                    <a class="links links-4 links-4_2" href="shop.html">Shop all Soccer</a>
+                                    <a class="links links-4" href="#">Shop mens</a>
+                                    <a class="links links-4 links-4_2" href="#">Shop all Soccer</a>
                                 </div>
                             </div>
                         </div>
@@ -323,8 +324,8 @@
                                 </div>
                                 <p>Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula</p>
                                 <div class="default-btn-2 slide-btn">
-                                    <a class="links links-4" href="shop.html">Shop mens</a>
-                                    <a class="links links-4 links-4_2 links-4_3" href="shop.html">Shop all Soccer</a>
+                                    <a class="links links-4" href="#">Shop mens</a>
+                                    <a class="links links-4 links-4_2 links-4_3" href="#">Shop all Soccer</a>
                                 </div>
                             </div>
                         </div>
@@ -381,7 +382,7 @@
 
                                     <input type="hidden" value="{{$sizes[0]}}" class="cart_product_size_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
-                                         <div class="product-img">
+                                         <div style="min-height:337px;max-height:337px" class="product-img">
                                              <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                  <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                  <div class="sticker"><span>Sale</span></div>
@@ -391,13 +392,6 @@
                                                              <div class="cart">
                                                                  <input type="button" value="Add To Cart" class="add-to-cart" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                                              </div>
-                                                             <ul class="add-to-links">
-                                                                 <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                 <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                 <li class="rav-quickviewbtn">
-                                                                     <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                 </li>
-                                                             </ul>
                                                          </div>
                                                      </div>
                                          </div>
@@ -494,7 +488,7 @@
 
                                     <input type="hidden" value="{{$sizes[0]}}" class="cart_product_size_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
-                                         <div class="product-img">
+                                         <div style="min-height:337px;max-height:337px" class="product-img">
                                              <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                  <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                  <div class="sticker"><span>New</span></div>
@@ -504,13 +498,6 @@
                                                              <div class="cart">
                                                                  <input type="button" value="Add To Cart" class="add-to-cart" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                                              </div>
-                                                             <ul class="add-to-links">
-                                                                 <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                 <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                 <li class="rav-quickviewbtn">
-                                                                     <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                 </li>
-                                                             </ul>
                                                          </div>
                                                      </div>
                                          </div>
@@ -607,7 +594,7 @@
 
                                     <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                                          <!-- Begin Product Image Area -->
-                                         <div class="product-img">
+                                         <div style="min-height:337px;max-height:337px" class="product-img">
                                              <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                  <img class="primary-img" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="">
                                                  @if($product->product_condition_id == 3)
@@ -621,13 +608,6 @@
                                                              <div class="cart">
                                                              <input type="button" value="Add To Cart" class="add-to-cart" href="#" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                                              </div>
-                                                             <ul class="add-to-links">
-                                                                 <li  class="rav-wishlist"><a href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart-o"></i></a></li>
-                                                                 <li class="rav-compare"><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                                                 <li class="rav-quickviewbtn">
-                                                                     <a href=".open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-eye"></i></a>
-                                                                 </li>
-                                                             </ul>
                                                          </div>
                                                      </div>
                                          </div>

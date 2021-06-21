@@ -131,7 +131,7 @@
 
 				</div>
 
-				<p style="color:#fff">Mọi chi tiết xin liên hệ website tại : <a target="_blank" href="http://hieutantutorial.com/">Shop</a>, hoặc liên hệ qua số hotline : 19005689.Xin cảm ơn quý khách đã đặt hàng shop chúng tôi.</p>
+				<p style="color:#fff">Mọi chi tiết xin liên hệ website tại : <a target="_blank" href="{{URL::to('/')}}">Shop</a>, hoặc liên hệ qua số hotline : 19005689.Xin cảm ơn quý khách đã đặt hàng shop chúng tôi.</p>
 
 			</div>
 		</div>

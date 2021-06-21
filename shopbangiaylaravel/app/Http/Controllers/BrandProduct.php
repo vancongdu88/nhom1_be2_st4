@@ -114,8 +114,14 @@ class BrandProduct extends Controller
     public function delete_brand_product($brand_product_id){
         $this->AuthLogin();
         DB::table('tbl_brand')->where('brand_id',$brand_product_id)->delete();
+        $all_product_brand = Product::where('brand_id',$brand_product_id)->get();
+        if(count($all_product_brand) > 0){
+            foreach($all_product_brand as $key => $product){
+                $product->delete();
+            }
+        }
         Session::put('message','Xóa thương hiệu sản phẩm thành công');
-        return Redirect::to('all-brand-product');
+        return redirect()->back();
     }
     public function show_brand_home(Request $request, $brand_slug){
         Session::forget('brand_id');
