@@ -37,16 +37,11 @@
                                         </div>
                                         <div class="login-submit">
                                             <button type="submit" class="form-button">Login</button>
-                                            <label>
-                                                <input class="checkbox" name="rememberme" value="" type="checkbox">
-                                                <span>Remember me</span>
-                                            </label>
                                         </div>
                                         <div class="lost-password">
                                         <a href="{{url('login-customer-google')}}">
 									           <img width="40%" alt="Đăng nhập bằng tài khoản google"  src="{{asset('public/frontend/images/login-gg.jpg')}}">
 								         </a>
-                                            <a href="{{url('/quen-mat-khau')}}s">Lost your password?</a>
                                         </div>
                                     </form>
                                 </div>

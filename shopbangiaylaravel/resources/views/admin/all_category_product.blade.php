@@ -29,7 +29,6 @@
                       <th>STT</th>
                       <th>Tên danh mục</th>
                       <th>Slug</th>
-                      <th>Hiển thị</th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>
@@ -42,20 +41,6 @@
             <td>{{$loop->index + 1}}</td>
             <td>{{ $cate_pro->category_name }}</td>
             <td>{{ $cate_pro->slug_category_product }}</td>
-            <td class="text-center"><span class="text-ellipsis">
-              <?php
-               if($cate_pro->category_status==0){
-                ?>
-                <a href="{{URL::to('/unactive-category-product/'.$cate_pro->category_id)}}" title="Ẩn"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <?php
-                 }else{
-                ?>  
-                 <a href="{{URL::to('/active-category-product/'.$cate_pro->category_id)}}" title="Hiện"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                <?php
-               }
-              ?>
-            </span></td>
-           
             <td class="text-center d-flex justify-content-around">
               <a href="{{URL::to('/edit-category-product/'.$cate_pro->category_id)}}" class="active styling-edit" title="Sửa">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>

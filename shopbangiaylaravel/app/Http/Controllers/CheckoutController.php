@@ -135,7 +135,7 @@ class CheckoutController extends Controller
        $message->to($data['email'])->subject($title_mail);//send this mail with subject
        $message->from($data['email'],$title_mail);//send from this mail
    });
-   Session::put('message','Đặt hàng thành công, xem lại đơn hàng của bạn tại đây.');
+   Session::put('message','Đặt hàng thành công, xem lại đơn hàng của bạn tại history order.');
     Session::forget('coupon');
     Session::forget('fee');
     Session::forget('cart');
@@ -235,7 +235,7 @@ public function logout_checkout(){
     $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
     $city = City::orderby('matp','ASC')->get();
     Session::forget('fee');
-    return view('pages.checkout.checkout_address')->with('category',$cate_product)->with('brand',$brand_product)->with('city',$city);
+    return Redirect::to('/checkaddress');
     }
    public function checkaddress(Request $request){
     if(!Session::get('cart')){
@@ -258,7 +258,7 @@ public function logout_checkout(){
 
    public function checkout(Request $request){
     if(!Session::get('fee')){
-			return redirect('history');
+			return redirect('gio-hang');
 		}else{
 $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
 $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 

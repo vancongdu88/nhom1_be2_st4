@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th6 08, 2021 lúc 06:11 PM
+-- Thời gian đã tạo: Th6 23, 2021 lúc 01:45 PM
 -- Phiên bản máy phục vụ: 10.4.10-MariaDB
 -- Phiên bản PHP: 7.3.12
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `admin_roles` (
   `admin_admin_id` int(10) UNSIGNED NOT NULL,
   `roles_id_roles` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id_admin_roles`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `admin_roles`
@@ -42,12 +42,10 @@ CREATE TABLE IF NOT EXISTS `admin_roles` (
 
 INSERT INTO `admin_roles` (`id_admin_roles`, `admin_admin_id`, `roles_id_roles`) VALUES
 (38, 1, 1),
-(43, 3, 2),
-(44, 3, 3),
-(47, 2, 2),
-(48, 2, 3),
-(49, 2, 1),
-(50, 4, 2);
+(50, 4, 2),
+(51, 3, 2),
+(52, 2, 2),
+(53, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -78,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `migrations`
@@ -92,7 +90,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2021_05_17_152918_create_tbl_category_product', 4),
 (10, '2021_05_17_153459_create_tbl_admin', 5),
 (11, '2021_05_17_153800_create_tbl_customers', 6),
-(12, '2021_05_17_171125_create_tbl_gallery', 7);
+(12, '2021_05_17_171125_create_tbl_gallery', 7),
+(13, '2021_06_18_075451_create_tbl_product_condition', 8);
 
 -- --------------------------------------------------------
 
@@ -152,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `tbl_brand` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`brand_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_brand`
@@ -162,7 +161,7 @@ INSERT INTO `tbl_brand` (`brand_id`, `brand_name`, `brand_slug`, `brand_desc`, `
 (1, 'Adidas', 'adidas', 'adidas', 0, NULL, NULL),
 (2, 'Nike', 'nike', 'Nike', 0, NULL, NULL),
 (3, 'Vans', 'vans', 'Vans', 0, NULL, NULL),
-(5, 'GUCCI', 'gucci', 'GUCCI', 0, NULL, NULL);
+(5, 'Gucci', 'gucci', 'GUCCI', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,23 +176,66 @@ CREATE TABLE IF NOT EXISTS `tbl_category_product` (
   `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug_category_product` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_parent` int(10) UNSIGNED NOT NULL,
   `category_status` int(11) NOT NULL,
-  `category_order` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_category_product`
 --
 
-INSERT INTO `tbl_category_product` (`category_id`, `meta_keywords`, `category_name`, `slug_category_product`, `category_desc`, `category_parent`, `category_status`, `category_order`, `created_at`, `updated_at`) VALUES
-(1, 'Giày thể thao', 'Giày thể thao', 'giay-the-thao', 'Giày thể thao', 0, 0, 0, NULL, NULL),
-(2, 'Giày nữ', 'Giày nữ', 'giay-nu', 'Giày nữ năng động', 0, 0, 0, NULL, NULL),
-(3, 'Giày nam', 'Giày nam', 'giay-nam', 'Giày nam năng động', 0, 0, 0, NULL, NULL),
-(4, 'giày nữ\r\ngiày cao gót', 'Giày Cao Gót', 'giay-cao-got', 'Giày Cao Gót', 0, 0, 2, NULL, NULL);
+INSERT INTO `tbl_category_product` (`category_id`, `meta_keywords`, `category_name`, `slug_category_product`, `category_desc`, `category_status`, `created_at`, `updated_at`) VALUES
+(1, 'Giày thể thao', 'Giày thể thao', 'giay-the-thao', 'Giày thể thao', 0, NULL, NULL),
+(2, 'Giày nữ', 'Giày nữ', 'giay-nu', 'Giày nữ năng động', 0, NULL, NULL),
+(3, 'Giày nam', 'Giày nam', 'giay-nam', 'Giày nam năng động', 0, NULL, NULL),
+(4, 'giày nữ\r\ngiày cao gót', 'Giày cao gót', 'giay-cao-got', 'Giày Cao Gót', 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_comment`
+--
+
+DROP TABLE IF EXISTS `tbl_comment`;
+CREATE TABLE IF NOT EXISTS `tbl_comment` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `comment` varchar(255) NOT NULL,
+  `comment_name` varchar(100) NOT NULL,
+  `comment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `comment_user_id` int(11) DEFAULT NULL,
+  `comment_product_id` int(11) NOT NULL,
+  `comment_parent_comment` int(11) DEFAULT NULL,
+  `comment_status` int(11) NOT NULL,
+  PRIMARY KEY (`comment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_comment`
+--
+
+INSERT INTO `tbl_comment` (`comment_id`, `comment`, `comment_name`, `comment_date`, `comment_user_id`, `comment_product_id`, `comment_parent_comment`, `comment_status`) VALUES
+(57, 'Giày đá banh là hết sẩy !', 'Tấn Quy', '2021-06-10 19:38:21', 1, 10, 0, 0),
+(58, 'Hết sẩy thì mình cả hẩy nha :)', 'Admin', '2021-06-10 19:38:51', NULL, 10, 57, 0),
+(59, 'Giày mang hong êm gì hết. Giận !', 'Công Dự', '2021-06-10 22:18:46', 2, 10, 0, 0),
+(60, 'Sorry bạn.  vì sự bất tiện này', 'Admin', '2021-06-10 21:57:38', NULL, 10, 59, 0),
+(61, 'Giày đẹp chịu nha !', 'Công Dự', '2021-06-10 22:23:37', 2, 1, 0, 0),
+(62, 'Thanks cậu nha. Ủng hộ tụi mình tiếp nha', 'Admin', '2021-06-10 22:24:15', NULL, 1, 61, 0),
+(63, 'Giao hàng hơi chậm. Chất lượng sp tốt !', 'Quốc', '2021-06-11 15:08:40', 3, 9, 0, 0),
+(64, 'Thanks bạn nhiều nè', 'Admin', '2021-06-11 15:08:56', NULL, 9, 63, 0),
+(65, 'Giày đẹp xuất sắc shop ơiiiiiii', 'Quốc', '2021-06-11 15:17:51', 3, 22, 0, 0),
+(66, 'Trời. Giày shop mình mà. hong đẹp sao được !', 'Admin', '2021-06-11 15:13:11', NULL, 22, 65, 0),
+(67, 'Giày chanh xả quá shop ơiiii', 'Công Dự', '2021-06-11 18:32:10', 2, 27, 0, 0),
+(68, 'Quá chanh xả nun hihi', 'Admin', '2021-06-11 18:32:47', NULL, 27, 67, 0),
+(69, 'giày đẹp mẹ e chịu quá chịu lun. chúc shop bán đắc nha !!!', 'Công Dự', '2021-06-16 15:47:08', 2, 18, 0, 0),
+(70, 'Shop cảm ơn bạn nhiều nè', 'Admin', '2021-06-12 14:23:31', NULL, 18, 69, 0),
+(71, 'Giày mang chuẩn phết  shop ạ ;)', 'Công Dự', '2021-06-17 17:32:17', 2, 29, 0, 1),
+(72, 'Giày tốt nhưng giao chậm, trừ 1 sao', 'Công Dự', '2021-06-17 17:48:45', 2, 28, 0, 1),
+(73, 'Giày đẹp xuất sắc. shop ơi !!!', 'Nguyễn Tấn Quy', '2021-06-21 03:47:59', 6, 28, 0, 0),
+(74, 'Shop cảm ơn ạ', 'Admin', '2021-06-21 03:48:36', NULL, 28, 73, 0),
+(75, 'giày mới mua nó bong keo', 'Công Dự', '2021-06-23 01:52:21', 2, 12, 0, 0),
+(76, 'Xin lỗi bạn nha', 'Admin', '2021-06-23 01:52:57', NULL, 12, 75, 0);
 
 -- --------------------------------------------------------
 
@@ -214,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `tbl_coupon` (
   `coupon_status` int(11) NOT NULL DEFAULT 1,
   `coupon_used` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`coupon_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_coupon`
@@ -222,10 +264,11 @@ CREATE TABLE IF NOT EXISTS `tbl_coupon` (
 
 INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_date_end`, `coupon_date_start`, `coupon_time`, `coupon_condition`, `coupon_number`, `coupon_code`, `coupon_status`, `coupon_used`) VALUES
 (1, 'Giảm giá black friday', '2020/11/26', '2020/11/19', 94, 1, 10, 'HDH375Y', 1, NULL),
-(6, 'Giảm giá noel', '2020/11/25', '2020/11/19', 49, 2, 200000, 'COVID99', 1, ',8,8,8,8,8,8,8,8,8,8,4,4,4,4'),
-(8, 'Giảm 50%', '2021/5/29', '2021/5/23', 93, 1, 50, 'GIAM50', 1, ',1,2'),
-(10, 'Ở nhà', '2021/6/13', '2021/5/29', 19, 2, 200000, 'ONHA', 1, ',2'),
-(11, 'Mã hết hạn', '2021/05/29', '2021/05/27', 10, 2, 10000, 'MADEMO', 1, NULL);
+(6, 'Giảm giá noel', '2020/11/25', '2020/11/19', 49, 2, 200000, 'COVID99', 1, NULL),
+(11, 'Mã hết hạn', '2021/05/29', '2021/05/27', 10, 2, 10000, 'MADEMO', 1, NULL),
+(12, 'Giảm 50%', '2021/06/30', '2021/06/17', 9, 1, 50, 'GIAM50', 1, ',2'),
+(13, 'Chung tay chống dịch', '2021/06/30', '2021/06/17', 40, 2, 100000, 'COVID19', 1, NULL),
+(14, 'Hãy ở nhà', '2021/06/30', '2021/05/01', 20, 2, 200000, 'ONHA', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -246,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `tbl_customers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_customers`
@@ -254,7 +297,11 @@ CREATE TABLE IF NOT EXISTS `tbl_customers` (
 
 INSERT INTO `tbl_customers` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_picture`, `customer_vip`, `customer_token`, `created_at`, `updated_at`) VALUES
 (1, 'Tấn Quy', 'nguyentanquy@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0316646494', NULL, NULL, NULL, NULL, NULL),
-(2, 'Công Dự', 'vancongdu88@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '21646366631', NULL, NULL, NULL, '2021-05-17 17:31:32', NULL);
+(2, 'Công Dự', 'vancongdu88@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '21646366631', NULL, NULL, NULL, '2021-05-17 17:31:32', NULL),
+(3, 'Quốc', 'hochiquoc@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '01326645156', NULL, NULL, NULL, '2021-06-11 15:01:09', NULL),
+(4, 'Dự2', 'vancongdu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '01356265', NULL, NULL, NULL, '2021-06-13 10:36:29', NULL),
+(5, 'Nguyễn Tấn Quy', '16211tt1925@mail.tdc.edu.vn', '', '', 'https://lh3.googleusercontent.com/a/AATXAJxkxAb4kSdZoHd92XMgN-qnyC3aKFIhtIXCaZU3=s96-c', NULL, NULL, NULL, NULL),
+(6, 'Nguyễn Tấn Quy', 'quylaokame113@gmail.com', '', '', 'https://lh3.googleusercontent.com/a-/AOh14Ggr4YtYZkYpcUmmsATnRLT6yDo0ObMaSgCOwvvhtQ=s96-c', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -270,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `tbl_feeship` (
   `fee_xaid` int(10) NOT NULL,
   `fee_feeship` varchar(50) NOT NULL,
   PRIMARY KEY (`fee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_feeship`
@@ -283,7 +330,8 @@ INSERT INTO `tbl_feeship` (`fee_id`, `fee_matp`, `fee_maqh`, `fee_xaid`, `fee_fe
 (4, 2, 26, 712, '60000'),
 (5, 79, 760, 26734, '80000'),
 (6, 8, 74, 2374, '15000'),
-(7, 77, 748, 26548, '60000');
+(7, 77, 748, 26548, '60000'),
+(9, 52, 550, 21967, '15000');
 
 -- --------------------------------------------------------
 
@@ -300,16 +348,36 @@ CREATE TABLE IF NOT EXISTS `tbl_gallery` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`gallery_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_gallery`
 --
 
 INSERT INTO `tbl_gallery` (`gallery_id`, `gallery_name`, `gallery_image`, `product_id`, `created_at`, `updated_at`) VALUES
-(33, '5_218.jpg', '5_218.jpg', 29, NULL, NULL),
-(32, '5_174.jpg', '5_174.jpg', 29, NULL, NULL),
-(31, '4_215.jpg', '4_215.jpg', 29, NULL, NULL);
+(34, 'strong-point_image97.png', 'strong-point_image97.png', 30, NULL, NULL),
+(50, 'vn0a2z5i19m-337.jpg', 'vn0a2z5i19m-337.jpg', 29, NULL, NULL),
+(49, 'vn0a2z5i19m-271.jpg', 'vn0a2z5i19m-271.jpg', 29, NULL, NULL),
+(36, 'vn000d5ib8c-174.png', 'vn000d5ib8c-174.png', 37, NULL, NULL),
+(37, 'vn000d5ib8c-444.png', 'vn000d5ib8c-444.png', 37, NULL, NULL),
+(38, 'vn000d5ib8c-540.png', 'vn000d5ib8c-540.png', 37, NULL, NULL),
+(39, 'vn000d5ib8c-673.png', 'vn000d5ib8c-673.png', 37, NULL, NULL),
+(40, 'vn0a4u3b2pd-259.jpg', 'vn0a4u3b2pd-259.jpg', 38, NULL, NULL),
+(41, 'vn0a4u3b2pd-343.jpg', 'vn0a4u3b2pd-343.jpg', 38, NULL, NULL),
+(42, 'vn0a4u3b2pd-581.jpg', 'vn0a4u3b2pd-581.jpg', 38, NULL, NULL),
+(43, 'vn0a4bv4xey-147.jpg', 'vn0a4bv4xey-147.jpg', 11, NULL, NULL),
+(44, 'vn0a4bv4xey-263.jpg', 'vn0a4bv4xey-263.jpg', 11, NULL, NULL),
+(45, 'vn0a4bv4xey-372.jpg', 'vn0a4bv4xey-372.jpg', 11, NULL, NULL),
+(46, 'vn0a38g219z-4-682d6464-ad7b-417f-adae-046147d40d302.jpg', 'vn0a38g219z-4-682d6464-ad7b-417f-adae-046147d40d302.jpg', 12, NULL, NULL),
+(47, 'vn0a38g219z-5-a9ccfee9-2676-4e58-9d48-76375bf966d782.jpg', 'vn0a38g219z-5-a9ccfee9-2676-4e58-9d48-76375bf966d782.jpg', 12, NULL, NULL),
+(48, 'vn0a38g219z-895.jpg', 'vn0a38g219z-895.jpg', 12, NULL, NULL),
+(51, 'vn0a2z5i19m-514.jpg', 'vn0a2z5i19m-514.jpg', 29, NULL, NULL),
+(55, 'vn0a4bv3017-221.jpg', 'vn0a4bv3017-221.jpg', 22, NULL, NULL),
+(53, 'vn0a4bv3017-561.jpg', 'vn0a4bv3017-561.jpg', 22, NULL, NULL),
+(54, 'vn0a4bv3017-642.jpg', 'vn0a4bv3017-642.jpg', 22, NULL, NULL),
+(56, 'G81G5_Cafe_2_600x44.jpg', 'G81G5_Cafe_2_600x44.jpg', 18, NULL, NULL),
+(57, 'G81G5_Cafe_3_600x42.jpg', 'G81G5_Cafe_3_600x42.jpg', 18, NULL, NULL),
+(58, 'G81G5_Cafe_4_600x99.jpg', 'G81G5_Cafe_4_600x99.jpg', 18, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -351,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `tbl_order` (
   `created_at` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_order`
@@ -361,9 +429,24 @@ INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `order_status
 (2, 1, 123, 2, 'f85bc', '2021-05-29', '2021-05-29 19:19:52', NULL),
 (3, 1, 124, 2, '51264', '2021-05-29', '2021-05-29 21:50:13', NULL),
 (4, 1, 125, 2, 'c6d6e', '2021-05-29', '2021-05-29 22:00:46', NULL),
-(5, 1, 126, 1, '1b83f', '2021-05-30', '2021-05-30 02:22:01', NULL),
-(6, 2, 127, 1, '6b676', '2021-05-30', '2021-05-30 02:49:37', NULL),
-(7, 2, 128, 1, 'c847d', '2021-05-30', '2021-05-30 22:43:16', NULL);
+(5, 1, 126, 2, '1b83f', '2021-05-30', '2021-05-30 02:22:01', NULL),
+(6, 2, 127, 2, '6b676', '2021-05-30', '2021-05-30 02:49:37', NULL),
+(7, 2, 128, 2, 'c847d', '2021-05-30', '2021-05-30 22:43:16', NULL),
+(8, 1, 129, 2, '5241c', '2021-06-09', '2021-06-09 22:48:17', NULL),
+(9, 1, 130, 2, 'f2c85', '2021-06-10', '2021-06-10 23:21:53', NULL),
+(10, 2, 131, 2, '7612a', '2021-06-11', '2021-06-11 04:05:24', NULL),
+(11, 3, 132, 2, 'bc8ae', '2021-06-11', '2021-06-11 22:04:29', NULL),
+(12, 2, 133, 2, '25522', '2021-06-12', '2021-06-12 01:00:23', NULL),
+(13, 2, 134, 2, '8dbb6', '2021-06-12', '2021-06-12 01:41:23', NULL),
+(14, 2, 135, 2, '3e7f5', '2021-06-12', '2021-06-12 01:44:43', NULL),
+(15, 2, 136, 2, 'd05ca', '2021-06-13', '2021-06-13 02:48:44', NULL),
+(16, 2, 137, 2, '3ae4a', '2021-06-13', '2021-06-13 16:07:38', NULL),
+(17, 1, 138, 2, '8a403', '2021-06-16', '2021-06-16 17:23:32', NULL),
+(18, 2, 139, 1, 'd9664', '2021-06-20', '2021-06-20 01:13:45', NULL),
+(19, 2, 140, 2, '161ba', '2021-06-20', '2021-06-20 01:40:38', NULL),
+(20, 2, 141, 2, 'abbb0', '2021-06-20', '2021-06-20 02:08:52', NULL),
+(21, 6, 142, 2, 'dc8e4', '2021-06-21', '2021-06-21 09:36:10', NULL),
+(22, 2, 143, 2, '271a0', '2021-06-23', '2021-06-23 08:31:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -378,31 +461,54 @@ CREATE TABLE IF NOT EXISTS `tbl_order_details` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_price` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_color` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_size` int(11) DEFAULT NULL,
   `product_sales_quantity` int(11) NOT NULL,
   `product_coupon` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_feeship` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_details_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_order_details`
 --
 
-INSERT INTO `tbl_order_details` (`order_details_id`, `order_code`, `product_id`, `product_name`, `product_price`, `product_sales_quantity`, `product_coupon`, `product_feeship`, `created_at`, `updated_at`) VALUES
-(1, 'f85bc', 29, 'VANS DALLAS CLAYTON AUTHENTIC RAINBOW TRUE WHITE', '1600000', 1, 'GIAM50', '25000', NULL, NULL),
-(2, 'f85bc', 22, 'Vans SK8-HI', '3500000', 2, 'GIAM50', '25000', NULL, NULL),
-(3, '51264', 21, 'Vans Oldskool Style 36 Redline VNOA3DZ3OXV5 Màu Trắng', '2500000', 1, 'no', '25000', NULL, NULL),
-(4, '51264', 28, 'VANS CLASSIC SLIP-ON TRUE WHITE', '2300000', 2, 'no', '25000', NULL, NULL),
-(5, 'c6d6e', 22, 'Vans SK8-HI', '3500000', 1, 'GIAM50', '25000', NULL, NULL),
-(6, 'c6d6e', 14, 'Giày Cao Gót Slingback Gót', '300000', 2, 'GIAM50', '25000', NULL, NULL),
-(7, '1b83f', 19, 'Giày Cao Gót Gót Trụ Khóa Trang Trí', '340000', 1, 'no', '25000', NULL, NULL),
-(8, '1b83f', 23, 'Nike giày thể thao Air Max 1 HD', '2500000', 2, 'no', '25000', NULL, NULL),
-(9, '6b676', 1, 'Adidas N100', '2000000', 2, 'GIAM50', '25000', NULL, NULL),
-(10, '6b676', 13, 'Vans Authentic', '2300000', 2, 'GIAM50', '25000', NULL, NULL),
-(11, 'c847d', 27, 'Gucci Sneakers', '13000000', 2, 'ONHA', '25000', NULL, NULL),
-(12, 'c847d', 25, 'Adidas Stan Smith Trainers', '14000000', 1, 'ONHA', '25000', NULL, NULL);
+INSERT INTO `tbl_order_details` (`order_details_id`, `order_code`, `product_id`, `product_name`, `product_price`, `product_color`, `product_size`, `product_sales_quantity`, `product_coupon`, `product_feeship`, `created_at`, `updated_at`) VALUES
+(1, 'f85bc', 29, 'VANS DALLAS CLAYTON AUTHENTIC RAINBOW TRUE WHITE', '1600000', NULL, NULL, 1, 'GIAM50', '25000', NULL, NULL),
+(2, 'f85bc', 22, 'Vans SK8-HI', '3500000', NULL, NULL, 2, 'GIAM50', '25000', NULL, NULL),
+(3, '51264', 21, 'Vans Oldskool Style 36 Redline VNOA3DZ3OXV5 Màu Trắng', '2500000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(4, '51264', 28, 'VANS CLASSIC SLIP-ON TRUE WHITE', '2300000', NULL, NULL, 2, 'no', '25000', NULL, NULL),
+(5, 'c6d6e', 22, 'Vans SK8-HI', '3500000', NULL, NULL, 1, 'GIAM50', '25000', NULL, NULL),
+(6, 'c6d6e', 14, 'Giày Cao Gót Slingback Gót', '300000', NULL, NULL, 2, 'GIAM50', '25000', NULL, NULL),
+(7, '1b83f', 19, 'Giày Cao Gót Gót Trụ Khóa Trang Trí', '340000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(8, '1b83f', 23, 'Nike giày thể thao Air Max 1 HD', '2500000', NULL, NULL, 2, 'no', '25000', NULL, NULL),
+(9, '6b676', 1, 'Adidas N100', '2000000', NULL, NULL, 2, 'GIAM50', '25000', NULL, NULL),
+(10, '6b676', 13, 'Vans Authentic', '2300000', NULL, NULL, 2, 'GIAM50', '25000', NULL, NULL),
+(11, 'c847d', 27, 'Gucci Sneakers', '13000000', NULL, NULL, 2, 'ONHA', '25000', NULL, NULL),
+(12, 'c847d', 25, 'Adidas Stan Smith Trainers', '14000000', NULL, NULL, 1, 'ONHA', '25000', NULL, NULL),
+(13, '5241c', 28, 'VANS CLASSIC SLIP-ON TRUE WHITE', '2300000', NULL, NULL, 1, 'ONHA', '25000', NULL, NULL),
+(14, '5241c', 3, 'Womens adidas Superstar Athletic', '22000000', NULL, NULL, 1, 'ONHA', '25000', NULL, NULL),
+(15, 'f2c85', 10, 'Adidas Yeezy 350 Static - Phản quang', '11000000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(16, '7612a', 10, 'Adidas Yeezy 350 Static - Phản quang', '11000000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(17, '7612a', 1, 'Adidas N100', '2000000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(18, 'bc8ae', 22, 'Vans SK8-HI', '3500000', NULL, NULL, 1, 'GIAM50', '25000', NULL, NULL),
+(19, 'bc8ae', 9, 'Adidas Ultra Boost 5.0 Core Black', '5000000', NULL, NULL, 1, 'GIAM50', '25000', NULL, NULL),
+(20, '25522', 18, 'Giày Cao Gót Khóa Trang Trí Họa Tiết Mê Cung', '500000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(21, '8dbb6', 26, 'Adidas Yeezy Boost 350 Trainers', '12000000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(22, '3e7f5', 19, 'Giày Cao Gót Gót Trụ Khóa Trang Trí', '340000', NULL, NULL, 1, 'no', '25000', NULL, NULL),
+(23, 'd05ca', 29, 'VANS DALLAS CLAYTON AUTHENTIC RAINBOW TRUE WHITE', '1600000', 'Cầu vồng', 41, 2, 'no', '25000', NULL, NULL),
+(24, 'd05ca', 28, 'VANS CLASSIC SLIP-ON TRUE WHITE', '2300000', 'Đen', 43, 3, 'no', '25000', NULL, NULL),
+(25, '3ae4a', 28, 'VANS CLASSIC SLIP-ON TRUE WHITE', '2300000', 'Trắng', 42, 1, 'no', '25000', NULL, NULL),
+(26, '8a403', 28, 'VANS CLASSIC SLIP-ON TRUE WHITE', '2300000', 'Trắng', 42, 1, 'no', '25000', NULL, NULL),
+(27, 'd9664', 18, 'Giày Cao Gót Đế Nhọn', '470000', 'Vàng', 34, 1, 'no', '20000', NULL, NULL),
+(28, '161ba', 11, 'Vans Era N110', '500000', 'Đen', 41, 1, 'GIAM50', '25000', NULL, NULL),
+(29, 'abbb0', 20, 'Giày Cao Gót Gót Thanh Trang Trí Đính Đá', '430000', 'Hồng', 35, 1, 'no', '25000', NULL, NULL),
+(30, 'dc8e4', 25, 'Adidas Stan Smith Trainers', '9000000', 'Xám', 42, 1, 'no', '25000', NULL, NULL),
+(31, 'dc8e4', 27, 'Gucci Sneakers', '9000000', 'Trắng', 41, 1, 'no', '25000', NULL, NULL),
+(32, 'dc8e4', 28, 'VANS CLASSIC SLIP-ON TRUE WHITE', '1800000', 'Đen', 41, 2, 'no', '25000', NULL, NULL),
+(33, '271a0', 12, 'Giày Vans Old Shool 36 DX Anaheim Factory Hoffman Fabrics', '1980000', 'Nâu', 40, 1, 'no', '25000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -418,52 +524,84 @@ CREATE TABLE IF NOT EXISTS `tbl_product` (
   `product_quantity` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_sold` int(11) DEFAULT NULL,
   `product_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `brand_id` int(11) NOT NULL,
+  `product_color` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_size` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_condition_id` int(11) DEFAULT NULL,
+  `category_id` int(11) UNSIGNED NOT NULL,
+  `brand_id` int(11) UNSIGNED NOT NULL,
   `product_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_price` int(11) NOT NULL,
-  `price_cost` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price_cost` int(11) NOT NULL,
   `product_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_file` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_bought` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `wishlist` tinyint(1) DEFAULT NULL,
   `product_views` int(11) DEFAULT NULL,
   `product_status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`product_id`),
+  KEY `category_id` (`category_id`,`brand_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`product_id`, `product_name`, `product_tags`, `product_quantity`, `product_sold`, `product_slug`, `category_id`, `brand_id`, `product_desc`, `product_content`, `product_price`, `price_cost`, `product_image`, `product_file`, `product_views`, `product_status`, `created_at`, `updated_at`) VALUES
-(1, 'Adidas N100', 'giày adidas,giày thể thao', '20', NULL, 'adidas-n100', 1, 1, '<p>Adidas N100</p>', '<p>Adidas N100</p>', 2000000, '2100000', '1_220.jpg', NULL, 4, 0, NULL, NULL),
-(3, 'Womens adidas Superstar Athletic', 'adidassupertar', '5', NULL, 'womens-adidas-superstar-athletic', 2, 1, '<h1>Womens adidas Superstar Athletic</h1>', '<h1>Womens adidas Superstar Athletic</h1>', 22000000, '20000000', '9_263.jpg', NULL, NULL, 0, NULL, NULL),
-(4, 'adidas Superstars Celebrating Inclusivity', 'adidas', '5', NULL, 'adidas-superstars-celebrating-inclusivity', 3, 1, '<p>adidas Superstars Celebrating Inclusivity</p>', '<p>adidas Superstars Celebrating Inclusivity</p>', 15000000, '13000000', '1_159.jpg', NULL, NULL, 0, NULL, NULL),
-(5, 'Nike Jordan 1 Mid Smoke Grey', 'Nike', '10', NULL, 'nike-jordan-1-mid-smoke-grey', 3, 2, '<p>Nike Jordan 1 Mid Smoke Grey</p>', '<p>Nike Jordan 1 Mid Smoke Grey</p>', 3300000, '4200000', '7_277.jpg', NULL, 4, 0, NULL, NULL),
-(6, 'Nike Jordan 1 Mid Smoke Grey', 'Nike', '10', NULL, 'nike-jordan-1-mid-smoke-grey', 3, 2, '<p>Nike Jordan 1 Mid Smoke Grey</p>', '<p>Nike Jordan 1 Mid Smoke Grey</p>', 3300000, '4200000', '1_293.jpg', NULL, 6, 0, NULL, NULL),
-(7, 'Nike Air Force 1 X Dragon Para Noise', 'Nike', '7', NULL, 'nike-air-force-1-x-dragon-para-noise', 3, 2, '<h2><a href=\"https://giaygiare.vn/nike-air-force-1-x-gdragon-para-noise.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Nike Air Force 1 X Dragon Para Noise\">Nike Air Force 1 X Dragon Para Noise</a></h2>', '<h2><a href=\"https://giaygiare.vn/nike-air-force-1-x-gdragon-para-noise.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Nike Air Force 1 X Dragon Para Noise\">Nike Air Force 1 X Dragon Para Noise</a></h2>', 16000000, '185000000', '3_130.jpg', NULL, NULL, 0, NULL, NULL),
-(8, 'Adidas Yeezy 700 V2 Static', 'Adidas', '3', NULL, 'adidas-yeezy-700-v2-static', 3, 1, '<h2><a href=\"https://giaygiare.vn/adidas-yeezy-700-v2-static-trang-bac-nam-nu.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Adidas Yeezy 700 V2 Static\">Adidas Yeezy 700 V2 Static</a></h2>', '<h2><a href=\"https://giaygiare.vn/adidas-yeezy-700-v2-static-trang-bac-nam-nu.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Adidas Yeezy 700 V2 Static\">Adidas Yeezy 700 V2 Static</a></h2>', 17000000, '14500000', '3_213.jpg', NULL, NULL, 0, NULL, NULL),
-(9, 'Adidas Ultra Boost 5.0 Core Black', 'Adidas', '13', NULL, 'adidas-ultra-boost-50-core-black', 3, 1, '<h2><a href=\"https://giaygiare.vn/adidas-ultra-boost-5-0-den-de-trang-rep-1-1-2019.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Adidas Ultra Boost 5.0 Core Black\">Adidas Ultra Boost 5.0 Core Black</a></h2>', '<h2><a href=\"https://giaygiare.vn/adidas-ultra-boost-5-0-den-de-trang-rep-1-1-2019.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Adidas Ultra Boost 5.0 Core Black\">Adidas Ultra Boost 5.0 Core Black</a></h2>', 5000000, '4000000', '4_140.jpg', NULL, 7, 0, NULL, NULL),
-(10, 'Adidas Yeezy 350 Static - Phản quang', 'Adidas', '4', NULL, 'adidas-yeezy-350-static-phan-quang', 1, 1, '<h2><a href=\"https://giaygiare.vn/adidas-yeezy-boost-350-v2-static-nam-nu-rep-1-1-full-phan-quang.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Adidas Yeezy 350 Static - Phản quang\">Adidas Yeezy 350 Static - Phản quang</a></h2>', '<h2><a href=\"https://giaygiare.vn/adidas-yeezy-boost-350-v2-static-nam-nu-rep-1-1-full-phan-quang.html\" rel=\"noopener noreferrer\" target=\"_blank\" title=\"Adidas Yeezy 350 Static - Phản quang\">Adidas Yeezy 350 Static - Phản quang</a></h2>', 11000000, '7000000', '5_224.jpg', NULL, 5, 0, NULL, NULL),
-(11, 'Vans Era N110', 'vans', '12', NULL, 'vans-era-n110', 3, 3, '<h2><strong>Vans Era</strong></h2>', '<h2><strong>Vans Era</strong></h2>', 3000000, '2500000', '8_142.jpg', NULL, 5, 0, NULL, NULL),
-(12, 'Vans Old Skool', 'vans', '10', NULL, 'vans-old-skool', 1, 3, '<h2><strong>Vans Old Skool</strong></h2>', '<h2><strong>Vans Old Skool</strong></h2>', 2000000, '1700000', '4_259.jpg', NULL, NULL, 0, NULL, NULL),
-(13, 'Vans Authentic', 'vans', '5', NULL, 'vans-authentic', 2, 3, '<h2><strong>Vans Authentic</strong></h2>', '<h2><strong>Vans Authentic</strong></h2>', 2300000, '1900000', '5_16.jpg', NULL, 1, 0, NULL, NULL),
-(14, 'Giày Cao Gót Slingback Gót', 'Giày nữ', '6', 2, 'giày-cao-gót-slingback-got', 4, 5, '<h1>Giày Cao Gót Slingback G&oacute;t 2 M&agrave;u</h1>', '<h1>Giày Cao Gót Slingback G&oacute;t 2 M&agrave;u</h1>', 300000, '250000', '6_275.jpg', NULL, 2, 0, NULL, NULL),
-(18, 'Giày Cao Gót Khóa Trang Trí Họa Tiết Mê Cung', 'giàynu ,giàycaogot,gucci', '10', NULL, 'giày-cao-gót-khoa-trang-tri-hoa-tiet-me-cung', 4, 5, '<h1>Giày Cao Gót Kh&oacute;a Trang Tr&iacute; Họa Tiết M&ecirc; Cung</h1>', '<h1>Giày Cao Gót Kh&oacute;a Trang Tr&iacute; Họa Tiết M&ecirc; Cung</h1>', 500000, '350000', '6_184.jpg', NULL, 5, 0, NULL, NULL),
-(19, 'Giày Cao Gót Gót Trụ Khóa Trang Trí', 'giaynu,giaycaogot,gucci', '5', NULL, 'giày-cao-gót-got-tru-khoa-trang-tri', 4, 5, '<h1>Giày Cao Gót G&oacute;t Trụ Kh&oacute;a Trang Tr&iacute;</h1>', '<h1>Giày Cao Gót G&oacute;t Trụ Kh&oacute;a Trang Tr&iacute;</h1>', 340000, '250000', '1248.jpg', NULL, 1, 0, NULL, NULL),
-(17, 'Giày Cao Gót Khóa Trang Trí Họa Tiết Mê Cung', 'giàynu,giàycaogot,guci', '10', NULL, 'giày-cao-gót-khoa-trang-tri-hoa-tiet-me-cung', 4, 4, '<h1>Giày Cao Gót Kh&oacute;a Trang Tr&iacute; Họa Tiết M&ecirc; Cung</h1>', '<h1>Giày Cao Gót Kh&oacute;a Trang Tr&iacute; Họa Tiết M&ecirc; Cung</h1>', 500000, '350000', '6_187.jpg', NULL, NULL, 0, NULL, NULL),
-(20, 'Giày Cao Gót Gót Thanh Trang Trí Đính Đá', 'giaynu,giaycaogot,gucci', '10', NULL, 'giày-cao-gót-got-thanh-trang-tri-dinh-da', 4, 5, '<h1>Giày Cao Gót G&oacute;t Thanh Trang Tr&iacute; Đ&iacute;nh Đ&aacute;</h1>', '<h1>Giày Cao Gót G&oacute;t Thanh Trang Tr&iacute; Đ&iacute;nh Đ&aacute;</h1>', 500000, '430000', '1338.jpg', NULL, NULL, 0, NULL, NULL),
-(21, 'Vans Oldskool Style 36 Redline VNOA3DZ3OXV5 Màu Trắng', 'vans,giàynam', '14', 1, 'vans-oldskool-style-36-redline-vnoa3dz3oxv5-mau-trang', 3, 3, '<h1>Vans Oldskool Style 36 Redline VNOA3DZ3OXV5 M&agrave;u Trắng</h1>', '<h1>Vans Oldskool Style 36 Redline VNOA3DZ3OXV5 M&agrave;u Trắng</h1>', 2500000, '2000000', '1447.jpg', NULL, NULL, 0, NULL, NULL),
-(22, 'Vans SK8-HI', 'vans,giaynam,giàynam,SK8-HI', '12', 1, 'vans-sk8-hi', 3, 3, '<p>SK8-HI</p>', '<h1>SK8-HI</h1>', 3500000, '2900000', '1595.png', NULL, 2, 0, NULL, NULL),
-(23, 'Nike giày thể thao Air Max 1 HD', 'Nike,giàythethao,giaynam', '12', NULL, 'nike-giay-the-thao-air-max-1-hd', 1, 2, '<p>Nike gi&agrave;y thể thao Air Max 1 HD</p>', '<p>Nike gi&agrave;y thể thao Air Max 1 HD</p>', 2500000, '1900000', '1684.jpg', NULL, NULL, 0, NULL, NULL),
-(24, 'Giày Thể Thao Bóng Rổ Air Jordan 11 Aj11 Ar0715-100', 'jodar ,giaythethao,giaynam', '20', NULL, 'giay-the-thao-bong-ro-air-jordan-11-aj11-ar0715-100', 1, 2, '<p>Gi&agrave;y Thể Thao B&oacute;ng Rổ Air Jordan 11 Aj11 Ar0715-100</p>', '<p>Gi&agrave;y Thể Thao B&oacute;ng Rổ Air Jordan 11 Aj11 Ar0715-100</p>', 4300000, '3300000', '1771.jpg', NULL, NULL, 0, NULL, NULL),
-(25, 'Adidas Stan Smith Trainers', 'Adidas,giaynu,giaythethao', '20', NULL, 'adidas-stan-smith-trainers', 2, 1, '<h2><strong>Adidas Stan Smith Trainers</strong></h2>', '<h2><strong>Adidas Stan Smith Trainers</strong></h2>', 14000000, '10000000', '1824.jpg', NULL, NULL, 0, NULL, NULL),
-(26, 'Adidas Yeezy Boost 350 Trainers', 'giaynu,adidas', '12', NULL, 'adidas-yeezy-boost-350-trainers', 2, 1, '<h2><strong>Adidas Yeezy Boost 350 Trainers</strong></h2>', '<h2><strong>Adidas Yeezy Boost 350 Trainers</strong></h2>', 12000000, '10000000', '1930.jpg', NULL, NULL, 0, NULL, NULL),
-(27, 'Gucci Sneakers', 'GUCCI,giaynu', '15', NULL, 'gucci-sneakers', 2, 5, '<h2><strong>Gucci Sneakers</strong></h2>', '<h2><strong>Gucci Sneakers</strong></h2>', 13000000, '9000000', '2010.jpg', NULL, 1, 0, NULL, NULL),
-(28, 'VANS CLASSIC SLIP-ON TRUE WHITE', 'vans,giaynu', '10', 2, 'vans-classic-slip-on-true-white', 2, 3, '<h1>VANS CLASSIC SLIP-ON TRUE WHITE</h1>', '<h1>VANS CLASSIC SLIP-ON TRUE WHITE</h1>', 2300000, '1900000', '2112.png', NULL, NULL, 0, NULL, NULL),
-(29, 'VANS DALLAS CLAYTON AUTHENTIC RAINBOW TRUE WHITE', 'vans,giaynu', '10', NULL, 'vans-dallas-clayton-authentic-rainbow-true-white', 2, 3, '<h1>VANS DALLAS CLAYTON AUTHENTIC RAINBOW TRUE WHITE</h1>', '<h1>VANS DALLAS CLAYTON AUTHENTIC RAINBOW TRUE WHITE</h1>', 1600000, '1400000', '227.jpg', NULL, 31, 0, NULL, NULL);
+INSERT INTO `tbl_product` (`product_id`, `product_name`, `product_tags`, `product_quantity`, `product_sold`, `product_slug`, `product_color`, `product_size`, `product_condition_id`, `category_id`, `brand_id`, `product_desc`, `product_content`, `product_price`, `price_cost`, `product_image`, `product_file`, `user_bought`, `wishlist`, `product_views`, `product_status`, `created_at`, `updated_at`) VALUES
+(1, 'Adidas N100', 'giày adidas,giày thể thao', '17', 3, 'adidas-n100', NULL, NULL, 1, 1, 1, '<p>Adidas N100</p>', '<p>Adidas N100</p>', 2000000, 2100000, '1_220.jpg', NULL, ',2,2', 1, 20, 0, NULL, NULL),
+(3, 'Womens adidas Superstar Athletic', 'adidassupertar', '4', 1, 'womens-adidas-superstar-athletic', NULL, NULL, 1, 2, 1, '<h1>Womens adidas Superstar Athletic</h1>', '<h1>Womens adidas Superstar Athletic</h1>', 22000000, 20000000, '9_263.jpg', NULL, ',1', 1, 67, 0, NULL, NULL),
+(4, 'adidas Superstars Celebrating Inclusivity', 'adidas', '5', NULL, 'adidas-superstars-celebrating-inclusivity', NULL, NULL, 1, 3, 1, '<p>adidas Superstars Celebrating Inclusivity</p>', '<p>adidas Superstars Celebrating Inclusivity</p>', 15000000, 13000000, '1_159.jpg', NULL, NULL, 1, 6, 0, NULL, NULL),
+(5, 'Nike Jordan 1 Mid Smoke Grey', 'Nike', '10', NULL, 'nike-jordan-1-mid-smoke-grey', NULL, NULL, 1, 3, 2, '<p>Nike Jordan 1 Mid Smoke Grey</p>', '<p>Nike Jordan 1 Mid Smoke Grey</p>', 3300000, 4200000, '7_277.jpg', NULL, NULL, 0, 23, 0, NULL, NULL),
+(6, 'Nike Jordan 1 Mid Smoke Grey', 'Nike', '10', NULL, 'nike-jordan-1-mid-smoke-grey', NULL, NULL, 1, 3, 2, '<p>Nike Jordan 1 Mid Smoke Grey</p>', '<p>Nike Jordan 1 Mid Smoke Grey</p>', 3300000, 4200000, '1_293.jpg', NULL, NULL, 0, 6, 0, NULL, NULL),
+(7, 'Nike Air Force 1 X Dragon Para Noise', 'Nike,giày nam', '7', NULL, 'nike-air-force-1-x-dragon-para-noise', 'Nâu, Xám,Đen,Xanh', '39,40,41,42,43', 1, 3, 2, '<p><strong>Nike Air Force 1 X Dragon Para Noise</strong></p>', '<p><strong>Nike Air Force 1 X Dragon Para Noise</strong></p>', 0, 1850000, '3_130.jpg', NULL, NULL, 0, 5, 0, NULL, NULL),
+(8, 'Adidas Yeezy 700 V2 Static', 'Adidas,Thể thao', '3', NULL, 'adidas-yeezy-700-v2-static', 'Nâu, Xám, Đen', '39,40,41,42,43', 3, 3, 1, '<p><strong>Adidas Yeezy 700 V2 Static</strong></p>', '<p><strong>Adidas Yeezy 700 V2 Static</strong></p>', 16500000, 17000000, '3_213.jpg', NULL, NULL, 0, 5, 0, NULL, NULL),
+(9, 'Adidas Ultra Boost 5.0 Core Black', 'Adidas,Giày nam,giày thể thao', '12', 1, 'adidas-ultra-boost-50-core-black', 'Nâu,Xám, Đen', '39,40,41,42,43', 3, 3, 1, '<p><strong>Adidas Ultra Boost 5.0 Core Black</strong></p>', '<p><strong>Adidas Ultra Boost 5.0 Core Black</strong></p>', 4000000, 5000000, '4_140.jpg', NULL, ',3', 0, 49, 0, NULL, NULL),
+(10, 'Adidas Yeezy 350 Static - Phản quang', 'Adidas,Giày thể thao', '2', 2, 'adidas-yeezy-350-static-phan-quang', 'Nâu, Xám, Đen', '39,40,41,42,43', 3, 1, 1, '<p><strong>Adidas Yeezy 350 Static - Phản quang</strong></p>', '<p><strong>Adidas Yeezy 350 Static - Phản quang</strong></p>', 10500000, 11000000, '5_224.jpg', NULL, ',1,2', 0, 88, 0, NULL, NULL),
+(11, 'Giày Vans Era Flame', 'vans,Giày nam', '10', 2, 'giay-vans-era-flame', 'Nâu,Xám,Đen', '39,40,41,42,43', 3, 3, 3, '<p>Được ưa chuộng ở thị trường Mỹ v&agrave;o những năm 1990, phi&ecirc;n bản gi&agrave;y Vans với họa tiết h&igrave;nh lửa hay c&ograve;n gọi l&agrave;&nbsp;<em><strong>gi&agrave;y&nbsp;Vans Flame</strong></em>&nbsp;đ&atilde; chinh phục kh&ocirc;ng biết bao nhi&ecirc;u thế hệ người d&ugrave;ng. Cho tới nay, những đ&ocirc;i gi&agrave;y &ldquo;rực lửa&rdquo; n&agrave;y vẫn li&ecirc;n tục t&aacute;i bản v&agrave; chiều l&ograve;ng người h&acirc;m mộ. Trong năm 2020 n&agrave;y, Vans lại tiếp tục tung ra BST mang t&ecirc;n&nbsp;<em><strong>gi&agrave;y Vans Flame</strong></em>&nbsp;với nhiều phi&ecirc;n bản độc đ&aacute;o hơn ở cả những phi&ecirc;n bản&nbsp;<em><strong>gi&agrave;y Vans Era</strong></em>,&nbsp;<em><strong>Sk8 - Hi</strong></em>&nbsp;v&agrave; d&ograve;ng&nbsp;<em><strong>Vans Slip - on</strong></em>.</p>', '<p>Được ưa chuộng ở thị trường Mỹ v&agrave;o những năm 1990, phi&ecirc;n bản gi&agrave;y Vans với họa tiết h&igrave;nh lửa hay c&ograve;n gọi l&agrave;&nbsp;<em><strong>gi&agrave;y&nbsp;Vans Flame</strong></em>&nbsp;đ&atilde; chinh phục kh&ocirc;ng biết bao nhi&ecirc;u thế hệ người d&ugrave;ng. Cho tới nay, những đ&ocirc;i gi&agrave;y &ldquo;rực lửa&rdquo; n&agrave;y vẫn li&ecirc;n tục t&aacute;i bản v&agrave; chiều l&ograve;ng người h&acirc;m mộ. Trong năm 2020 n&agrave;y, Vans lại tiếp tục tung ra BST mang t&ecirc;n&nbsp;<em><strong>gi&agrave;y Vans Flame</strong></em>&nbsp;với nhiều phi&ecirc;n bản độc đ&aacute;o hơn ở cả những phi&ecirc;n bản&nbsp;<em><strong>gi&agrave;y Vans Era</strong></em>,&nbsp;<em><strong>Sk8 - Hi</strong></em>&nbsp;v&agrave; d&ograve;ng&nbsp;<em><strong>Vans Slip - on</strong></em>.</p>', 1395000, 1550000, 'vn0a4bv4xey-222.jpg', NULL, ',2,2', 0, 15, 0, NULL, NULL),
+(12, 'Giày Vans Old Shool 36 DX Anaheim Factory Hoffman Fabrics', 'vans,giày thể thao', '9', 1, 'giay-vans-old-shool-36-dx-anaheim-factory-hoffman-fabrics', 'Nâu, Xám,Đen', '39,40,41,42,43', 1, 1, 3, '<p><strong>Y&ecirc;u đời, y&ecirc;u người, chắc chắn phải y&ecirc;u cả&nbsp;<em>Vans Anaheim Factory Hoffman Fabrics</em></strong></p>\r\n\r\n<p>Kh&ocirc;ng phải lần đầu ti&ecirc;n,&nbsp;<strong><em>Vans</em></strong>&nbsp;gửi gắm những th&ocirc;ng điệp t&iacute;ch cực của m&igrave;nh v&agrave;o những sản phẩm nhằm lan tỏa sự y&ecirc;u thương, những điều tốt đẹp đi khắp nơi tr&ecirc;n thế giới, đặc biệt l&agrave; với giới trẻ - người sẽ x&acirc;y dựng n&ecirc;n tương lai. V&agrave; lần n&agrave;y,&nbsp;<strong><em>Vans</em></strong>&nbsp;với một sự tr&acirc;n trọng đặc biệt, đ&atilde; mang d&ograve;ng sản phẩm Anaheim Factory của m&igrave;nh, phủ l&ecirc;n nguồn cảm hứng&nbsp;<strong><em>Hoffman Fabrics</em></strong>&nbsp;từ Nam California để biến d&ograve;ng sản phẩm n&agrave;y trở th&agrave;nh những phi&ecirc;n bản vui vẻ, đ&aacute;ng y&ecirc;u kh&oacute; c&oacute; thể nhầm lẫn. Nếu c&aacute;c bạn thắc mắc rằng nh&agrave; Vans đ&atilde; sử dụng chất liệu v&agrave; nguồn cảm hứng n&agrave;y ra sao, th&igrave; h&atilde;y để WearVn ch&uacute;ng t&ocirc;i gi&uacute;p c&aacute;c bạn hiểu r&otilde; hơn nh&eacute;!</p>', '<p><strong>Y&ecirc;u đời, y&ecirc;u người, chắc chắn phải y&ecirc;u cả&nbsp;<em>Vans Anaheim Factory Hoffman Fabrics</em></strong></p>\r\n\r\n<p>Kh&ocirc;ng phải lần đầu ti&ecirc;n,&nbsp;<strong><em>Vans</em></strong>&nbsp;gửi gắm những th&ocirc;ng điệp t&iacute;ch cực của m&igrave;nh v&agrave;o những sản phẩm nhằm lan tỏa sự y&ecirc;u thương, những điều tốt đẹp đi khắp nơi tr&ecirc;n thế giới, đặc biệt l&agrave; với giới trẻ - người sẽ x&acirc;y dựng n&ecirc;n tương lai. V&agrave; lần n&agrave;y,&nbsp;<strong><em>Vans</em></strong>&nbsp;với một sự tr&acirc;n trọng đặc biệt, đ&atilde; mang d&ograve;ng sản phẩm Anaheim Factory của m&igrave;nh, phủ l&ecirc;n nguồn cảm hứng&nbsp;<strong><em>Hoffman Fabrics</em></strong>&nbsp;từ Nam California để biến d&ograve;ng sản phẩm n&agrave;y trở th&agrave;nh những phi&ecirc;n bản vui vẻ, đ&aacute;ng y&ecirc;u kh&oacute; c&oacute; thể nhầm lẫn. Nếu c&aacute;c bạn thắc mắc rằng nh&agrave; Vans đ&atilde; sử dụng chất liệu v&agrave; nguồn cảm hứng n&agrave;y ra sao, th&igrave; h&atilde;y để WearVn ch&uacute;ng t&ocirc;i gi&uacute;p c&aacute;c bạn hiểu r&otilde; hơn nh&eacute;!</p>', 0, 1980000, 'vn0a38g219z-751.jpg', NULL, ',2', 0, 14, 0, NULL, NULL),
+(13, 'Vans Authentic', 'vans,Giày nữ', '3', 2, 'vans-authentic', 'Trắng, Hồng, Vàng', '32,33,34,35,36,37', 2, 2, 3, '<p><strong>Vans Authentic</strong></p>', '<p><strong>Vans Authentic</strong></p>', 1900000, 2300000, '5_16.jpg', NULL, ',2', 0, 6, 0, NULL, NULL),
+(14, 'Giày Cao Gót Slingback Gót', 'Giày nữ,Gucci', '6', 2, 'giày-cao-gót-slingback-got', 'Trắng, Hồng, Vàng', '32,33,34,35,36,37', 2, 4, 5, '<p><strong>Giày Cao Gót Slingback G&oacute;t</strong></p>', '<p><strong>Giày Cao Gót Slingback G&oacute;t</strong></p>', 250000, 300000, '6_275.jpg', NULL, NULL, 0, 10, 0, NULL, NULL),
+(18, 'Giày Cao Gót Đế Nhọn', 'giàynu ,giàycaogot,gucci', '9', 1, 'giày-cao-gót-de-nhon', 'Trắng,Hồng,Vàng,Cafe', '32,33,34,35,36,37', 2, 4, 5, '<p>Gi&agrave;y cao g&oacute;t nữ Đ&ocirc;ng Hải G81G5 được thiết kế lạ mắt với phần chất liệu PU được phủ chất liệu b&oacute;ng với hiệu ứng hologram trẻ trung. Phần g&oacute;t 12cm c&aacute; t&iacute;nh gi&uacute;p tự tin khoe d&aacute;ng ở mọi nơi. Phom gi&agrave;y b&iacute;t mũi thon gọn thanh lịch c&ugrave;ng lớp đ&uacute;p l&oacute;t &ecirc;m &aacute;i giảm tải cho đ&ocirc;i ch&acirc;n sẽ rất ph&ugrave; để diện trong&nbsp;những buổi hẹn h&ograve; hay&nbsp;sự kiện trang trọng.</p>', '<p>Gi&agrave;y cao g&oacute;t nữ Đ&ocirc;ng Hải G81G5 được thiết kế lạ mắt với phần chất liệu PU được phủ chất liệu b&oacute;ng với hiệu ứng hologram trẻ trung. Phần g&oacute;t 12cm c&aacute; t&iacute;nh gi&uacute;p tự tin khoe d&aacute;ng ở mọi nơi. Phom gi&agrave;y b&iacute;t mũi thon gọn thanh lịch c&ugrave;ng lớp đ&uacute;p l&oacute;t &ecirc;m &aacute;i giảm tải cho đ&ocirc;i ch&acirc;n sẽ rất ph&ugrave; để diện trong&nbsp;những buổi hẹn h&ograve; hay&nbsp;sự kiện trang trọng.</p>', 470000, 500000, 'G81G5_Cafe_1_600x60.jpg', NULL, ',2', 0, 33, 0, NULL, NULL),
+(19, 'Giày Cao Gót Gót Trụ Khóa Trang Trí', 'giaynu,giaycaogot,gucci', '3', 2, 'giày-cao-gót-got-tru-khoa-trang-tri', 'Trắng, Hồng, Vàng', '32,33,34,35,36,37', 2, 4, 5, '<p><strong>Giày Cao Gót G&oacute;t Trụ Kh&oacute;a Trang Tr&iacute;</strong></p>', '<p><strong>Giày Cao Gót G&oacute;t Trụ Kh&oacute;a Trang Tr&iacute;</strong></p>', 250000, 340000, '1248.jpg', NULL, ',2,1', 0, 7, 0, NULL, NULL),
+(17, 'Giày Cao Gót Khóa Trang Trí Họa Tiết Mê Cung', 'giàynu,giàycaogot,guci', '10', NULL, 'giày-cao-gót-khoa-trang-tri-hoa-tiet-me-cung', NULL, NULL, 1, 4, 4, '<h1>Giày Cao Gót Kh&oacute;a Trang Tr&iacute; Họa Tiết M&ecirc; Cung</h1>', '<h1>Giày Cao Gót Kh&oacute;a Trang Tr&iacute; Họa Tiết M&ecirc; Cung</h1>', 500000, 350000, '6_187.jpg', NULL, NULL, 0, NULL, 0, NULL, NULL),
+(20, 'Giày Cao Gót Gót Thanh Trang Trí Đính Đá', 'giaynu,giaycaogot,gucci', '7', 3, 'giày-cao-gót-got-thanh-trang-tri-dinh-da', 'Trắng,    Hồng, Vàng', '32,33,34,35,36,37', 1, 4, 5, '<p><strong>Giày Cao Gót G&oacute;t Thanh Trang Tr&iacute; Đ&iacute;nh Đ&aacute;</strong></p>', '<p><strong>Giày Cao Gót G&oacute;t Thanh Trang Tr&iacute; Đ&iacute;nh Đ&aacute;</strong></p>', 0, 430000, '1338.jpg', NULL, ',2,2,2', 0, 22, 0, NULL, NULL),
+(21, 'Vans Oldskool Style 36 Redline', 'vans,giàynam', '14', 1, 'vans-oldskool-style-36-redline', 'Nâu, Xám, Đen', '39,40,41,42,43', 3, 3, 3, '<p><strong>Vans Oldskool Style 36 Redline</strong></p>', '<p><strong>Vans Oldskool Style 36 Redline</strong></p>', 1900000, 2000000, '1447.jpg', NULL, NULL, 0, 6, 0, NULL, NULL),
+(22, 'Giày Vans Slip-On Custom Culture Along with the Gods', 'vans,giaynam,giàynam,Vans Slip', '11', 2, 'giay-vans-slip-on-custom-culture-along-with-the-gods', 'Nâu, Xám, Đen', '39,40,41,42,43', 3, 3, 3, '<p>L&agrave; thiết kế của Nikko Pelaez &ndash; người đ&atilde; gi&agrave;nh chiến thắng chung cuộc&nbsp;trong cuộc thi&nbsp;<em>Vans Custom Culture Asia 2018</em>,&nbsp;<em><strong>gi&agrave;y Vans&nbsp;</strong></em>slip on&nbsp;<em>&ldquo;Along with the Gods&rdquo;</em>&nbsp;. Sử dụng chất liệu vải canvas truyền thống,&nbsp;tạo sự tho&aacute;ng m&aacute;t. Đế gi&agrave;y Waffle với đặc&nbsp;t&iacute;nh thiết kế cho những vận động vi&ecirc;n trượt v&aacute;n, tạo độ &ecirc;m &aacute;i cho b&agrave;n ch&acirc;n.</p>', '<p>L&agrave; thiết kế của Nikko Pelaez &ndash; người đ&atilde; gi&agrave;nh chiến thắng chung cuộc&nbsp;trong cuộc thi&nbsp;<em>Vans Custom Culture Asia 2018</em>,&nbsp;<em><strong>gi&agrave;y Vans&nbsp;</strong></em>slip on&nbsp;<em>&ldquo;Along with the Gods&rdquo;</em>&nbsp;. Sử dụng chất liệu vải canvas truyền thống,&nbsp;tạo sự tho&aacute;ng m&aacute;t. Đế gi&agrave;y Waffle với đặc&nbsp;t&iacute;nh thiết kế cho những vận động vi&ecirc;n trượt v&aacute;n, tạo độ &ecirc;m &aacute;i cho b&agrave;n ch&acirc;n.</p>', 1800000, 2000000, 'vn0a4bv3017-331.jpg', NULL, ',3', 0, 31, 0, NULL, NULL),
+(23, 'Nike giày thể thao Air Max 1 HD', 'Nike,giàythethao,giaynam', '10', 2, 'nike-giay-the-thao-air-max-1-hd', 'Xám, Đen,Nâu', '39,40,41,42,43', 3, 1, 2, '<p>Nike gi&agrave;y thể thao Air Max 1 HD</p>', '<p>Nike gi&agrave;y thể thao Air Max 1 HD</p>', 1800000, 1900000, '1684.jpg', NULL, ',1', 0, 6, 0, NULL, NULL),
+(24, 'Giày Thể Thao Bóng Rổ Air Jordan 11 Aj11 Ar0715-100', 'jodar ,giaythethao,giaynam', '20', NULL, 'giay-the-thao-bong-ro-air-jordan-11-aj11-ar0715-100', 'Nâu, Xám, Đen', '40,41,42,43', 3, 1, 2, '<p>Gi&agrave;y Thể Thao B&oacute;ng Rổ Air Jordan 11 Aj11 Ar0715-100</p>', '<p>Gi&agrave;y Thể Thao B&oacute;ng Rổ Air Jordan 11 Aj11 Ar0715-100</p>', 2900000, 3300000, '1771.jpg', NULL, NULL, 0, 6, 0, NULL, NULL),
+(25, 'Adidas Stan Smith Trainers', 'Adidas,giaynu,giaythethao', '17', 3, 'adidas-stan-smith-trainers', 'Nâu, Xám, Đen', '40,41,42,43', 2, 2, 1, '<h2><strong>Adidas Stan Smith Trainers</strong></h2>', '<h2><strong>Adidas Stan Smith Trainers</strong></h2>', 9000000, 10000000, '1824.jpg', NULL, ',2,6,6', 0, 16, 0, NULL, NULL),
+(26, 'Adidas Yeezy Boost 350 Trainers', 'giaynu,adidas', '11', 1, 'adidas-yeezy-boost-350-trainers', 'Trắng,Hồng,Vàng', '32,33,34,35,36,37', 2, 2, 1, '<h3>The standard Lorem Ipsum passage, used since the 1500s</h3>\r\n\r\n<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;</p>', '<h3>The standard Lorem Ipsum passage, used since the 1500s</h3>\r\n\r\n<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;</p>', 9800000, 10000000, '1930.jpg', NULL, ',2', 0, 9, 0, NULL, NULL),
+(27, 'Gucci Sneakers', 'GUCCI,giaynu', '11', 4, 'gucci-sneakers', 'Trắng,Đen', '40,41', 1, 2, 5, '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', 0, 9000000, '2010.jpg', NULL, ',2,6,6', 0, 17, 0, NULL, NULL),
+(28, 'VANS CLASSIC SLIP-ON TRUE WHITE', 'vans,giaynu', '0', 12, 'vans-classic-slip-on-true-white', 'Trắng,Đen', '40,41,42,43', 2, 2, 3, '<p><strong>VANS CLASSIC SLIP-ON TRUE WHITE</strong></p>', '<p><strong>VANS CLASSIC SLIP-ON TRUE WHITE</strong></p>', 1800000, 1900000, '2112.png', NULL, ',1,2,2,1,6', 0, 37, 0, NULL, NULL),
+(29, 'Giày Vans Authentic Tiger Floral', 'vans,giày nam', '8', 2, 'giay-vans-authentic-tiger-floral', 'Đen,Trắng', '40,41,42,43', 2, 3, 3, '<p><strong><em>Vans&nbsp;</em></strong>kh&ocirc;ng phải l&agrave; một thương hiệu quen mắt với những họa tiết hoa l&atilde;ng mạn nhẹ nh&agrave;ng, tuy nhi&ecirc;n chẳng c&oacute; g&igrave; m&agrave; thương hiệu trăm tuổi n&agrave;y kh&ocirc;ng d&aacute;m v&agrave; kh&ocirc;ng thử nghiệm để mang lại những cảm x&uacute;c mới mẻ hơn cho sản phẩm của m&igrave;nh. Lần n&agrave;y, chắc chắn c&aacute;c bạn sẽ phải ngạc nhi&ecirc;n về sự hợp l&yacute; cũng như n&eacute;t đẹp m&agrave; BST mang t&ecirc;n<strong><em>&nbsp;Vans Tiger Floral</em></strong>&nbsp; mang lại. T&ocirc;ng m&agrave;u, họa tiết của sản phẩm khiến cho những người s&agrave;nh điệu cũng phải m&ecirc; mẩn v&igrave; qu&aacute; qu&yacute; tộc v&agrave; đẳng cấp - những nguồn cảm hứng thường thấy từ c&aacute;c thương hiệu thời trang xa xỉ</p>', '<p><strong><em>Vans&nbsp;</em></strong>kh&ocirc;ng phải l&agrave; một thương hiệu quen mắt với những họa tiết hoa l&atilde;ng mạn nhẹ nh&agrave;ng, tuy nhi&ecirc;n chẳng c&oacute; g&igrave; m&agrave; thương hiệu trăm tuổi n&agrave;y kh&ocirc;ng d&aacute;m v&agrave; kh&ocirc;ng thử nghiệm để mang lại những cảm x&uacute;c mới mẻ hơn cho sản phẩm của m&igrave;nh. Lần n&agrave;y, chắc chắn c&aacute;c bạn sẽ phải ngạc nhi&ecirc;n về sự hợp l&yacute; cũng như n&eacute;t đẹp m&agrave; BST mang t&ecirc;n<strong><em>&nbsp;Vans Tiger Floral</em></strong>&nbsp; mang lại. T&ocirc;ng m&agrave;u, họa tiết của sản phẩm khiến cho những người s&agrave;nh điệu cũng phải m&ecirc; mẩn v&igrave; qu&aacute; qu&yacute; tộc v&agrave; đẳng cấp - những nguồn cảm hứng thường thấy từ c&aacute;c thương hiệu thời trang xa xỉ</p>', 1015000, 1450000, 'vn0a2z5i19m-487.jpg', NULL, ',2', 0, 104, 0, NULL, NULL),
+(37, 'Giày Vans Sk8 Hi Black White', 'Vans,Giày nam', '10', NULL, 'giay-vans-sk8-hi-black-white', 'Nâu, Xám,Đen', '39,40,41,42,43', 2, 3, 3, '<p><em>*<strong>&nbsp;Gi&agrave;y Vans&nbsp;</strong>Sk8 - Hi<strong>&nbsp;</strong>- sản phẩm chuẩn đẳng cấp cho d&acirc;n thể thao :</em></p>\r\n\r\n<p>Ai n&oacute;i y&ecirc;u thể thao th&igrave; kh&ocirc;ng thể thời trang, ai nghĩ rằng những người chơi thể thao chỉ được đ&oacute;ng đinh với quần đ&ugrave;i, &aacute;o ph&ocirc;ng rộng v&agrave; gi&agrave;y thể thao to bản thiếu sự độc đ&aacute;o. Những quan niệm tr&ecirc;n đ&atilde; bị đ&aacute;nh tan khi l&agrave;ng thời trang xuất hiện sản phẩm si&ecirc;u độc đ&aacute;o v&agrave; đẹp mắt của nh&agrave; Vans l&agrave;&nbsp;<strong><em>Sk8 - Hi</em></strong>. Đ&acirc;y l&agrave; một trong số những d&ograve;ng gi&agrave;y mang t&iacute;nh chất kinh điển v&agrave; ti&ecirc;u biểu của Vans, minh chứng l&agrave; ch&uacute;ng đ&atilde; xuất hiện c&aacute;ch đ&acirc;y hơn 40 năm nhưng tới giờ vẫn l&agrave;m mưa l&agrave;m gi&oacute; tr&ecirc;n thị trường gi&agrave;y thể thao to&agrave;n cầu. Trong b&agrave;i viết n&agrave;y, WEAR Việt Nam sẽ cập nhật cho bạn th&ecirc;m nhiều th&ocirc;ng tin hữu &iacute;ch về d&ograve;ng sản phẩm si&ecirc;u đỉnh cao n&agrave;y!</p>', '<p><em>*<strong>&nbsp;Gi&agrave;y Vans&nbsp;</strong>Sk8 - Hi<strong>&nbsp;</strong>- sản phẩm chuẩn đẳng cấp cho d&acirc;n thể thao :</em></p>\r\n\r\n<p>Ai n&oacute;i y&ecirc;u thể thao th&igrave; kh&ocirc;ng thể thời trang, ai nghĩ rằng những người chơi thể thao chỉ được đ&oacute;ng đinh với quần đ&ugrave;i, &aacute;o ph&ocirc;ng rộng v&agrave; gi&agrave;y thể thao to bản thiếu sự độc đ&aacute;o. Những quan niệm tr&ecirc;n đ&atilde; bị đ&aacute;nh tan khi l&agrave;ng thời trang xuất hiện sản phẩm si&ecirc;u độc đ&aacute;o v&agrave; đẹp mắt của nh&agrave; Vans l&agrave;&nbsp;<strong><em>Sk8 - Hi</em></strong>. Đ&acirc;y l&agrave; một trong số những d&ograve;ng gi&agrave;y mang t&iacute;nh chất kinh điển v&agrave; ti&ecirc;u biểu của Vans, minh chứng l&agrave; ch&uacute;ng đ&atilde; xuất hiện c&aacute;ch đ&acirc;y hơn 40 năm nhưng tới giờ vẫn l&agrave;m mưa l&agrave;m gi&oacute; tr&ecirc;n thị trường gi&agrave;y thể thao to&agrave;n cầu. Trong b&agrave;i viết n&agrave;y, WEAR Việt Nam sẽ cập nhật cho bạn th&ecirc;m nhiều th&ocirc;ng tin hữu &iacute;ch về d&ograve;ng sản phẩm si&ecirc;u đỉnh cao n&agrave;y!</p>', 1665000, 1850000, 'vn000d5ib8c-292.png', NULL, NULL, NULL, 1, 0, NULL, NULL),
+(38, 'Giày Vans Old Shool Mix & Match', 'Vans,Giày nam', '10', NULL, 'giay-vans-old-shool-mix-match', 'Nâu, Xám,Đen,Hồng', '39,40,41,42,43', 2, 3, 3, '<p><strong><em>Vans Old Skool Mix &amp; Match</em></strong><strong>&nbsp;sự đối xứng cực kỳ thời thượng v&agrave; s&agrave;nh điệu&nbsp;</strong></p>\r\n\r\n<p>Nhắc đến cụm từ Mix &amp; Match trong thời trang, c&aacute;c bạn trẻ sẽ nghĩ ngay đến việc s&aacute;ng tạo ra phong c&aacute;ch c&aacute; nh&acirc;n cho ri&ecirc;ng m&igrave;nh. Hướng tới n&eacute;t đẹp trẻ trung v&agrave; ngẫu hứng, thể hiện được c&aacute;i gu cũng như c&aacute; t&iacute;nh ri&ecirc;ng biệt của những người hiện đại, Vans đ&atilde; nhanh ch&oacute;ng tung ra một item mới toanh được kho&aacute;c l&ecirc;n một vẻ đẹp thanh lịch kh&ocirc;ng k&eacute;m phần thời trang mang t&ecirc;n&nbsp;<strong><em>gi&agrave;y Vans Old Skool</em></strong>&nbsp;Mix &amp; Match. Sản phẩm đ&atilde; nhanh ch&oacute;ng c&oacute; mặt tr&ecirc;n kệ&nbsp;<strong><em>WearVn</em></strong>&nbsp;- một trong những k&ecirc;nh ph&acirc;n phối sở hữu được d&ograve;ng sản phẩm mới n&agrave;y sớm nhất ở nước ta hiện nay để chờ c&aacute;c bạn tới trải nghiệm v&agrave; mua sắm.</p>', '<p><strong><em>Vans Old Skool Mix &amp; Match</em></strong><strong>&nbsp;sự đối xứng cực kỳ thời thượng v&agrave; s&agrave;nh điệu&nbsp;</strong></p>\r\n\r\n<p>Nhắc đến cụm từ Mix &amp; Match trong thời trang, c&aacute;c bạn trẻ sẽ nghĩ ngay đến việc s&aacute;ng tạo ra phong c&aacute;ch c&aacute; nh&acirc;n cho ri&ecirc;ng m&igrave;nh. Hướng tới n&eacute;t đẹp trẻ trung v&agrave; ngẫu hứng, thể hiện được c&aacute;i gu cũng như c&aacute; t&iacute;nh ri&ecirc;ng biệt của những người hiện đại, Vans đ&atilde; nhanh ch&oacute;ng tung ra một item mới toanh được kho&aacute;c l&ecirc;n một vẻ đẹp thanh lịch kh&ocirc;ng k&eacute;m phần thời trang mang t&ecirc;n&nbsp;<strong><em>gi&agrave;y Vans Old Skool</em></strong>&nbsp;Mix &amp; Match. Sản phẩm đ&atilde; nhanh ch&oacute;ng c&oacute; mặt tr&ecirc;n kệ&nbsp;<strong><em>WearVn</em></strong>&nbsp;- một trong những k&ecirc;nh ph&acirc;n phối sở hữu được d&ograve;ng sản phẩm mới n&agrave;y sớm nhất ở nước ta hiện nay để chờ c&aacute;c bạn tới trải nghiệm v&agrave; mua sắm.</p>', 1575000, 1750000, 'vn0a4u3b2pd-18.jpg', NULL, NULL, NULL, 2, 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_product_conditon`
+--
+
+DROP TABLE IF EXISTS `tbl_product_conditon`;
+CREATE TABLE IF NOT EXISTS `tbl_product_conditon` (
+  `product_condition_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_condition_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`product_condition_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_product_conditon`
+--
+
+INSERT INTO `tbl_product_conditon` (`product_condition_id`, `product_condition_name`, `created_at`, `updated_at`) VALUES
+(1, 'Bình thường', NULL, NULL),
+(2, 'Mới', NULL, NULL),
+(3, 'Giảm giá', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1209,35 +1347,28 @@ DROP TABLE IF EXISTS `tbl_rating`;
 CREATE TABLE IF NOT EXISTS `tbl_rating` (
   `rating_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
+  `comment_comment_id` int(11) UNSIGNED NOT NULL,
+  `rating_status` int(11) NOT NULL,
   `rating` int(11) NOT NULL,
   PRIMARY KEY (`rating_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_rating`
 --
 
-INSERT INTO `tbl_rating` (`rating_id`, `product_id`, `rating`) VALUES
-(17, 7, 2),
-(18, 7, 5),
-(19, 7, 1),
-(20, 7, 2),
-(21, 7, 4),
-(22, 7, 4),
-(23, 7, 4),
-(24, 7, 1),
-(25, 7, 1),
-(26, 7, 1),
-(27, 7, 1),
-(28, 7, 5),
-(29, 13, 4),
-(30, 13, 2),
-(31, 28, 5),
-(32, 28, 4),
-(33, 36, 5),
-(34, 26, 4),
-(35, 27, 3),
-(36, 19, 5);
+INSERT INTO `tbl_rating` (`rating_id`, `product_id`, `comment_comment_id`, `rating_status`, `rating`) VALUES
+(42, 10, 57, 0, 5),
+(43, 10, 59, 0, 2),
+(44, 1, 61, 0, 5),
+(45, 9, 63, 0, 4),
+(46, 22, 65, 0, 5),
+(47, 27, 67, 0, 5),
+(48, 18, 69, 0, 5),
+(49, 29, 71, 1, 5),
+(50, 28, 72, 1, 4),
+(51, 28, 73, 0, 5),
+(52, 12, 75, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -1279,7 +1410,7 @@ CREATE TABLE IF NOT EXISTS `tbl_shipping` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`shipping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_shipping`
@@ -1291,7 +1422,47 @@ INSERT INTO `tbl_shipping` (`shipping_id`, `shipping_name`, `shipping_address`, 
 (125, 'Quy', 'HCM', '0661626', 'nguyentanquy@gmail.com', 'Giao từ từ cũng được', 0, NULL, NULL),
 (126, 'Dự', 'HCM', '0311641631', 'vancongdu88@gmail.com', 'Giao lẹ', 0, NULL, NULL),
 (127, 'Dự', 'HCM', '0316269596', 'vancongdu88@gmail.com', 'Giao gấp', 0, NULL, NULL),
-(128, 'Dự', 'HCM', '0321561634', 'vancongdu88@gmail.com', 'Giao lẹ', 1, NULL, NULL);
+(128, 'Dự', 'HCM', '0321561634', 'vancongdu88@gmail.com', 'Giao lẹ', 1, NULL, NULL),
+(129, 'Quy', 'HCM', '033164998', 'nguyentanquy@gmail.com', 'Phiền shop kiểm tra hàng trước khi giao ạ', 1, NULL, NULL),
+(130, 'Quy', 'HCM', '031662696', 'nguyentanquy@gmail.com', 'Shop check hàng giúp e ạ', 1, NULL, NULL),
+(131, 'Dự', 'HCM', '033616169', 'vancongdu88@gmail.com', 'Lựa giày ngon giúp e nha shop nha !', 1, NULL, NULL),
+(132, 'Quốc', 'HCM', '0316596996', 'hochiquoc@gmail.com', 'Giao giờ hành chánh giúp mình ạ', 1, NULL, NULL),
+(133, 'Dự', 'HCM', '09132469', 'vancongdu88@gmail.com', 'Giao nhanh để e tặng mẹ e ạ !!!', 0, NULL, NULL),
+(134, 'Dự', 'HCM', '032669595', 'vancongdu88@gmail.com', 'Shop check hàng giúp e', 1, NULL, NULL),
+(135, 'Dự', 'HCM', '03652659', 'vancongdu88@gmail.com', 'Check luôn đôi này giúp e lun ạ', 1, NULL, NULL),
+(136, 'Dự', 'HCM', '03165262', 'vancongdu88@gmail.com', 'Check hàng giúp mình', 1, NULL, NULL),
+(137, 'Dự', 'HCM', '0135666949', 'vancongdu88@gmail.com', 'Check hàng giúp mình ạ', 1, NULL, NULL),
+(138, 'Quy', 'HCM', '032626559', 'nguyentanquy@gmail.com', 'Giao sớm giúp mình ạ', 1, NULL, NULL),
+(139, 'Dự', 'HCM', '0942132634', 'vancongdu88@gmail.com', NULL, 1, NULL, NULL),
+(140, 'Dự', 'HCM', '097421366', 'vancongdu88@gmail.com', NULL, 1, NULL, NULL),
+(141, 'Dự', 'HCM', '014364696', 'vancongdu88@gmail.com', NULL, 1, NULL, NULL),
+(142, 'Quy', 'HCM', '0121645636', 'nguyentanquy@gmail.com', 'Giao gấp', 1, NULL, NULL),
+(143, 'Dự', 'HCM', '094133651', 'vancongdu88@gmail.com', 'Giao gấp', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_social_customers`
+--
+
+DROP TABLE IF EXISTS `tbl_social_customers`;
+CREATE TABLE IF NOT EXISTS `tbl_social_customers` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `provider_user_id` varchar(100) NOT NULL,
+  `provider_user_email` varchar(100) NOT NULL,
+  `provider` varchar(100) NOT NULL,
+  `user` int(11) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_social_customers`
+--
+
+INSERT INTO `tbl_social_customers` (`user_id`, `provider_user_id`, `provider_user_email`, `provider`, `user`) VALUES
+(75, '108068675366671898569', '16211tt1925@mail.tdc.edu.vn', 'GOOGLE', 5),
+(76, '106555967835615229829', 'quylaokame113@gmail.com', 'GOOGLE', 6),
+(77, '112519123455884488138', 'vancongdu88@gmail.com', 'GOOGLE', 2);
 
 -- --------------------------------------------------------
 
@@ -1303,19 +1474,28 @@ DROP TABLE IF EXISTS `tbl_statistical`;
 CREATE TABLE IF NOT EXISTS `tbl_statistical` (
   `id_statistical` int(11) NOT NULL AUTO_INCREMENT,
   `order_date` varchar(100) NOT NULL,
-  `sales` varchar(200) NOT NULL,
-  `profit` varchar(200) NOT NULL,
+  `sales` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `total_order` int(11) NOT NULL,
   PRIMARY KEY (`id_statistical`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_statistical`
 --
 
-INSERT INTO `tbl_statistical` (`id_statistical`, `order_date`, `sales`, `profit`, `quantity`, `total_order`) VALUES
-(92, '2021-05-29', '11200000', '6900000', 6, 4);
+INSERT INTO `tbl_statistical` (`id_statistical`, `order_date`, `sales`, `quantity`, `total_order`) VALUES
+(92, '2021-05-29', 11200000, 6, 4),
+(93, '2021-06-09', 24300000, 2, 2),
+(94, '2021-06-10', 11000000, 1, 1),
+(95, '2021-06-11', 21500000, 4, 4),
+(96, '2021-05-30', 52450000, 10, 6),
+(97, '2021-06-12', 12840000, 3, 3),
+(98, '2021-06-13', 12400000, 6, 3),
+(99, '2021-06-16', 2300000, 1, 1),
+(100, '2021-06-20', 1860000, 5, 5),
+(101, '2021-06-21', 43200000, 8, 6),
+(102, '2021-06-23', 1980000, 1, 1);
 
 -- --------------------------------------------------------
 
