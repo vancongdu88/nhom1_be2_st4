@@ -53,16 +53,6 @@
                                 <!-- Begin Grid List Area -->
                                 <div class="grid-list">
                                     <ul class="nav">
-                                        <li>
-                                            <a class="active show" data-toggle="tab" href="#grid" title="Grid">
-                                                <i class="fa fa-th-large"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#list" title="List">
-                                                <i class="fa fa-th-list"></i>
-                                            </a>
-                                        </li>
                                         @foreach($brand_name as $key => $name)
                                         <li> <h3>{{$name->brand_name}}</h3></li>
                                         @endforeach

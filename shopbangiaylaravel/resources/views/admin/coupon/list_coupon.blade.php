@@ -33,7 +33,6 @@
                       <th>Số lượng mã</th>
                       <th>Điều kiện giảm</th>
                       <th>Số giảm</th>
-                      <th>Tình trạng</th>
                       <th>Hạn sử dụng</th>
                       <th>Thao tác</th>
                       <th>Gửi mã</th>
@@ -76,19 +75,6 @@
               ?>
             </span></td>
 
-            <td class="text-center"><span class="text-ellipsis">
-              <?php
-               if($cou->coupon_status==1){
-                ?>
-                   <span style="color:green">Đang kích hoạt</span>                
-                <?php
-                 }else{
-                ?>  
-                 <span style="color:red">Đã khóa</span>
-                <?php
-               }
-              ?>
-            </span></td>
             <td>
 
           @if($cou->coupon_date_end>=$today)

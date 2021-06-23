@@ -145,7 +145,6 @@
                                                      if($customer_id!=NULL){ 
                                                         ?>
                                                         <li><a href="#"><i class="fa fa-user"></i>Hello {{$customer_name}}</a></li>
-                                                         <li><a href="#"><i class="fa fa-heart"></i>My Wishlist</a></li>
                                                          <li><a href="{{URL::to('/history')}}"><i class="fa fa-history" aria-hidden="true"></i>History Order</a></li>
                                                          <li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-check-square"></i>Checkout</a></li>
                                                          <li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-unlock"></i>Logout</a></li>

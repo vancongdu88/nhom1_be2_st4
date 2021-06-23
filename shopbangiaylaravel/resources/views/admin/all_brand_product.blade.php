@@ -29,7 +29,6 @@
                       <th>STT</th>
                       <th>Tên brand</th>
                       <th>Brand Slug</th>
-                      <th>Trạng thái</th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>
@@ -42,20 +41,6 @@
             <td>{{$loop->index + 1}}</td>
             <td>{{ $brand_pro->brand_name }}</td>
             <td>{{ $brand_pro->brand_slug }}</td>
-            <td class="text-center"><span class="text-ellipsis">
-              <?php
-               if($brand_pro->brand_status==0){
-                ?>
-                <a href="{{URL::to('/unactive-brand-product/'.$brand_pro->brand_id)}}" title="Ẩn"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <?php
-                 }else{
-                ?>  
-                 <a href="{{URL::to('/active-brand-product/'.$brand_pro->brand_id)}}" title="Hiện"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                <?php
-               }
-              ?>
-            </span></td>
-           
             <td class="text-center d-flex justify-content-around">
               <a href="{{URL::to('/edit-brand-product/'.$brand_pro->brand_id)}}" class="active styling-edit" title="Sửa">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>
